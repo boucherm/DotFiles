@@ -1,0 +1,104 @@
+#!/usr/bin/zsh
+
+#xsetroot -solid darkslategray &
+
+#export PATH=$PATH:$HOME/Code/Scripts/bin:$HOME/.cabal/bin
+
+
+#--- Launch some services
+xbindkeys &
+xrdb ~/.Xresources &
+pidof nm-applet || nm-applet &
+#killall conky; ~/.config/conky/conkylaunch &
+#ps -A | grep --quiet xfce4-power-man || xfce4-power-manager &
+#killall unclutter; unclutter -noevents &
+#twmnd &
+#pidof bluetooth-applet   || bluetooth-applet &
+#pidof gnome-sound-applet || gnome-sound-applet &
+#pidof update-notifier    || update-notifier &
+
+
+#------- Awesome-wm specifics
+feh --bg-fill $HOME/../Pictures/Wallpaper/abstract/wallpaper.png
+pidof compton || compton --backend glx --paint-on-overlay --vsync opengl-swc &
+#pidof compton || compton -CG --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc &
+
+
+#--- Trackpad config
+#synclient VertTwoFingerScroll=1;
+#synclient HorizTwoFingerScroll=1;
+#synclient TapButton1=0;
+#synclient TapButton2=0;
+#synclient TapButton3=2;
+#synclient ClickFinger1=1;
+#synclient ClickFinger2=3;
+#synclient ClickFinger3=2;
+#synclient PalmDetect=1;
+#synclient PalmMinWidth=11;
+#synclient AccelFactor=0.03
+#synclient MaxSpeed=3
+#synclient FingerHigh=50
+#synclient RBCornerButton=2
+#synclient PalmMinZ=1;
+
+#--- Mouse speed
+#xinput --list
+#xinput --set-prop 9 "Device Accel Constant Deceleration" 4.0
+for id in $( xinput --list | grep G502 | cut -d = -f 2 | cut -f 1 )
+do
+  xinput --set-prop $id "Device Accel Constant Deceleration" 2.0
+done
+
+#--- Lights
+#sudo $HOME/Code/Scripts/bin/keyboard_backlight.sh -255
+#sudo $HOME/Code/Scripts/bin/screenlight.sh 5
+
+#------- Keyboard settings
+#
+#--- Set layout
+setxkbmap -layout us
+#setxkbmap -layout us -variant intl
+#
+#---- Num Lock
+#numlockx on &
+#--- Activate numlock
+xdotool key 77
+#
+#---- Caps Lock
+#
+# Disabled, completely, cannot map to another key
+#setxkbmap -option caps:none
+#
+# As ctrl
+#setxkbmap -option caps:ctrl_modifier
+#
+# As F12:
+#  .on this machine the caps_lock code is 66,
+#   its value can be found with the  "xev" command map caps_lock to F12 in order to use it as the tmux prefix
+# . first, disable the caps_lock without losing the key
+setxkbmap -option caps:ctrl_modifier
+# . second, map the  caps_lock keycode to F12
+xmodmap -e 'keycode 66 = F12'
+#
+#--- Compose key
+#
+setxkbmap -option compose:ralt
+#
+#--- Bracket/Brace and parentheses keys
+#
+#- Switch [ with { and ] with }
+xmodmap -e 'keysym bracketright = braceright bracketright'
+xmodmap -e 'keysym bracketleft  = braceleft bracketleft'
+#
+#- Switch "[" with "(" and "]" with ")", I think, to be verified
+#keysym bracketleft  = parenleft  braceleft
+#keysym bracketright = parenright braceright
+#keysym 9            = 9          bracketleft
+#keysym 0            = 0          bracketright
+#
+#--- Get a list of the current mappings
+# xmodmap -pke
+
+
+#--- Unity/gnome disable desktop icons
+#gsettings set org.gnome.desktop.background show-desktop-icons false

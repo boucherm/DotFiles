@@ -1,0 +1,628 @@
+set encoding=utf-8
+"set encoding=latin1
+set nospell
+set conceallevel=2
+
+syntax          on
+filetype        on
+filetype indent on
+filetype plugin on
+
+" Good ideas there
+"http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+
+" Note: to search a line not containing a pattern:
+" /^\(\(.*foo.*\)\@!.\)*$
+
+
+"--------------------------------- Behaviour: settings, shortcuts and mappings-
+   "Remove vi compatibility
+   set nocompatible
+   "Consistent Y
+   nnoremap Y y$
+   "Since , will be intensively used
+   nnoremap <Space> ,
+   "Reasonable backspace
+   set backspace=indent,eol,start
+   "I use ge far more than |
+   nnoremap <bar> ge
+   vnoremap <bar> ge
+   " make line wraps look nice
+   if exists( "&breakindent" )
+      set breakindent
+      set breakindentopt=shift:2
+   endif
+
+   "Various shortcuts
+   nnoremap ,w      :update<Enter>
+   nnoremap ,q      :qa<Enter>
+   nnoremap ,Q      :q<Enter>
+   nnoremap <Enter> o<esc>
+
+   " show registers
+   nnoremap ,r :reg<Enter>
+
+   " Commands history
+   nnoremap <up>   :<up>
+   nnoremap <down> :<up><Enter>
+   vnoremap <up>   :<up>
+   vnoremap <down> :<up><Enter>
+   "nnoremap <left> :tabfirst<Enter> :make<Enter> <Enter> :tabn<Enter>
+   " Completion shortcuts
+   inoremap <C-j> <C-n>
+   inoremap <C-k> <C-p>
+   " Better escape
+   inoremap jk <esc>
+   inoremap Jk <esc>
+   inoremap JK <esc>
+   " inoremap <esc> <nop>
+   " Commas shall (almost) always be followed by space
+   inoremap , ,<Space>
+
+   "Search & substitute
+   set incsearch
+   set hlsearch
+   nnoremap n nzz
+   nnoremap N Nzz
+   set ignorecase
+   set smartcase
+   set gdefault "substitute all results in line
+   " Turn off search results highlights, and clear the command line
+   nnoremap <silent><BS> :nohlsearch<Bar>:echo<CR>
+   "nnoremap <silent> <esc> :set hlsearch! hlsearch?<CR>
+   " Make n and N behave the same wether we press * or #
+   nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
+   nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
+   " explanation ( from #vim ):
+   " Elessardan> :nnoremap <expr> n 'Nn'[v:searchforward]
+   " Elessardan> There's a bit going on, might have been more clear if I had written it as:
+   " Elessardan> :nnoremap <expr> n (v:searchforward? 'n' : 'N')
+   " Elessardan> And for N the same but `N 'nN'`
+   " Elessardan> You can index a string like a list, so 'Nn'[1] == 'n'
+   "
+   "Make * and # first highlight, then move cursor:
+    "nnoremap <expr> * @/=='\<'.expand('<cword>').'\>' ? '*' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>"
+    "nnoremap <expr> # @/=='\<'.expand('<cword>').'\>' ? '#' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>"
+    nnoremap <expr> * @/=='\<'.expand('<cword>').'\>' ? '*' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
+    nnoremap <expr> # @/=='\<'.expand('<cword>').'\>' ? '#' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
+
+   "Folding
+   set foldmethod=indent
+   set foldlevel=1000
+   nnoremap ,f za
+   nnoremap ,F zA
+   vnoremap ,f :'<,'>normal za
+   vnoremap ,F :'<,'>normal zA
+   nnoremap :f :set foldlevel=
+
+   " invoke urxvt
+   nnoremap ,u :!urxvt -cd $PWD &<CR><CR>
+
+   " Sudo write
+   cnoremap w!! w !sudo tee % > /dev/null
+
+   "Indentation
+   set smartindent
+   "set cindent
+   filetype plugin on
+   set autoindent
+   set shiftwidth=2
+   set softtabstop=2
+   set tabstop=2
+   set expandtab
+
+   "Backup, swap, undo, session, view... persistence
+   "augroup bakfiles
+   au BufRead *.bak  set readonly
+   au BufRead *.orig set readonly
+   au BufRead *.save set readonly
+   if !&diff
+      au BufWinEnter ?* silent loadview
+      au BufWinLeave ?* silent mkview!
+   endif
+   au BufWinLeave set invcursorline
+   "augroup end
+   set viewoptions=cursor,folds
+   set sessionoptions=folds,resize,sesdir,tabpages,winpos,winsize
+   set undofile
+   set undodir=~/.vim/undodir
+   set backup
+   set writebackup
+   set backupdir=~/.vim/backup
+   set directory=~/.vim/swap
+   "Automatically saves when focus is lost, doesn't work :(
+   au FocusLost * :wa<Enter>
+   " If file externally modified
+   set autoread              "not functionning :(
+   au FileChangedShell * e!  "not functionning :(
+   " Avoid lying around swap actually containing no information,
+   " however it breaks the warnings displayed when opening a file twice
+   "autocmd CursorHold,BufWritePost,BufReadPost,BufLeave * if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
+
+   "lines
+   set wrap
+   set linebreak
+   "set textwidth=100
+   "set colorcolumn=+1
+   " colorize one column on two
+   "call matchadd('ColorColumn', '\%101v', 100)
+   "exec 'set colorcolumn=' . join(range(2,80,3), ',')
+
+   "Browsing
+   nnoremap j gj
+   nnoremap k gk
+   " keeps cursorline at the same level
+   nnoremap <C-j> <C-E>j
+   nnoremap <C-k> <C-Y>k
+   vnoremap <C-j> <C-E>j
+   vnoremap <C-k> <C-Y>k
+
+   "Highlight trailing spaces
+   function! MatchWhiteSpace()
+      highlight ExtraWhitespace ctermbg=16
+      match ExtraWhitespace /\s\+\%#\@<!$/
+      "match ExtraWhitespace /\s\+$/
+      "match ExtraWhitespace /^\zs\s\ze\s\s/
+      " Attempt at highlighting indentation
+      "match ExtraWhitespace /\(\s\+$\|^\( \{6}\| \{3}\| \{0}\)\zs \ze \{2}\S\)/
+   endfunction
+   autocmd! BufWinEnter * call MatchWhiteSpace()
+   autocmd! InsertLeave * call MatchWhiteSpace()
+   autocmd! BufWinLeave * call clearmatches()
+   "Trim trailing spaces
+   nnoremap ,<Space> :%s/\s\+$//<Enter><C-o> <Space>
+
+   "Swap default ':', '/' and '?' with cmdline-window equivalent.
+   "http://www.reddit.com/r/vim/comments/1v7x1a/supercharge_your_command_line/
+   nnoremap :: q:i
+   vnoremap :: q:i
+   nnoremap // q/i
+
+   "Toggles line number relativeness
+   set number
+   nnoremap ,n :set relativenumber!<cr>
+
+   "Visual mode mappings
+   vnoremap ,s :s/
+   "if has("Tabularize")
+      vnoremap ,t :Tabularize/
+   "endif
+   " Reverse selected lines
+   if has("unix")
+      vnoremap ,r :!tac<CR>
+   endif
+
+   "vimdiff: diffopt and diffexpr
+
+
+  """""""""""""""""""""""
+  " CUSTOM TEXT-OBJECTS "
+  """""""""""""""""""""""
+  for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%', '-', '#' ]
+    execute 'xnoremap i' . char . ' :<C-u>normal! T' . char . 'vt' . char . '<CR>'
+    execute 'onoremap i' . char . ' :normal vi' . char . '<CR>'
+    execute 'xnoremap a' . char . ' :<C-u>normal! F' . char . 'vf' . char . '<CR>'
+    execute 'onoremap a' . char . ' :normal va' . char . '<CR>'
+  endfor
+  " g; and g, will take you to prior/later edit points
+  " gi will take you to insert mode at the last point you exited insert mode
+  " c-o and c-i take you through the jumplist
+  " '[ and '] jump you to the beginning/end of the last edited region
+  " '< and '> jump you to the beginning and end of the last visual selection
+
+"--------------------------------- UI ----------------------------------------
+   "Various settings
+   set t_Co=256
+   "colorscheme monumension
+   colorscheme below_the_lights
+   set background=dark
+   set lazyredraw
+   set clipboard=unnamed "there is also unnamedplus, I ignore the difference
+   "set clipboard=unnamedplus "there is also unnamedplus, I ignore the difference
+   set mouse=""
+   "set title
+   set ruler
+   set laststatus=2 "Ensures there is always a status line
+   set number
+   set showmode
+   set showcmd "Show keystrokes
+   set scrolloff=3 "margins for cursor
+   set wildmenu
+   set wildmode=longest,list,full "Defines menu when multiple completions
+   set completeopt=menuone
+   set cursorline
+   autocmd BufWinEnter * set cursorline
+   " try to set cursorline only for active window
+   au VimEnter,WinEnter,BufEnter,BufWinEnter,BufNewfile * setlocal cursorline
+   au WinLeave * setlocal nocursorline
+   "au VimEnter,WinEnter,BufWinEnter * set cursorline
+   "au WinLeave * set nocursorline
+
+   "Tabs
+   set tabpagemax=50
+   nnoremap <C-h> gT
+   nnoremap <C-l> gt
+   "nmap <C-H> :tabmove -1<Enter> "doesnt distinguish from the previous
+   "nmap <C-L> :tabmove +1<Enter>
+   "nmap <A-h> :tabmove -1<Enter> "not functionning
+   "nmap <A-l> :tabmove +1<Enter>
+
+   "Splits
+   set splitbelow
+   set splitright
+   nnoremap ,v <C-w>v
+   nnoremap ,s <C-w>s
+   nnoremap ,V :vnew<Enter>
+   nnoremap ,S :new<Enter>
+   "nnoremap ,s :source $MYVIMRC <Enter> " Reload vimrc
+   au VimResized * :wincmd = "Resize splits when window is resized
+   " Moves
+   nnoremap ,j <C-w>j
+   nnoremap ,k <C-w>k
+   nnoremap ,l <C-w>l
+   nnoremap ,h <C-w>h
+   " Resize
+   nnoremap ,=        <C-w>=
+   nnoremap <C-up>    <C-w>+
+   nnoremap <C-down>  <C-w>-
+   nnoremap <C-left>  <C-w><
+   nnoremap <C-right> <C-w>>
+   " Rearrange
+   nnoremap ,K <C-w>K
+   nnoremap ,J <C-w>J
+   nnoremap ,H <C-w>H
+   nnoremap ,L <C-w>L
+   "nnoremap <s-c-up> <C-w>K
+   "nnoremap <s-c-down> <C-w>J
+   "nnoremap <s-c-left> <C-w>H
+   "nnoremap <s-c-right> <C-w>L
+
+   "Cursor color
+   " enter insert mode
+   let &t_SI = "\<Esc>]12;#000525\x7"
+   " exit insert mode
+   let &t_EI = "\<Esc>]12;#005842\x7"
+   " reset cursor when vim exits, not working
+   "autocmd VimLeave * silent !echo -ne "\033]112\007"
+
+   "Listchars
+   set list
+   set listchars=tab:\|\  
+   hi SpecialKey ctermfg=237
+
+"--------------------------------- Quick dirty stuff -------------------------
+   "Toggle the _ character inclusion in the iskeyword set
+   set isk=48-57,a-z,A-Z,_,192-255
+   let g:full_isk=1
+   function! TggleIsk()
+     let g:full_isk = 1 - g:full_isk
+     if ( 1 =~ g:full_isk )
+       set isk=48-57,a-z,A-Z,_,192-255
+       echo "set isk=48-57,a-z,A-Z,_,192-255"
+     else
+       set isk=48-57,a-z,A-Z,192-255
+       echo "set isk=48-57,a-z,A-Z,192-255"
+     endif
+   endfunction
+   nnoremap ,_ :call TggleIsk()<Enter>
+
+   " --- quick function to increment i ---
+   let g:cpt=0
+   function! Incr()
+     ":s/\<i\>/\=g:cpt
+     :s/i/\=g:cpt
+     let g:cpt = g:cpt + 1
+   endfunction
+
+   "Assumes first tab is opened in the Makefile dir
+   "Goes to first tab, calls make, comes back to tab
+   function! Comp()
+     let s:n = tabpagenr()
+     tabfirst
+     make
+     while s:n > 1
+       let s:n -= 1
+       tabn
+     endwhile
+   endfunction
+   command! Compile :call Comp()
+   nnoremap <right> :Compile<CR>
+
+   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+
+"--------------------------------- Filetypes autocommands --------------------
+   augroup vimrc
+     au!
+     au! BufWritePost .vimrc               source      $MYVIMRC
+     au! BufWritePost vimrc                source      $MYVIMRC
+     au! BufWritePost monumension.vim      colorscheme monumension
+     au! BufWritePost below_the_lights.vim colorscheme below_the_lights
+     au! BufWritePost test.vim             colorscheme test
+   augroup end
+
+   let g:view = winsaveview()
+   func! s:SaveView()
+     let g:view = winsaveview()
+   endfunc
+
+   func! s:RestoreView()
+     call winrestview(g:view)
+   endfunc
+
+   augroup cpp
+     au!
+     au FileType           c        set      cindent
+     au FileType           cpp      iabbr    \|\| or
+     au FileType           cpp      iabbr    \&\& and
+     au FileType           cpp      iabbr    enld endl
+     au FileType           cpp      iabbr    coutn count
+     au FileType           cpp      iabbr    std:; std::
+     au BufRead,BufNewFile *.cpp    set      foldlevel=0
+     au BufRead,BufNewFile main.cpp set      foldlevel=100
+     au BufRead,BufNewFile *.h      set      foldlevel=100
+     au BufRead,BufNewFile *.hpp    set      foldlevel=100
+     au FileType           cpp      inoremap << <Space><<<Space>
+     au FileType           cpp      inoremap >> <Space>>><Space>
+     au BufNewFile,BufRead *.cpp    set      syntax=cpp11
+     "au InsertLeave *.cpp call s:SaveView() | let g:d = max([line('.')-5, 0]) | let g:u = min([line('.')+5,line('$')]) | :exe 'silent' g:d.','.g:u 's/(\s*\(.\{-}\)\s*)/( \1 )/e' | :exe 'silent' g:d.','.g:u 's/(\s*)/()/e' | call s:RestoreView()
+     "au FileType        cpp abbr if if (
+   augroup end
+
+   augroup cmake
+      au!
+      au FileType       cmake set foldlevel=100
+   augroup end
+
+   augroup latex
+     au!
+     au BufRead,BufNewFile *.tex set ft=tex
+     au BufRead,BufNewFile *.tex iabbr slam \textit{SLAM}
+     au BufRead,BufNewFile *.tex iabbr slamsfm \textit{SLAM-SFM}
+     au BufRead,BufNewFile *.tex iabbr ekfslam \textit{EKF-SLAM}
+     au BufRead,BufNewFile *.tex iabbr sfm \textit{Structure From Motion}
+     au BufRead,BufNewFile *.tex iabbr etal \textit{et al}
+     au BufRead,BufNewFile *.tex iabbr sift \textit{SIFT}
+     "au BufRead,BufNewFile *.tex iabbr ba \textit{bundle adjustment}
+     au BufRead,BufNewFile *.tex iabbr ba bundle adjustment
+     au BufRead,BufNewFile *.tex iabbr af ajustement de faisceaux
+     "au BufRead,BufNewFile *.tex iabbr keyframe \textit{keyframe}
+     "au BufRead,BufNewFile *.tex iabbr frame \textit{frame}
+     "au BufRead,BufNewFile *.tex iabbr frames \textit{frames}
+     "au BufRead,BufNewFile *.tex iabbr keyframes \textit{keyframes}
+     "au BufRead,BufNewFile *.tex iabbr ekf \textit{EKF}
+     au BufRead,BufNewFile *.tex iabbr ransac \textit{RANSAC}
+     au BufRead,BufNewFile *.tex iabbr inlier \textit{inlier}
+     au BufRead,BufNewFile *.tex iabbr inliers \textit{inliers}
+     au BufRead,BufNewFile *.tex iabbr outlier \textit{outlier}
+     au BufRead,BufNewFile *.tex iabbr outliers \textit{outliers}
+     au BufRead,BufNewFile *.tex iabbr >= \geq
+     au BufRead,BufNewFile *.tex iabbr R3 $\mathbb{R}^3$
+     au BufRead,BufNewFile *.tex iabbr R2 $\mathbb{R}^2$
+     au BufRead,BufNewFile *.tex iabbr fastslam \textit{FastSLAM}
+     au BufRead,BufNewFile *.tex iabbr 1s2 \frac{1}{2}
+     au FileType tex set makeprg=pdflatex\ '%'
+     au BufRead,BufNewFile *.tex iabbr => $\Rightarrow$
+     "au FileType tex set makeprg=rubber\ '%'
+     "au! BufWritePost      *.tex :make "could be nice if vim could execute
+     "concurent tasks
+     "au FileType tex set spell
+     "au FileType tex set spelllang=en,fr
+   augroup end
+
+   augroup makefiles
+     au!
+     au FileType ?akefile set noexpandtab
+   augroup end
+
+   augroup Xfiles
+     au!
+     au BufRead,BufNewFile .Xresources     set makeprg=xrdb\ .Xresources\;urxvt
+     au BufRead,BufNewFile .xbindkeysrc    set makeprg=killall\ -HUP\ xbindkeys\;\ xbindkeys
+     au BufRead,BufNewFile rc.lua nnoremap ,w :update<Enter> :!~/Code/Scripts/bin/awesomecheck <Enter><Enter>
+     "au BufWrite rc.lua :!~/Code/Scripts/bin/awesomecheck
+     au VimLeave TODO.wiki :!killall conky; ~/.config/conky/conkylaunch &; sleep 1
+     au BufRead,BufNewFile .zshrc       set makeprg=source\ ~/.zshrc\;urxvt
+   augroup end
+
+   "augroup python
+     "au!
+     "au FileType python setlocal makeprg=python\ '%'
+     "au FileType python setlocal tabstop=2
+     "au FileType python setlocal softtabstop=2
+     "au FileType python setlocal shiftwidth=2
+   "augroup end
+
+   augroup matlab
+     au!
+     source $VIMRUNTIME/macros/matchit.vim
+     au BufEnter *.m compiler mlint
+   augroup end
+
+   augroup bakfiles
+     au!
+     au BufRead     *.bak set    readonly
+     au BufWinEnter *.*   silent loadview
+   augroup end
+
+   augroup cpp_templates
+     au!
+     au BufRead *.tpp set ft=cpp
+   augroup end
+
+   ".txt
+   "au BufRead,BufNewFile *.txt inoremap . .<Space>
+   "au BufRead,BufNewFile *.txt inoremap <Tab>- <Tab>-<Space>
+   "au BufRead,BufNewFile *.txt inoremap : :<Space>
+
+   "augroup NoSimultaneousEdits
+     "autocmd!
+     "autocmd SwapExists * let v:swapchoice = 'o'
+     "autocmd SwapExists * echomsg ErrorMsg
+     "autocmd SwapExists * echo 'Duplicate edit session (readonly)'
+     ""autocmd SwapExists * echohl None
+   "augroup END
+
+
+"--------------------------------- Plugins -----------------------------------
+   " Pathogen
+   call pathogen#infect()
+   call pathogen#helptags()
+
+   "if has("gui_running")
+     "colorscheme solarized
+   "endif
+
+   "Alternate
+     nnoremap ,a :<Enter>:A<Enter>
+
+   "Nerdcommenter
+     nmap ,c \c<Space>
+     vmap ,c \c<Space>
+
+   "NERDTree
+     let NERDTreeIgnore=['\.o$', '\.hi$']
+     nnoremap ,e :NERDTreeTabsToggle<Enter>
+
+   "CtrlP
+     nnoremap ,o :CtrlP<CR>
+
+   "Rainbowparentheses
+     "au VimEnter * RainbowParenthesesActivate
+     "au VimEnter * RainbowParenthesesLoadRound
+     au BufRead,BufNewFile * RainbowParenthesesActivate
+     au BufRead,BufNewFile * RainbowParenthesesLoadRound
+     "modified colors for term ui
+     let g:rbpt_colorpairs = [
+       \ ['brown',       'RoyalBlue3'],
+       \ ['Darkblue',    'SeaGreen3'],
+       \ ['darkgray',    'DarkOrchid3'],
+       \ ['darkgreen',   'firebrick3'],
+       \ ['darkcyan',    'RoyalBlue3'],
+       \ ['darkred',     'SeaGreen3'],
+       \ ['darkmagenta', 'DarkOrchid3'],
+       \ ['brown',       'firebrick3'],
+       \ ['gray',        'RoyalBlue3'],
+       \ ['black',       'SeaGreen3'],
+       \ ['darkmagenta', 'DarkOrchid3'],
+       \ ['166',	      'firebrick3'],
+       \ ['22',	      'RoyalBlue3'],
+       \ ['126',	      'SeaGreen3'],
+       \ ['4',	      'DarkOrchid3'],
+       \ ['23',	      'firebrick3'],
+       \ ]
+
+
+   "Tagbar
+     nnoremap ,t :TagbarToggle<CR>
+
+   "YouCompleteMe
+     "nmap ,d \d
+     let g:ycm_key_list_select_completion = ['<C-j>']
+     let g:ycm_key_list_previous_completion = ['<C-k>']
+     let g:ycm_filetype_blacklist = { 'make': 1, 'tagbar':1 }
+     let g:ycm_filetype_whitelist = { 'cpp': 1, 'c': 1 }
+     let g:ycm_use_ultisnips_completer = 0
+
+   " clangcomplete
+     "let g:clang_auto_select = 1
+     "let g:clang_close_preview = 1
+     "let g:clang_user_options = '-std=c++11'
+
+   "GitGutter
+     au VimEnter * GitGutterDisable
+     nnoremap ,g :GitGutterToggle<Enter>
+
+   "ZoomWin
+     nnoremap ,z <C-w>o
+     "ok for zoom, but refuses to unzoom...
+
+   "ShowMarks
+     let g:showmarks_enable = 0
+     nnoremap ,m :ShowMarksToggle<Enter>
+
+   "Session
+     let g:session_autosave = 'no'
+
+   "EasyMotion
+     let g:EasyMotion_leader_key = ',,'
+
+   "MiniBufferExplorer
+     let g:miniBufExplorerAutoStart = 0
+
+   "VimWiki
+     hi VimwikiLink ctermfg=63
+     hi VimwikiHeader1 ctermfg=63
+
+   "Ranger integration
+     function! RangeChooser()
+         let temp = tempname()
+         let fine = 1
+
+         exec 'silent !ranger --choosefiles=' . shellescape(temp)
+         if !filereadable(temp) " Nothing to read.
+             let fine = 0
+         else
+           let names = readfile(temp)
+           if empty(names) " Nothing to open.
+               let fine = 0
+           endif
+         endif
+         if fine
+           " Edit the first item.
+           exec 'edit ' . fnameescape(names[0])
+           " Add any remaning items to the arg list/buffer list.
+           for name in names[1:]
+               exec 'argadd ' . fnameescape(name)
+           endfor
+         endif
+         redraw!
+     endfunction
+     command! -bar RangerChooser call RangeChooser()
+     nnoremap <leader>r :<C-U>RangerChooser<CR>
+
+   "Expand-region
+     vmap v <Plug>(expand_region_expand)
+     vmap <C-v> <Plug>(expand_region_shrink)
+
+   ""Vim Sneak
+     ""replace 'f' with inclusive 1-char Sneak
+     "nmap f <Plug>Sneak_f
+     "nmap F <Plug>Sneak_F
+     "xmap f <Plug>Sneak_f
+     "xmap F <Plug>Sneak_F
+     "omap f <Plug>Sneak_f
+     "omap F <Plug>Sneak_F
+     ""replace 't' with exclusive 1-char Sneak
+     "nmap t <Plug>Sneak_t
+     "nmap T <Plug>Sneak_T
+     "xmap t <Plug>Sneak_t
+     "xmap T <Plug>Sneak_T
+     "omap t <Plug>Sneak_t
+     "omap T <Plug>Sneak_T
+
+     "hi SneakPluginTarget cterm=bold,italic ctermbg=16
+
+   " ShowMotion
+     highlight SM_SmallMotionGroup cterm=italic                ctermbg=53 gui=italic                guibg=#5f005f
+     highlight SM_BigMotionGroup   cterm=italic,bold,underline ctermbg=54 gui=italic,bold,underline guibg=#5f0087
+     highlight SM_CharSearchGroup  cterm=italic,bold           ctermbg=4  gui=italic,bold           guibg=#3f6691
+
+     nmap <silent> w <Plug>(show-motion-both-w)
+     nmap <silent> W <Plug>(show-motion-W)
+     nmap <silent> b <Plug>(show-motion-both-b)
+     nmap <silent> B <Plug>(show-motion-B)
+     nmap <silent> e <Plug>(show-motion-both-e)
+     nmap <silent> E <Plug>(show-motion-E)
+
+     nmap f <Plug>(show-motion-f)
+     nmap t <Plug>(show-motion-t)
+     nmap F <Plug>(show-motion-F)
+     nmap T <Plug>(show-motion-T)
+     nmap ; <Plug>(show-motion-;)
+     nmap <Space> <Plug>(show-motion-,)
+
+   " Airline
+   let g:airline_theme='bubblegum'

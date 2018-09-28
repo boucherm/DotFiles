@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#ln -s $(pwd)'/vim'               ~/.vim
+#ln -s $(pwd)'/Xresources'        ~/.Xresources
+#ln -s $(pwd)'/zshrc'             ~/.zshrc
+#ln -s $(pwd)'/xbindkeysrc'       ~/.xbindkeysrc
+#ln -s $(pwd)'/tmux.conf'         ~/.tmux.conf
+#ln -s $(pwd)'/ranger.conf'       ~/.config/ranger/rc.conf
+#ln -s $(pwd)'/awesome_rc.lua'    ~/.config/awesome/rc.lua
+#ln -s $(pwd)'/awesome_theme.lua' ~/.config/awesome/theme.lua

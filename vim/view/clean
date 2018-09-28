@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+# made to detect vim view configurations of files not existing anymore
+# moves them into a "junk" directory
+
+if [ ! -d "junk" ]
+then
+  mkdir junk
+fi
+
+for i in *
+do
+  if [[ $i == $0 ]] #doesn't scan itself or junk directory
+  then
+    continue
+  fi
+  if [[ $i == ${0:2} ]]
+  then
+    continue
+  fi
+  if [[ $i == "junk" ]]
+  then
+    continue
+  fi
+
+  a=("${(s/=+/)i}") #split
+  f=""
+  for l in $a #reassemble
+  do
+    if [[ $f == "" ]]
+    then
+      f=$l
+    else
+      f=$f"/"$l
+    fi
+  done
+
+  #substitute ~
+  #erase final =
+  if [[ ${f:0:1} == "~" ]]
+  then
+    f=~${f:1: -1}
+  else
+    f="/"${f:0: -1}
+  fi
+
+  #"delete"
+  [ -e $f ] || echo $i
+  if [ -d "junk" ]
+  then
+    [ -e $f ] || mv $i junk/
+  fi
+
+done

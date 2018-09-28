@@ -1,0 +1,251 @@
+!Xft.dpi:                      121
+Xft.antialias:                 true
+Xft.hinting:                   true
+Xft.hintstyle:                 hintfull
+Xft.rgba:                      rgb
+
+xcalendar*firstDay:     1
+xcalendar*markHoliday:     false
+!Xcursor.theme:         whitelarge
+!Xcursor.size:       32
+!*visualBell:        true
+
+!#define S_base03 #002b36
+#define M_base03 #003026
+!#define S_base02 #073642
+
+
+!===============================================================================
+!=== URxvt
+!
+!URxvt*meta8:      true
+!URxvt*font:       xft:ubuntumono:pixelsize=21:antialias=false:hinting=true
+!URxvt*boldFont:   xft:ubuntumono:bold:pixelsize=21:antialias=false:hinting=true
+!URxvt*font:       xft:firamono:pixelsize=15:antialias=true:hinting=true
+!URxvt*boldFont:   xft:firamono:bold:pixelsize=15:antialias=true:hinting=true
+!URxvt*font:       xft:monospace:pixelsize=17:antialias=false:hinting=true
+!URxvt*boldFont:   xft:monospace:bold:pixelsize=17:antialias=false:hinting=true
+!URxvt*font:       xft:monospace:pixelsize=16:antialias=false:hinting=true
+!URxvt*boldFont:   xft:monospace:bold:pixelsize=16:antialias=false:hinting=true
+!URxvt*font:       xft:clearsans:pixelsize=17
+!URxvt*boldFont:   xft:clearsans:bold:pixelsize=17
+!
+! URxvt*font:        xft:monospace:pixelsize=15:antialias=false:hinting=true
+! URxvt*boldFont:    xft:monospace:bold:pixelsize=15:antialias=false:hinting=true
+URxvt*font:        xft:monospace:pixelsize=13:antialias=false:hinting=true
+URxvt*boldFont:    xft:monospace:bold:pixelsize=13:antialias=false:hinting=true
+!URxvt*font:        xft:monospace:pixelsize=11:antialias=false:hinting=true
+!URxvt*boldFont:    xft:monospace:bold:pixelsize=11:antialias=false:hinting=true
+!
+URxvt*scrollBar:   false
+!URxvt*borderColor: darkcyan
+URxvt*saveLines:   12000
+URxvt*cursorBlink: true
+!URxvt.keysym.M-C-1:       command:\033]710;suxuseuro\007\033]711;suxuseuro\007
+URxvt.perl-ext-common:    default
+URxvt.pointerBlank:       true
+URxvt.pointerBlankDelay:  2
+
+!Trying to disable the tab plugin ctrl-arrow keys mangle
+URxvt.keysym.Control-Up:     \033[1;5A
+URxvt.keysym.Control-Down:   \033[1;5B
+URxvt.keysym.Control-Left:   \033[1;5D
+URxvt.keysym.Control-Right:  \033[1;5C
+
+
+!==============
+!=== Coloring
+!
+!! "Backup"
+!
+!URxvt.colorBD:                          steelblue4
+!!black
+!URxvt.color0:                           #2e3436
+!URxvt.color8:                           #050505
+!!red
+!URxvt.color1:                           #cc2525
+!URxvt.color9:                           #ef2929
+!!green
+!URxvt.color2:                           #4e9a06
+!URxvt.color10:                          #007306
+!!URxvt.color10:                          #8Ae234
+!!yellow
+!URxvt.color3:                           #e1a310
+!URxvt.color11:                          #ebca6b
+!!blue
+!URxvt.color4:                           #3f6691
+!URxvt.color12:                          #52799e
+!!URxvt.color12:                          #668dab
+!!magenta
+!URxvt.color5:                           #75507B
+!URxvt.color13:                          #494573
+!!cyan
+!URxvt.color6:                           #06989a
+!URxvt.color14:                          #52d8ce
+!!white
+!URxvt.color7:                           #DCDCCC
+!URxvt.color15:                          #FFFFFF
+!
+! Modifications
+!
+!URxvt.colorBD:                          steelblue4
+!black
+URxvt.color0:                           #2e3436
+URxvt.color8:                           #050505
+!red
+URxvt.color1:                           #cc2525
+URxvt.color9:                           #ef2929
+!green
+URxvt.color2:                           #4e9a06
+URxvt.color10:                          #007306
+!yellow
+URxvt.color3:                           #e1a310
+URxvt.color11:                          #ebca6b
+!blue
+URxvt.color4:                           #3f6691
+URxvt.color12:                          #52799e
+!URxvt.color12:                          #668dab
+!magenta
+URxvt.color5:                           #75507B
+URxvt.color13:                          #494573
+!cyan
+URxvt.color6:                           #06989a
+URxvt.color14:                          #52d8ce
+!white
+URxvt.color7:                           #DCDCCC
+URxvt.color15:                          #FFFFFF
+
+!!==============
+!!=== Dark theme
+!!
+!URxvt*background:        grey13
+!URxvt*foreground:        grey60
+!!URxvt*transparent:      false
+!!URxvt*blurRadius:       3x3
+!!URxvt*cursorUnderline:  true
+!URxvt*underlineColor:    darkolivegreen
+!URxvt*cursorBlink:       true
+!URxvt*cursorColor:       darkolivegreen
+!URxvt*cursorColor2:      darkslateblue
+
+
+!===============
+!=== Light theme
+!
+!= Plain color background
+URxvt*background:      grey60
+!
+! Image background
+!URxvt*backgroundPixmap:  full_path_to/DotFiles/grey_gradient_tiny.pgm;op=root-align;style=stretched
+!
+!= fake tranparency
+!URxvt*transparent:     true
+!urxvt*shading:         2
+!
+!= real tranparency
+!URxvt*depth:           32
+!URxvt*background:      rgba:9900/9900/9900/e800
+!
+URxvt*foreground:      grey13
+URxvt*underlineColor:  darkolivegreen
+URxvt*cursorColor:     grey
+
+!
+!
+!= fake tranparency
+!URxvt*transparent:     true
+!urxvt*shading:         2
+!
+!= real tranparency
+!URxvt*depth:           32
+!URxvt*background:      rgba:9900/9900/9900/e800
+!
+URxvt*foreground:      grey13
+URxvt*underlineColor:  darkolivegreen
+URxvt*cursorColor:     grey
+
+! Color modifications
+!green
+URxvt.color2:                           #3e8000
+URxvt.color10:                          #007306
+
+
+!===============================================================================
+!   Dzen2 - Setting
+!
+dzen2.font:       -*-fixed-*-*-*-*-*-*-*-*-*-*-*-*
+dzen2.foreground: #22EE11
+dzen2.background: black
+
+
+
+!===============================================================================
+!  Cursor
+!
+Xcursor.theme: Vanilla-DMZ-AA
+Xcursor.size:  22
+
+!===============================================================================
+!
+!  X T E R M - Setting
+!
+XTerm*Background:                       grey15
+!XTerm*Background:                       M_base03
+XTerm*foreground:                       grey60
+XTerm*cursorColor:                      darkslategray
+XTerm*scrollBar:                        false
+XTterm*utf8:                            2
+XTerm*termName:                         xterm-256color
+!XTerm*faceName:                         xft:Dejavu Sans Mono:pixelsize=14
+XTerm*faceName:                         xft:monospace:pixelsize=14
+! http://invisible-island.net/xterm/xterm.faq.html#tiny_menus
+XTerm.VT100.geometry:                   89x29
+XTerm*saveLines:                        7777
+XTerm*metaSendsEscape:                  true
+XTerm*highlightSelection:               true
+XTerm*trimSelection:                    true
+XTerm*cutNewline:                       false
+XTerm*colorBDMode:                      true
+XTerm*colorBD:                          steelblue4
+XTerm*charClass: 3:48, 35:48, 37:48, 43:48, 45-47:48, 64:48, 95:48, 126:48, 35:48, 58:48, 63:48, 61:48, 44:48, 38:48, 59:48
+!colors
+!black
+!XTerm*color0:                           #171717
+XTerm*color0:                           #2e3436
+!XTerm*color8:                           #737373
+XTerm*color8:                           #050505
+!red
+!XTerm*color1:                           #DD3C3C
+XTerm*color1:                           #cc2525
+!XTerm*color9:                           #FF7878
+XTerm*color9:                           #ef2929
+!green
+!XTerm*color2:                           #9CE82B
+XTerm*color2:                           #4e9a06
+!XTerm*color10:                          #9ACD32
+XTerm*color10:                          #8Ae234
+!yellow
+!XTerm*color3:                           #F0E68C
+XTerm*color3:                           #e1a310
+!XTerm*color11:                          #EEE8AA
+!XTerm*color11:                          #b39000
+XTerm*color11:                          #ebca6b
+!blue
+!XTerm*color4:                           #008AFF
+XTerm*color4:                           #3465a4
+!XTerm*color12:                          #4F98FF
+!XTerm*color12:                          #518ebe
+XTerm*color12:                          #668dab
+!magenta
+!XTerm*color5:                           #E88CFF
+XTerm*color5:                           #75507B
+!XTerm*color13:                          #EDA6FF
+XTerm*color13:                          #494573
+!cyan
+!XTerm*color6:                           #87CEFA
+XTerm*color6:                           #06989a
+!XTerm*color14:                          #B0E2FF
+XTerm*color14:                          #52d8ce
+!white
+XTerm*color7:                           #DCDCCC
+XTerm*color15:                          #FFFFFF

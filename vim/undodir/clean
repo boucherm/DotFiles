@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+# made to detect vim undofiles of files not existing anymore
+# move them in a "junk" directory
+
+if [ ! -d "junk" ]; then
+  mkdir junk
+fi
+
+for i in *; do
+  #doesn't scan itself or junk dir
+  if [[ $i == $0 ]]
+  then
+    continue
+  fi
+  if [[ $i == ${0:2} ]]
+  then
+    continue
+  fi
+  if [[ $i == "junk" ]]
+  then
+    continue
+  fi
+
+  #split filename
+  a=("${(s/%/)i}")
+  f=""
+  for l in $a #reform the path
+  do
+    if [[ $f == "" ]]
+    then
+      f="/"$l
+    else
+      f=$f"/"$l
+    fi
+  done
+
+  #"delete"
+  [ -e $f ] || echo $i
+  if [ -d "junk" ]
+  then
+    [ -e $f ] || mv $i junk/
+  fi
+done
