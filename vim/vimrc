@@ -427,13 +427,14 @@ filetype plugin on
      au BufRead,BufNewFile .zshrc       set makeprg=source\ ~/.zshrc\;urxvt
    augroup end
 
-   "augroup python
-     "au!
+   augroup python
+     au!
+     au FileType python set formatoptions=jcroql
      "au FileType python setlocal makeprg=python\ '%'
      "au FileType python setlocal tabstop=2
      "au FileType python setlocal softtabstop=2
      "au FileType python setlocal shiftwidth=2
-   "augroup end
+   augroup end
 
    augroup matlab
      au!
@@ -476,7 +477,7 @@ filetype plugin on
    "endif
 
    "Alternate
-     nnoremap ,a :<Enter>:A<Enter>
+     nnoremap ,a :<Enter>:AV<Enter>
 
    "Nerdcommenter
      nmap ,c \c<Space>
@@ -626,3 +627,8 @@ filetype plugin on
 
    " Airline
    let g:airline_theme='bubblegum'
+
+   " Ale
+   highlight ALEError   ctermfg=16 ctermbg=52
+   highlight ALEWarning ctermfg=16 ctermbg=4
+   let g:ale_echo_cursor=0 "vim's version from ubuntu 18.04 repos is buggy

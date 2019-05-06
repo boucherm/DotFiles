@@ -135,8 +135,7 @@ modkey = "Mod4"
   mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                       { "Debian", debian.menu.Debian_menu.Debian },
                                       { "open terminal", terminal },
-                                      { "suspend", "/usr/bin/zsh $HOME'/Code/Scripts/bin/lock_and_suspend.zsh'" }
-                                       -- TODO replace $HOME by its value
+                                      { "suspend", "/usr/bin/zsh $HOME'/Code/Scripts/bin/lock_and_suspend.zsh'" } -- TODO replace $HOME by its value
                                     }
                           })
 
@@ -309,11 +308,13 @@ modkey = "Mod4"
       awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
       -- Prompt
-      awful.key({ modkey }, "r",  function () mypromptbox[mouse.screen]:run() end),
+      --awful.key({ modkey }, "r",  function () mypromptbox[mouse.screen]:run() end), -- worked in the ubuntu 16.04 version
+      awful.key({ modkey }, "r",  function () mypromptbox[1]:run() end), -- works in the ubuntu 18.04 version
       awful.key({ modkey }, "x",
                 function ()
                     awful.prompt.run({ prompt = "Run Lua code: " },
-                    mypromptbox[mouse.screen].widget,
+                    --mypromptbox[mouse.screen].widget, -- same
+                    mypromptbox[1].widget, -- same
                     awful.util.eval, nil,
                     awful.util.getdir("cache") .. "/history_eval")
                 end)--,

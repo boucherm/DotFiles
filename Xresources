@@ -19,8 +19,8 @@ xcalendar*markHoliday:     false
 !=== URxvt
 !
 !URxvt*meta8:      true
-!URxvt*font:       xft:ubuntumono:pixelsize=21:antialias=false:hinting=true
-!URxvt*boldFont:   xft:ubuntumono:bold:pixelsize=21:antialias=false:hinting=true
+URxvt*font:       xft:ubuntumono:pixelsize=15:antialias=true:hinting=true
+URxvt*boldFont:   xft:ubuntumono:bold:pixelsize=15:antialias=true:hinting=true
 !URxvt*font:       xft:firamono:pixelsize=15:antialias=true:hinting=true
 !URxvt*boldFont:   xft:firamono:bold:pixelsize=15:antialias=true:hinting=true
 !URxvt*font:       xft:monospace:pixelsize=17:antialias=false:hinting=true
@@ -30,12 +30,8 @@ xcalendar*markHoliday:     false
 !URxvt*font:       xft:clearsans:pixelsize=17
 !URxvt*boldFont:   xft:clearsans:bold:pixelsize=17
 !
-! URxvt*font:        xft:monospace:pixelsize=15:antialias=false:hinting=true
-! URxvt*boldFont:    xft:monospace:bold:pixelsize=15:antialias=false:hinting=true
-URxvt*font:        xft:monospace:pixelsize=13:antialias=false:hinting=true
-URxvt*boldFont:    xft:monospace:bold:pixelsize=13:antialias=false:hinting=true
-!URxvt*font:        xft:monospace:pixelsize=11:antialias=false:hinting=true
-!URxvt*boldFont:    xft:monospace:bold:pixelsize=11:antialias=false:hinting=true
+!URxvt*font:        xft:monospace:pixelsize=13:antialias=false:hinting=true
+!URxvt*boldFont:    xft:monospace:bold:pixelsize=13:antialias=false:hinting=true
 !
 URxvt*scrollBar:   false
 !URxvt*borderColor: darkcyan
@@ -115,59 +111,52 @@ URxvt.color14:                          #52d8ce
 URxvt.color7:                           #DCDCCC
 URxvt.color15:                          #FFFFFF
 
-!!==============
-!!=== Dark theme
+!==============
+!=== Dark theme
+!
+URxvt*background:        grey11
+URxvt*foreground:        grey60
+!URxvt*transparent:      false
+!URxvt*blurRadius:       3x3
+!URxvt*cursorUnderline:  true
+URxvt*underlineColor:    darkolivegreen
+URxvt*cursorBlink:       true
+URxvt*cursorColor:       darkolivegreen
+URxvt*cursorColor2:      darkslateblue
+
+
+!!===============
+!!=== Light theme
 !!
-!URxvt*background:        grey13
-!URxvt*foreground:        grey60
-!!URxvt*transparent:      false
-!!URxvt*blurRadius:       3x3
-!!URxvt*cursorUnderline:  true
-!URxvt*underlineColor:    darkolivegreen
-!URxvt*cursorBlink:       true
-!URxvt*cursorColor:       darkolivegreen
-!URxvt*cursorColor2:      darkslateblue
+!!= Plain color background
+!URxvt*background:      grey60
+!!
+!! Image background
+!!URxvt*backgroundPixmap:  full_path_to/DotFiles/grey_gradient_tiny.pgm;op=root-align;style=stretched
+!URxvt*backgroundPixmap:  /home/hellcook/DotFiles/grey_gradient_tiny.pgm;op=root-align;style=stretched
+!!
+!!= fake tranparency
+!!URxvt*transparent:     true
+!!urxvt*shading:         2
+!!
+!!= real tranparency
+!!URxvt*depth:           32
+!!URxvt*background:      rgba:9900/9900/9900/e800
+!!
+!URxvt*foreground:      grey13
+!URxvt*underlineColor:  darkolivegreen
+!URxvt*cursorColor:     grey
+!
+!! Color modifications
+!!green
+!URxvt.color2:                           #3e8000
+!URxvt.color10:                          #007306
 
 
 !===============
-!=== Light theme
-!
-!= Plain color background
-URxvt*background:      grey60
-!
-! Image background
-!URxvt*backgroundPixmap:  full_path_to/DotFiles/grey_gradient_tiny.pgm;op=root-align;style=stretched
-!
-!= fake tranparency
-!URxvt*transparent:     true
-!urxvt*shading:         2
-!
-!= real tranparency
-!URxvt*depth:           32
-!URxvt*background:      rgba:9900/9900/9900/e800
-!
-URxvt*foreground:      grey13
-URxvt*underlineColor:  darkolivegreen
-URxvt*cursorColor:     grey
+! Perl scripts
+!URxvt.perl-lib: full_path_to/DotFiles/urxvt-perls
 
-!
-!
-!= fake tranparency
-!URxvt*transparent:     true
-!urxvt*shading:         2
-!
-!= real tranparency
-!URxvt*depth:           32
-!URxvt*background:      rgba:9900/9900/9900/e800
-!
-URxvt*foreground:      grey13
-URxvt*underlineColor:  darkolivegreen
-URxvt*cursorColor:     grey
-
-! Color modifications
-!green
-URxvt.color2:                           #3e8000
-URxvt.color10:                          #007306
 
 
 !===============================================================================

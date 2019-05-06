@@ -50,10 +50,16 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh list-colors ${(s
 setopt EXTENDED_GLOB
 setopt NOMATCH
 
-# Vim
-export VIMDIR=~/Softs/vim/build/bin/
-export VISUAL=$VIMDIR/vim
-export EDITOR=$VIMDIR/vim
+# Vim stuff
+export VISUAL=/usr/bin/vim
+export EDITOR=/usr/bin/vim
+export SUDO_EDITOR=/usr/bin/vim
+export VIMDIR=~/Softs/vim/build/bin/bin/
+
+
+# ROS
+#[ -z $ZSHRC_LOADED ] && source /opt/ros/lunar/setup.zsh
+source /opt/ros/melodic/setup.zsh
 
 
 # Aliases
@@ -65,7 +71,7 @@ alias ll='l -alFh'
 alias l1='ls --color -CX1'
 alias la='l -A'
 alias grep='grep -E --color=auto'
-alias ag='ack-grep --color-lineno=yellow --color-filename="bold green" --color-match="green on_black"'
+alias ag='ack --color-lineno=yellow --color-filename="bold green" --color-match="green on_black"'
 alias gr='ag -r'
 alias gri='ag -ri'
 alias gril='ag -ril'
@@ -80,6 +86,8 @@ alias make='make -j 3'
 alias remake='make clean; make'
 #alias python='ipython'
 alias r='source ranger_cd'
+alias pwdxi='pwd | xi'
+alias cdxo='cd $( xo )'
 alias m='mocp -T erebus_theme'
 alias n='ncmpcpp'
 alias matlab="matlab_reparenting"
@@ -171,30 +179,27 @@ export LS_COLORS
 # prevent ld from demangling
 export COLLECT_NO_DEMANGLE=1
 
-#
-export VISUAL=/usr/bin/vim
-export EDITOR=/usr/bin/vim
-export SUDO_EDITOR=/usr/bin/vim
 
 # PATH
 [ -z $ZSHRC_LOADED ] && export PATH=~/Softs/vim/build/bin/:$PATH
-[ -z $ZSHRC_LOADED ] && export PATH=$PATH:/usr/local/cuda-8.0/bin
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/Code/Scripts/bin
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/.cabal/bin
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/Softs/vcsh/
 
 
-# OpenCV
-#export OpenCV_DIR=~/libs/opencv-2.4.9/release
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_DIR/shared_libs/lib
-export OpenCV_DIR=~/libs/opencv/build/install
+# OpenCV2
+##export OpenCV_DIR=~/libs/opencv-2.4.9/release
+##export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_DIR/shared_libs/lib
+#export OpenCV_DIR=~/libs/opencv/build/install
+#export OpenCV_LIBS=$OpenCV_DIR/lib
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_LIBS
+#export PYTHONPATH=$PYTHONPATH:$OpenCV_LIBS/python3.5/dist-packages
+
+# OpenCV3
+export OpenCV_DIR=~/libs/opencv-3.4.4/build/install
 export OpenCV_LIBS=$OpenCV_DIR/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_LIBS
 export PYTHONPATH=$PYTHONPATH:$OpenCV_LIBS/python3.5/dist-packages
-
-
-# Cuda / Tensorflow
-export CUDA_HOME=/usr/local/cuda-8.0
 
 
 # RealSense
@@ -311,7 +316,8 @@ bindkey "^X^E" edit-command-line
 bindkey -M vicmd v edit-command-line
 
 
-export ZSHRC_LOADED="1"
 
-
+# FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export ZSHRC_LOADED="1"
