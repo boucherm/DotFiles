@@ -48,12 +48,21 @@ feh --bg-fill $HOME/../Pictures/Wallpaper/abstract/wallpaper.png
 #synclient PalmMinZ=1;
 
 #--- Mouse speed
-#xinput --list
-#xinput --set-prop 9 "Device Accel Constant Deceleration" 4.0
+# To get a list of inputs:
+# xinput --list
+# To get a list of properties for an input
+# xinput --list-props $id
 for id in $( xinput --list | grep G502 | cut -d = -f 2 | cut -f 1 )
 do
   xinput --set-prop $id "Device Accel Constant Deceleration" 2.0
 done
+
+for id in $( xinput --list | grep M720 | cut -d = -f 2 | cut -f 1 )
+do
+  xinput --set-prop 9 "libinput Accel Speed" 1.0
+done
+
+# xset is another option
 
 #--- Lights
 #sudo $HOME/Code/Scripts/bin/keyboard_backlight.sh -255

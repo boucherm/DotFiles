@@ -52,10 +52,10 @@ hi Special ctermfg=69
 hi ColorColumn      cterm=NONE        ctermbg=245   ctermfg=NONE gui=NONE        guibg=#121212 guifg=NONE
 
 "" vimdiff
-hi DiffAdd ctermfg=242
-hi DiffChange ctermfg=242
-hi DiffDelete ctermfg=242
-hi DiffText ctermfg=242
+hi DiffAdd    cterm=NONE ctermfg=245
+hi DiffChange cterm=NONE ctermfg=245
+hi DiffDelete cterm=NONE ctermfg=245
+hi DiffText   cterm=NONE ctermfg=245
 
 " Colorations C
 hi cString ctermfg=60

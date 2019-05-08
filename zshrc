@@ -57,11 +57,6 @@ export SUDO_EDITOR=/usr/bin/vim
 export VIMDIR=~/Softs/vim/build/bin/bin/
 
 
-# ROS
-#[ -z $ZSHRC_LOADED ] && source /opt/ros/lunar/setup.zsh
-source /opt/ros/melodic/setup.zsh
-
-
 # Aliases
 alias sl='sl -e'
 alias LS='sl -e'
@@ -113,6 +108,7 @@ alias ipy='ipython3'
 alias gs='git status'
 alias gd='git difftool'
 alias gl='git log --pretty=format:"%h - %cn, %cr : %s" --graph'
+alias ga='git branch -a'
 alias dirs='\dirs -v'
 alias xo='xclip -o'
 alias xi='xclip -i'
@@ -140,12 +136,46 @@ alias -s mp4=vlc
 # Colors
 autoload -U colors && colors
 
+# Git prompt
+source ~/.zsh/zsh-git-prompt/zshrc.sh
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_no_bold[green]%}["
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_no_bold[green]%}]"
+ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg_no_bold[green]%}|"
+git_super_status()
+{
+  precmd_update_git_vars
+  if [ -n "$__CURRENT_GIT_STATUS" ]; then
+    STATUS=" $ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH"
+    if [ "$GIT_BEHIND" -ne "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_BEHIND$GIT_BEHIND"
+    fi
+    if [ "$GIT_AHEAD" -ne "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_AHEAD$GIT_AHEAD"
+    fi
+    STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_SEPARATOR"
+    if [ "$GIT_STAGED" -ne "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_STAGED$GIT_STAGED"
+    fi
+    if [ "$GIT_CONFLICTS" -ne "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CONFLICTS$GIT_CONFLICTS"
+    fi
+    if [ "$GIT_CHANGED" -ne "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CHANGED$GIT_CHANGED"
+    fi
+    if [ "$GIT_UNTRACKED" -ne "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED"
+    fi
+    if [ "$GIT_CHANGED" -eq "0" ] && [ "$GIT_CONFLICTS" -eq "0" ] && [ "$GIT_STAGED" -eq "0" ] && [ "$GIT_UNTRACKED" -eq "0" ]; then
+      STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CLEAN"
+    fi
+    STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_SUFFIX"
+    echo "$STATUS"
+  fi
+}
 
 # prompt
-update_prompt() {
-
-   source ~/.zsh/zsh-git-prompt/zshrc.sh
-
+update_prompt()
+{
   # Dark
   #export PS1="%{$bg[black]%}%{$fg[yellow]%}⚡%{$fg_bold[grey]%}%n@%m%{$reset_color%} %{$fg_no_bold[blue]%}%~%{$fg_bold[grey]%}% %(?.. ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{$reset_color%} "
   #export RPS1="%{$fg_no_bold[blue]%}%T%{$reset_color%}%{$fg_bold[green]%}%"
@@ -228,7 +258,8 @@ zle -N zle-keymap-select
 zle-line-init ()
 {
   zle -K viins
-  echo -ne "\033]12;Black\007"
+  #echo -ne "\033]12;Black\007"
+  echo -ne "\033]12;#777777\007"
 }
 zle -N zle-line-init
 
