@@ -59,7 +59,7 @@ done
 
 for id in $( xinput --list | grep M720 | cut -d = -f 2 | cut -f 1 )
 do
-  xinput --set-prop 9 "libinput Accel Speed" 1.0
+  xinput --set-prop $id "libinput Accel Speed" 1.0
 done
 
 # xset is another option

@@ -54,8 +54,11 @@ setopt NOMATCH
 export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 export SUDO_EDITOR=/usr/bin/vim
-export VIMDIR=~/Softs/vim/build/bin/bin/
+export VIMDIR=~/Softs/vim/build/bin/
 
+
+# ROS
+source /opt/ros/melodic/setup.zsh
 
 # Aliases
 alias sl='sl -e'
@@ -77,7 +80,8 @@ alias rm='mvtrash'
 alias ln='ln --verbose'
 alias mupdatedb='sudo updatedb -U /media/Data --output=$HOME/mlocate.db'
 alias mlocate='locate -i -d $HOME/mlocate.db'
-alias make='make -j 3'
+alias make='make -j 7'
+alias ninja='ninja -j 7'
 alias remake='make clean; make'
 #alias python='ipython'
 alias r='source ranger_cd'
@@ -86,9 +90,9 @@ alias cdxo='cd $( xo )'
 alias m='mocp -T erebus_theme'
 alias n='ncmpcpp'
 alias matlab="matlab_reparenting"
-alias vim='$VIMDIR/vim'
-alias view='$VIMDIR/view'
-alias vimdiff='$VIMDIR/vimdiff'
+alias vim='cursor_underline; $VIMDIR/vim'
+alias view='cursor_underline; $VIMDIR/view'
+alias vimdiff='cursor_underline; $VIMDIR/vimdiff'
 alias v='vim'
 alias dv='dirvim'
 alias vd='vidir'
@@ -109,6 +113,7 @@ alias gs='git status'
 alias gd='git difftool'
 alias gl='git log --pretty=format:"%h - %cn, %cr : %s" --graph'
 alias ga='git branch -a'
+alias gdn='git diff --name-only'
 alias dirs='\dirs -v'
 alias xo='xclip -o'
 alias xi='xclip -i'
@@ -121,8 +126,8 @@ alias -s c=vim
 alias -s cpp=vim
 alias -s m=vim
 alias -s tex=vim
-alias -s pdf=qvince
-alias -s ps=qvince
+alias -s pdf=evince
+alias -s ps=evince
 alias -s png=eog
 alias -s jpg=eog
 alias -s bmp=eog
@@ -345,7 +350,6 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 bindkey -M vicmd v edit-command-line
-
 
 
 # FZF

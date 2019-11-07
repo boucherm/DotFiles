@@ -1,7 +1,7 @@
 highlight clear
 syntax reset
 let g:colors_name = "below_the_lights"
-set background=dark
+set background=light
 se t_Co=256
 
 hi Normal           cterm=NONE        ctermbg=NONE ctermfg=237  gui=NONE        guibg=#212121 guifg=#767676
@@ -14,12 +14,10 @@ hi PmenuSel         cterm=NONE        ctermbg=245  ctermfg=4
 hi PmenuSbar        cterm=NONE        ctermbg=244  ctermfg=NONE
 hi PmenuThumb       cterm=NONE        ctermbg=4    ctermfg=NONE
 
-"hi Folded ctermfg=236 ctermbg=234
 hi Folded           cterm=NONE        ctermbg=247  ctermfg=241  gui=NONE        guibg=NONE    guifg=#3a3a3a
-hi PreProc ctermfg=23
+hi PreProc          cterm=NONE        ctermbg=NONE ctermfg=23
 hi Type             cterm=NONE        ctermbg=NONE ctermfg=58   gui=NONE        guibg=NONE    guifg=#5f5faf
-hi Search           cterm=NONE        ctermbg=251  ctermfg=238  gui=NONE        guibg=#000000 guifg=#303030
-"hi Search ctermbg=16 ctermfg=65
+hi Search           cterm=NONE        ctermbg=249  ctermfg=238  gui=NONE        guibg=#000000 guifg=#303030
 hi Visual ctermbg=252
 hi Todo             cterm=bold,italic ctermbg=NONE ctermfg=52   gui=bold,italic guibg=#000000 guifg=#870000
 hi Directory ctermfg=4
@@ -27,12 +25,13 @@ hi MatchParen       cterm=NONE        ctermbg=10   ctermfg=246  gui=NONE        
 hi Title            cterm=NONE        ctermbg=NONE ctermfg=13   gui=NONE        guibg=NONE    guifg=#870000
 hi Menu ctermbg=200 ctermfg=213
 hi Wildmenu ctermbg=232 ctermfg=60
-hi ErrorMsg ctermbg=124 ctermfg=40
+hi ErrorMsg         cterm=bold,italic ctermbg=NONE ctermfg=52   gui=bold,italic guibg=#000000 guifg=#870000
 
 " Cursor
-hi CursorLine       cterm=NONE        ctermbg=249  ctermfg=NONE gui=NONE        guibg=#121212 guifg=NONE
-hi CursorLineNr     cterm=bold        ctermbg=251  ctermfg=240  gui=bold        guibg=#080808 guifg=#5f8700
-hi CursorIM cterm=underline ctermfg=34 ctermbg=43
+hi CursorLine       cterm=NONE        ctermbg=248  ctermfg=NONE gui=NONE        guibg=#121212 guifg=NONE
+hi CursorLineNr     cterm=bold        ctermbg=250  ctermfg=240  gui=bold        guibg=#080808 guifg=#5f8700
+hi CursorIM         cterm=underline   ctermfg=34   ctermbg=43
+hi CursorColumn     cterm=NONE        ctermbg=248  ctermfg=NONE gui=NONE        guibg=#121212 guifg=NONE
 
 " Tabs
 hi TabLineSel  cterm=underline,bold  ctermbg=242 ctermfg=16
@@ -41,8 +40,8 @@ hi TabLineFill cterm=underline       ctermbg=242 ctermfg=237
 
 " Splits
 hi VertSplit    cterm=none            ctermbg=242  ctermfg=24
-hi statusline   cterm=underline,bold  ctermbg=255  ctermfg=111
-hi statuslinenc cterm=underline,bold  ctermbg=255  ctermfg=105
+hi statusline   cterm=underline,bold  ctermbg=250  ctermfg=59
+hi statuslinenc cterm=underline,bold  ctermbg=250  ctermfg=102
 
 hi Number           cterm=NONE        ctermbg=NONE ctermfg=30   gui=NONE        guibg=NONE    guifg=#008787
 hi Float            cterm=NONE        ctermbg=NONE ctermfg=30   gui=NONE        guibg=NONE    guifg=#008787
@@ -52,10 +51,10 @@ hi Special ctermfg=69
 hi ColorColumn      cterm=NONE        ctermbg=245   ctermfg=NONE gui=NONE        guibg=#121212 guifg=NONE
 
 "" vimdiff
-hi DiffAdd    cterm=NONE ctermfg=245
-hi DiffChange cterm=NONE ctermfg=245
-hi DiffDelete cterm=NONE ctermfg=245
-hi DiffText   cterm=NONE ctermfg=245
+hi DiffAdd    cterm=NONE ctermbg=246 ctermfg=22
+hi DiffChange cterm=NONE ctermbg=32
+hi DiffDelete cterm=NONE ctermbg=52
+hi DiffText   cterm=NONE ctermbg=32
 
 " Colorations C
 hi cString ctermfg=60

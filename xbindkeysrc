@@ -103,7 +103,8 @@ keystate_capslock = enable
 "xdotool click 3"
   control + XF86Eject
 
-"urxvt -cd $HOME"
+#"urxvt -cd $HOME"
+"$HOME/Code/Scripts/bin/dropdown"
  Mod4 + Return
 
 "urxvt -e $HOME/Code/Scripts/bin/ranger_shell"

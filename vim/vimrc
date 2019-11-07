@@ -139,6 +139,11 @@ filetype plugin on
    " however it breaks the warnings displayed when opening a file twice
    "autocmd CursorHold,BufWritePost,BufReadPost,BufLeave * if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
 
+   " Auto read/reload
+   set autoread
+   au FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+   set updatetime=500
+
    "lines
    set wrap
    set linebreak
@@ -192,7 +197,15 @@ filetype plugin on
       vnoremap ,r :!tac<CR>
    endif
 
-   "vimdiff: diffopt and diffexpr
+   " Diff
+    if has("patch-8.1.0360")
+     "set diffopt=internal,algorithm:myers
+     "set diffopt=internal,algorithm:minimal
+     set diffopt=internal,algorithm:patience
+     "set diffopt=internal,algorithm:histogram
+     set diffopt+=context:1000
+   endif
+   autocmd BufRead * let &l:modifiable = !&readonly
 
 
   """""""""""""""""""""""
@@ -213,9 +226,13 @@ filetype plugin on
 "--------------------------------- UI ----------------------------------------
    "Various settings
    set t_Co=256
-   "colorscheme monumension
-   colorscheme below_the_lights
-   set background=dark
+   "set background=dark
+   set background=light
+   if (&background == 'dark')
+     colorscheme monumension
+    else
+     colorscheme below_the_lights
+    endif
    set lazyredraw
    set clipboard=unnamed "there is also unnamedplus, I ignore the difference
    "set clipboard=unnamedplus "there is also unnamedplus, I ignore the difference
@@ -237,6 +254,7 @@ filetype plugin on
    au WinLeave * setlocal nocursorline
    "au VimEnter,WinEnter,BufWinEnter * set cursorline
    "au WinLeave * set nocursorline
+   set foldcolumn=0
 
    "Tabs
    set tabpagemax=50
@@ -466,6 +484,16 @@ filetype plugin on
      ""autocmd SwapExists * echohl None
    "augroup END
 
+   augroup exit
+     " alias need to be placed in .zshenv to be accessible
+     autocmd VimLeave * silent !cursor_block
+     "if exists('$TMUX')
+         "autocmd VimLeave * silent !cursor_block
+     "else
+         "autocmd VimLeave * silent !cursor_block
+     "endif
+   augroup end
+
 
 "--------------------------------- Plugins -----------------------------------
    " Pathogen
@@ -517,6 +545,8 @@ filetype plugin on
 
 
    "Tagbar
+     let g:tagbar_sort=0
+     let g:tagbar_autofocus=1
      nnoremap ,t :TagbarToggle<CR>
 
    "YouCompleteMe
@@ -588,28 +618,16 @@ filetype plugin on
      vmap v <Plug>(expand_region_expand)
      vmap <C-v> <Plug>(expand_region_shrink)
 
-   ""Vim Sneak
-     ""replace 'f' with inclusive 1-char Sneak
-     "nmap f <Plug>Sneak_f
-     "nmap F <Plug>Sneak_F
-     "xmap f <Plug>Sneak_f
-     "xmap F <Plug>Sneak_F
-     "omap f <Plug>Sneak_f
-     "omap F <Plug>Sneak_F
-     ""replace 't' with exclusive 1-char Sneak
-     "nmap t <Plug>Sneak_t
-     "nmap T <Plug>Sneak_T
-     "xmap t <Plug>Sneak_t
-     "xmap T <Plug>Sneak_T
-     "omap t <Plug>Sneak_t
-     "omap T <Plug>Sneak_T
-
-     "hi SneakPluginTarget cterm=bold,italic ctermbg=16
-
    " ShowMotion
-     highlight SM_SmallMotionGroup cterm=italic                ctermbg=53 gui=italic                guibg=#5f005f
-     highlight SM_BigMotionGroup   cterm=italic,bold,underline ctermbg=54 gui=italic,bold,underline guibg=#5f0087
-     highlight SM_CharSearchGroup  cterm=italic,bold           ctermbg=4  gui=italic,bold           guibg=#3f6691
+     if (&background == 'dark')
+       highlight ShowMotion_SmallMotionGroup cterm=italic                ctermbg=53 gui=italic                guibg=#5f005f
+       highlight ShowMotion_BigMotionGroup   cterm=italic,bold,underline ctermbg=54 gui=italic,bold,underline guibg=#5f0087
+       highlight ShowMotion_CharSearchGroup  cterm=italic,bold           ctermbg=4  gui=italic,bold           guibg=#3f6691
+    else
+       highlight ShowMotion_SmallMotionGroup cterm=italic                ctermbg=36
+       highlight ShowMotion_BigMotionGroup   cterm=italic,bold,underline ctermbg=34
+       highlight ShowMotion_CharSearchGroup  cterm=italic,bold           ctermbg=38
+    endif
 
      nmap <silent> w <Plug>(show-motion-both-w)
      nmap <silent> W <Plug>(show-motion-W)
@@ -632,3 +650,9 @@ filetype plugin on
    highlight ALEError   ctermfg=16 ctermbg=52
    highlight ALEWarning ctermfg=16 ctermbg=4
    let g:ale_echo_cursor=0 "vim's version from ubuntu 18.04 repos is buggy
+
+   " MultipleSearch"
+   let g:MultipleSearchMaxColors=17
+   "let g:MultipleSearchColorSequence="yellow,blue,green,magenta,cyan,gray,brown"
+   let g:MultipleSearchColorSequence="3,4,2,13,94,12,10"
+   let g:MultipleSearchTextColorSequence="237,237,237,245,245,237,245"

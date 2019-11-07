@@ -18,35 +18,35 @@ xcalendar*markHoliday:     false
 !===============================================================================
 !=== URxvt
 !
-!URxvt*meta8:      true
-!URxvt*font:       xft:ubuntumono:pixelsize=15:antialias=true:hinting=true
-!URxvt*boldFont:   xft:ubuntumono:bold:pixelsize=15:antialias=true:hinting=true
-!URxvt*font:       xft:firamono:pixelsize=15:antialias=true:hinting=true
-!URxvt*boldFont:   xft:firamono:bold:pixelsize=15:antialias=true:hinting=true
-!URxvt*font:       xft:monospace:pixelsize=17:antialias=false:hinting=true
-!URxvt*boldFont:   xft:monospace:bold:pixelsize=17:antialias=false:hinting=true
-!URxvt*font:       xft:monospace:pixelsize=16:antialias=false:hinting=true
-!URxvt*boldFont:   xft:monospace:bold:pixelsize=16:antialias=false:hinting=true
-!URxvt*font:       xft:clearsans:pixelsize=17
-!URxvt*boldFont:   xft:clearsans:bold:pixelsize=17
+! use the `fc-list` command to list available fonts
+! some are located in /usr/share/fonts/truetype
 !
-!URxvt*font:        xft:monospace:pixelsize=13:antialias=false:hinting=true
-!URxvt*boldFont:    xft:monospace:bold:pixelsize=13:antialias=false:hinting=true
-URxvt*font:        xft:monospace:pixelsize=13:antialias=true:hinting=true
-URxvt*boldFont:    xft:monospace:bold:pixelsize=13:antialias=true:hinting=true
-!URxvt*font:        xft:monospace:pixelsize=11:antialias=false:hinting=true
-!URxvt*boldFont:    xft:monospace:bold:pixelsize=11:antialias=false:hinting=true
-
-!URxvt*font:        xft:DejaVuSansMono:pixelsize=14:antialias=true:hinting=true
-!URxvt*boldFont:    xft:DejaVuSansMono:bold:pixelsize=14:antialias=true:hinting=true
-
-! use fc-list to get a list of fonts
+!URxvt*meta8:      true
+!URxvt*font:       xft:ubuntumono:pixelsize=14:antialias=true:hinting=true
+!URxvt*boldFont:   xft:ubuntumono:bold:pixelsize=14:antialias=true:hinting=true
+!URxvt*font:       xft:firamono:pixelsize=12:antialias=true:hinting=true
+!URxvt*boldFont:   xft:firamono:bold:pixelsize=12:antialias=true:hinting=true
+!URxvt*font:       xft:clearsans:pixelsize=13:antialias=true:hinting=true
+!URxvt*boldFont:   xft:clearsans:bold:pixelsize=13:antialias=true:hinting=true
+URxvt*font:       xft:monospace:pixelsize=13:antialias=true:hinting=true
+URxvt*boldFont:   xft:monospace:bold:pixelsize=13:antialias=true:hinting=true
+!URxvt*font:       xft:DejaVuSansMono:pixelsize=13:antialias=true:hinting=true
+!URxvt*boldFont:   xft:DejaVuSansMono:bold:pixelsize=13:antialias=true:hinting=true
+!URxvt*font:       xft:cousine:pixelsize=12:antialias=true:hinting=true
+!URxvt*boldFont:   xft:cousine:bold:pixelsize=12:antialias=true:hinting=true
+!URxvt*font:       xft:liberationmono:pixelsize=12:antialias=true:hinting=true
+!URxvt*boldFont:   xft:liberationmono:bold:pixelsize=12:antialias=true:hinting=true
+!URxvt*font:        xft:notosansmono:pixelsize=13:antialias=true:hinting=true
+!URxvt*boldFont:    xft:notosansmono:bold:pixelsize=13:antialias=true:hinting=true
+!URxvt*font:        xft:inconsolata:pixelsize=15:antialias=true:hinting=true
+!URxvt*boldFont:    xft:inconsolata:bold:pixelsize=15:antialias=true:hinting=true
 
 !
 URxvt*scrollBar:   false
 !URxvt*borderColor: darkcyan
 URxvt*saveLines:   12000
 URxvt*cursorBlink: true
+URxvt*cursorUnderline:  false
 !URxvt.keysym.M-C-1:       command:\033]710;suxuseuro\007\033]711;suxuseuro\007
 URxvt.perl-ext-common:    default
 URxvt.pointerBlank:       true
@@ -128,7 +128,6 @@ URxvt.color15:                          #FFFFFF
 !URxvt*foreground:        grey60
 !!URxvt*transparent:      false
 !!URxvt*blurRadius:       3x3
-!!URxvt*cursorUnderline:  true
 !URxvt*underlineColor:    darkolivegreen
 !URxvt*cursorBlink:       true
 !URxvt*cursorColor:       darkolivegreen
@@ -140,6 +139,11 @@ URxvt.color15:                          #FFFFFF
 !
 != Plain color background
 URxvt*background:      grey60
+!
+! Color modifications
+!green
+URxvt.color2:                           #3e8000
+URxvt.color10:                          #007306
 !
 ! Image background
 !URxvt*backgroundPixmap:  full_path_to/DotFiles/grey_gradient_tiny.pgm;op=root-align;style=stretched
@@ -154,18 +158,12 @@ URxvt*background:      grey60
 !
 URxvt*foreground:      grey13
 URxvt*underlineColor:  darkolivegreen
-URxvt*cursorColor:     grey
-
-! Color modifications
-!green
-URxvt.color2:                           #3e8000
-URxvt.color10:                          #007306
+URxvt*cursorColor:     green
 
 
 !===============
 ! Perl scripts
 !URxvt.perl-lib: full_path_to/DotFiles/urxvt-perls
-
 
 
 !===============================================================================
