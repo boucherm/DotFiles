@@ -131,6 +131,7 @@ URxvt.color15:                          #FFFFFF
 !URxvt*underlineColor:    darkolivegreen
 !URxvt*cursorBlink:       true
 !URxvt*cursorColor:       darkolivegreen
+!URxvt*cursorColor:       green
 !URxvt*cursorColor2:      darkslateblue
 
 
@@ -158,7 +159,7 @@ URxvt.color10:                          #007306
 !
 URxvt*foreground:      grey13
 URxvt*underlineColor:  darkolivegreen
-URxvt*cursorColor:     green
+URxvt*cursorColor:     grey
 
 
 !===============
