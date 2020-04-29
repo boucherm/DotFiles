@@ -4,32 +4,27 @@
 
 theme = {}
 
-theme.font          = "sans bold 10"
+theme.font          = "sans bold 8"
 
 -- Very dark, low contrast
---
--- theme.fg_normal     = "#264f33"
--- theme.bg_normal     = "#191919"
---
--- theme.bg_systray    = theme.bg_normal
---
--- theme.fg_focus      = "#416530"
--- theme.bg_focus      = "#101010"
---
--- theme.bg_minimize   = "#191919"
--- theme.fg_minimize   = "#3a3a3a"
---
--- theme.bg_urgent     = "#ff0000"
--- theme.fg_urgent     = "#ffffff"
---
--- theme.border_width  = 1
--- theme.border_normal = "#000000"
--- theme.border_focus  = "#262626"
--- theme.border_marked = "#a21100"
+
+--theme.fg_normal     = "#264f33"
+--theme.bg_normal     = "#191919"
+
+--theme.bg_systray    = theme.bg_normal
+
+--theme.fg_focus      = "#416530"
+--theme.bg_focus      = "#101010"
+
+--theme.bg_minimize   = "#191919"
+--theme.fg_minimize   = "#3a3a3a"
+
+--theme.bg_urgent     = "#ff0000"
+--theme.fg_urgent     = "#ffffff"
 
 
 -- Dark, medium contrast
---
+
 theme.fg_focus      = "#3d8079"
 theme.bg_focus      = "#000000"
 
@@ -43,6 +38,56 @@ theme.bg_systray    = theme.bg_normal
 
 theme.bg_urgent     = "#ff0000"
 theme.fg_urgent     = "#ffffff"
+
+
+-- Light, low contrast
+--
+--theme.fg_focus      = "#155473"
+--theme.bg_focus      = "#8b8b8b"
+
+--theme.fg_normal     = "#105911"
+--theme.bg_normal     = "#808080"
+
+--theme.fg_minimize   = "#191919"
+--theme.bg_minimize   = "#bbbbbb"
+
+--theme.bg_systray    = theme.bg_normal
+
+--theme.bg_urgent     = "#813198"
+--theme.fg_urgent     = "#8b8b8b"
+
+
+---- Light
+--
+----theme.fg_focus      = "#4c993d"
+----theme.bg_focus      = "#dddddd"
+----
+----theme.fg_focus     = "#055e80"
+----theme.bg_focus     = "#c2cacc"
+----
+--theme.fg_focus     = "#055e80"
+--theme.bg_focus     = "#ced7d9"
+--
+----theme.fg_normal     = "#06729a"
+----theme.bg_normal     = "#bbbbbb"
+----
+----theme.fg_normal     = "#10660c"
+----theme.bg_normal     = "#c2ccc3"
+----
+--theme.fg_normal     = "#10660c"
+--theme.bg_normal     = "#b8ccba"
+--
+--theme.fg_minimize   = "#191919"
+----theme.bg_minimize   = "#bbbbbb"
+--theme.bg_minimize   = "#aab3aa"
+--
+--theme.bg_systray    = theme.bg_normal
+--
+--theme.bg_urgent     = "#813198"
+--theme.fg_urgent     = "#8b8b8b"
+
+
+-- Common
 
 theme.border_width  = 1
 theme.border_normal = "#000000"

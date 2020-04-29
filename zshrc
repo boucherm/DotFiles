@@ -7,8 +7,8 @@ autoload -U zmv
 #setopt PRINT_EXIT_VALUE #nice for script debugging
 
 # HISTORY
-export HISTSIZE=200000 # n lines kept in history
-export SAVEHIST=100000 # n lines saved in history after logout
+export HISTSIZE=10000 # n lines kept in history, ignored anyway...
+export SAVEHIST=10000 # n lines saved in history after logout, ignored anyway...
 export HISTFILE=~/.zshhistory
 setopt APPEND_HISTORY
 setopt hist_ignore_all_dups
@@ -45,20 +45,20 @@ zstyle ':completion:*'                                          select-prompt
 zstyle ':completion:*'                                          list-colors ${(s.:.)LS_COLORS}       # colorz !
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh list-colors ${(s.:.)LS_COLORS}
 
-
 # Expression and Globbing
 setopt EXTENDED_GLOB
 setopt NOMATCH
+
+
+#---------------------------------------------------------------------------------------------------
+#--- Commands
+#---------------------------------------------------------------------------------------------------
 
 # Vim stuff
 export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 export SUDO_EDITOR=/usr/bin/vim
 export VIMDIR=~/Softs/vim/build/bin/
-
-
-# ROS
-source /opt/ros/melodic/setup.zsh
 
 # Aliases
 alias sl='sl -e'
@@ -80,7 +80,7 @@ alias rm='mvtrash'
 alias ln='ln --verbose'
 alias mupdatedb='sudo updatedb -U /media/Data --output=$HOME/mlocate.db'
 alias mlocate='locate -i -d $HOME/mlocate.db'
-alias make='make -j 7'
+alias make='make -j $(( 3*$(nproc)/4 ))'
 alias ninja='ninja -j 12'
 alias remake='make clean; make'
 #alias python='ipython'
@@ -142,6 +142,10 @@ alias -s mp4=vlc
 # '<,'>s/\(alias -s \)\(\S\+\)\(\s\+\)= \(.*\)/\1\3\2=\4
 
 
+#---------------------------------------------------------------------------------------------------
+#--- Colors
+#---------------------------------------------------------------------------------------------------
+#
 # Colors
 autoload -U colors && colors
 
@@ -185,15 +189,14 @@ git_super_status()
 # prompt
 update_prompt()
 {
-  # Dark
-  #export PS1="%{$bg[black]%}%{$fg[yellow]%}⚡%{$fg_bold[grey]%}%n@%m%{$reset_color%} %{$fg_no_bold[blue]%}%~%{$fg_bold[grey]%}% %(?.. ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{$reset_color%} "
-  #export RPS1="%{$fg_no_bold[blue]%}%T%{$reset_color%}%{$fg_bold[green]%}%"
-  export  PS1="%{$bg[black]%}%{$fg[yellow]%}⚡%{$fg_bold[grey]%}%n@%m %{$fg_no_bold[blue]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
-  export RPS1="%{$bg[black]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
+  # Dark ~ Light
+  #export  PS1="%{$bg[grey]%}%{$fg[yellow]%}⚡%{$fg_bold[grey]%}%n@%m %{$fg_no_bold[blue]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
+  #export RPS1="%{$bg[black]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
 
   # Light
-  #export  PS1="%{$bg[blue]%}%{$fg[yellow]%}⚡%{$fg_no_bold[black]%}%n@%m %{$fg_bold[grey]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
+  #export  PS1="%{$bg[blue]%}%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
   #export RPS1="%{$bg[blue]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
+  export  PS1="%{$bg[blue]%}%{$fg_no_bold[yellow]%}%T%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
 }
 # Dynamically set urxvt title as current directory
 # and update git status in prompt
@@ -215,42 +218,56 @@ cpt_files='*.cpt=01;04;35;42'
 LS_COLORS=':di=1;94:fi=0:ln=31:pi=4:so=4:bd=4:cd=4:or=31:mi=0:ex=32':$images:$video:$docs:$compressed:$code:$intermediary_files:$bak_files:$build_files:$cpt_files:':ow=34;1;40'
 export LS_COLORS
 
-# prevent ld from demangling
-export COLLECT_NO_DEMANGLE=1
+
+# Colored man pages for color codes, see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
+man() {
+    env \
+        LESS_TERMCAP_mb=$fg[magenta]          \
+        LESS_TERMCAP_md=$fg_bold[blue]        \
+        LESS_TERMCAP_me=$(printf "\e[0m")     \
+        LESS_TERMCAP_se=$(printf "\e[0m")     \
+        LESS_TERMCAP_so=$fg[yellow]$bg[black] \
+        LESS_TERMCAP_ue=$(printf "\e[0m")     \
+        LESS_TERMCAP_us=$fg[green]            \
+            man "$@"
+}
 
 
-# PATH
-[ -z $ZSHRC_LOADED ] && export PATH=~/Softs/vim/build/bin/:$PATH
+#---------------------------------------------------------------------------------------------------
+#--- Path & libs
+#---------------------------------------------------------------------------------------------------
+
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/Code/Scripts/bin
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/.cabal/bin
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/Softs/vcsh/
+[ -z $ZSHRC_LOADED ] && export PATH=/usr/lib/ccache:$PATH
 
-
-# OpenCV2
-##export OpenCV_DIR=~/libs/opencv-2.4.9/release
-##export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_DIR/shared_libs/lib
-#export OpenCV_DIR=~/libs/opencv/build/install
+# OpenCV
+#export OpenCV_DIR=~/libs/opencv-3.4.4/build/install
 #export OpenCV_LIBS=$OpenCV_DIR/lib
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_LIBS
 #export PYTHONPATH=$PYTHONPATH:$OpenCV_LIBS/python3.5/dist-packages
 
-# OpenCV3
-export OpenCV_DIR=~/libs/opencv-3.4.4/build/install
-export OpenCV_LIBS=$OpenCV_DIR/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OpenCV_LIBS
-export PYTHONPATH=$PYTHONPATH:$OpenCV_LIBS/python3.5/dist-packages
-
-
 # RealSense
-export REALSENSE_DIR=~/libs/realsense/librealsense
-export PYTHONPATH=$PYTHONPATH:$REALSENSE_DIR/build/wrappers/python
+#export REALSENSE_DIR=~/libs/realsense/librealsense
+#export PYTHONPATH=$PYTHONPATH:$REALSENSE_DIR/build/wrappers/python
 
+# prevent ld from demangling
+export COLLECT_NO_DEMANGLE=1
+
+
+#---------------------------------------------------------------------------------------------------
+#--- Command line editing
+#---------------------------------------------------------------------------------------------------
 
 # Vi bindings
+autoload -z edit-command-line
+zle -N edit-command-line
 bindkey -v
-bindkey -M vicmd '/' history-incremental-search-backward
-bindkey -M vicmd '?' history-incremental-search-forward
+bindkey -M vicmd '/'  history-incremental-search-backward
+bindkey -M vicmd '?'  history-incremental-search-forward
 bindkey -M viins 'jk' vi-cmd-mode
+bindkey -M vicmd 'v'  edit-command-line
 
 # Cursor color mode
 zle-keymap-select ()
@@ -273,6 +290,10 @@ zle-line-init ()
 zle -N zle-line-init
 
 
+#---------------------------------------------------------------------------------------------------
+#--- Extras
+#---------------------------------------------------------------------------------------------------
+
 # Marks
 export MARKPATH=$HOME/.zsh/marks
 function j { cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1" }
@@ -287,7 +308,7 @@ function marks-help
    echo "unmark dir to remove"
 }
 
-# extract
+# Extract
 function x
 {
   if [ -f $1 ] ; then
@@ -313,7 +334,7 @@ function x
 }
 
 
-# easier directory climb up
+# Easier directory climb up
 rationalise-dot() {
    if [[ $LBUFFER = *.. ]]; then
       LBUFFER+=/..
@@ -335,28 +356,10 @@ bindkey . rationalise-dot
 #WATCHFMT="%n from %M has %a tty%l at %T %W"
 
 
-# Colored man pages for color codes, see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-man() {
-    env \
-        LESS_TERMCAP_mb=$fg[magenta]          \
-        LESS_TERMCAP_md=$fg_bold[blue]        \
-        LESS_TERMCAP_me=$(printf "\e[0m")     \
-        LESS_TERMCAP_se=$(printf "\e[0m")     \
-        LESS_TERMCAP_so=$fg[yellow]$bg[black] \
-        LESS_TERMCAP_ue=$(printf "\e[0m")     \
-        LESS_TERMCAP_us=$fg[green]            \
-            man "$@"
-}
-
-
-# Edit the command line with vim
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-bindkey -M vicmd v edit-command-line
-
-
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# ROS
+#source /opt/ros/melodic/setup.zsh
 
 export ZSHRC_LOADED="1"

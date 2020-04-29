@@ -23,7 +23,8 @@ pidof nm-applet || nm-applet &
 
 
 #------- Awesome-wm specifics
-feh --bg-fill $HOME/../Pictures/Wallpaper/abstract/wallpaper.png
+#feh --bg-fill $HOME/../Pictures/Wallpaper/abstract/wallpaper.png
+[ -f $HOME/DotFiles/wallpaper ] && feh --bg-fill $HOME/DotFiles/wallpaper
 
 #--- Vsync
 #pidof compton || compton -CG --backend glx --paint-on-overlay --vsync opengl-swc &
@@ -70,6 +71,12 @@ done
 
 #------- Keyboard settings
 #
+#- to get a list of the current mappings use:
+# xmodmap -pke
+#
+#- to get the keycode of pressed keys use:
+# xev
+#
 #--- Set layout
 setxkbmap -layout us
 #setxkbmap -layout us -variant intl
@@ -111,14 +118,14 @@ xmodmap -e 'keysym bracketleft  = braceleft bracketleft'
 #keysym 9            = 9          bracketleft
 #keysym 0            = 0          bracketright
 #
-#--- Get a list of the current mappings
-# xmodmap -pke
-
-
+#
+#---- Insert ( disable )
+# 118 is the 'insert' keycode
+xmodmap -e "keycode 118 ="
+#
 #--- Unity/gnome disable desktop icons
 #gsettings set org.gnome.desktop.background show-desktop-icons false
-
-
+#
 #--- Load nvidia-settings
 #nvidia-settings --config=~/.config/nvidia-settings-rc --load-config-only &
 #--- Set monitor's refresh rate

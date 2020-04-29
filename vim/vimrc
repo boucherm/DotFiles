@@ -95,7 +95,7 @@ filetype plugin on
    vnoremap ,F :'<,'>normal zA
    nnoremap :f :set foldlevel=
 
-   " invoke urxvt
+   " summon urxvt
    nnoremap ,u :!urxvt -cd $PWD &<CR><CR>
 
    " Sudo write
@@ -142,6 +142,8 @@ filetype plugin on
    " Auto read/reload
    set autoread
    au FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
+   "au FocusGained,BufEnter,CursorHold,CursorHoldI * if pumvisible() | checktime | endif
+   "au FocusGained,BufEnter,CursorHold,CursorHoldI * silent checktime
    set updatetime=500
 
    "lines
@@ -161,6 +163,16 @@ filetype plugin on
    nnoremap <C-k> <C-Y>k
    vnoremap <C-j> <C-E>j
    vnoremap <C-k> <C-Y>k
+
+   function! SetScrollMode()
+     nnoremap j <C-E>j
+     nnoremap k <C-Y>k
+   endfunction
+
+   function! SetNoScrollMode()
+     nnoremap j gj
+     nnoremap k gk
+   endfunction
 
    "Highlight trailing spaces
    function! MatchWhiteSpace()
@@ -207,6 +219,10 @@ filetype plugin on
    endif
    autocmd BufRead * let &l:modifiable = !&readonly
 
+   " tjump / tselect in new tab
+   nnoremap <C-]> :tab tjump <C-r><C-w><CR>
+   "nnoremap <C-]> :tab tselect <C-r><C-w><CR>
+
 
   """""""""""""""""""""""
   " CUSTOM TEXT-OBJECTS "
@@ -226,16 +242,16 @@ filetype plugin on
 "--------------------------------- UI ----------------------------------------
    "Various settings
    set t_Co=256
-   "set background=dark
-   set background=light
+   set background=dark
+   "set background=light
    if (&background == 'dark')
      colorscheme monumension
     else
      colorscheme below_the_lights
     endif
    set lazyredraw
-   set clipboard=unnamed "there is also unnamedplus, I ignore the difference
-   "set clipboard=unnamedplus "there is also unnamedplus, I ignore the difference
+   set clipboard=unnamed      " i.e. * register, for mouse middle-click
+   "set clipboard=unnamedplus " i.e. + register, for ctrl-v
    set mouse=""
    "set title
    set ruler
@@ -387,6 +403,7 @@ filetype plugin on
      au BufNewFile,BufRead *.cpp    set      syntax=cpp11
      "au InsertLeave *.cpp call s:SaveView() | let g:d = max([line('.')-5, 0]) | let g:u = min([line('.')+5,line('$')]) | :exe 'silent' g:d.','.g:u 's/(\s*\(.\{-}\)\s*)/( \1 )/e' | :exe 'silent' g:d.','.g:u 's/(\s*)/()/e' | call s:RestoreView()
      "au FileType        cpp abbr if if (
+     au FileType           cpp      set      tags=tags; "https://vim.fandom.com/wiki/Single_tags_file_for_a_source_tree
    augroup end
 
    augroup cmake
@@ -437,7 +454,7 @@ filetype plugin on
 
    augroup Xfiles
      au!
-     au BufRead,BufNewFile .Xresources     set makeprg=xrdb\ .Xresources\;urxvt
+     au BufRead,BufNewFile .Xresources     set makeprg=xrdb\ ~/.Xresources\;urxvt
      au BufRead,BufNewFile .xbindkeysrc    set makeprg=killall\ -HUP\ xbindkeys\;\ xbindkeys
      au BufRead,BufNewFile rc.lua nnoremap ,w :update<Enter> :!~/Code/Scripts/bin/awesomecheck <Enter><Enter>
      "au BufWrite rc.lua :!~/Code/Scripts/bin/awesomecheck
@@ -486,12 +503,8 @@ filetype plugin on
 
    augroup exit
      " alias need to be placed in .zshenv to be accessible
+     autocmd VimEnter * silent !cursor_underline
      autocmd VimLeave * silent !cursor_block
-     "if exists('$TMUX')
-         "autocmd VimLeave * silent !cursor_block
-     "else
-         "autocmd VimLeave * silent !cursor_block
-     "endif
    augroup end
 
 
@@ -514,6 +527,7 @@ filetype plugin on
    "NERDTree
      let NERDTreeIgnore=['\.o$', '\.hi$']
      nnoremap ,e :NERDTreeTabsToggle<Enter>
+     let NERDTreeHijackNetrw=1
 
    "CtrlP
      nnoremap ,o :CtrlP<CR>
@@ -555,7 +569,9 @@ filetype plugin on
      let g:ycm_key_list_previous_completion = ['<C-k>']
      let g:ycm_filetype_blacklist = { 'make': 1, 'tagbar':1 }
      let g:ycm_filetype_whitelist = { 'cpp': 1, 'c': 1 }
-     let g:ycm_use_ultisnips_completer = 0
+     "hi YcmErrorSign ctermbg=NONE
+     "hi YcmErrorLine ctermbg=NONE
+     "let g:ycm_use_ultisnips_completer = 0
 
    " clangcomplete
      "let g:clang_auto_select = 1
@@ -615,8 +631,8 @@ filetype plugin on
      nnoremap <leader>r :<C-U>RangerChooser<CR>
 
    "Expand-region
-     vmap v <Plug>(expand_region_expand)
-     vmap <C-v> <Plug>(expand_region_shrink)
+     vnoremap v <Plug>(expand_region_expand)
+     vnoremap <C-v> <Plug>(expand_region_shrink)
 
    " ShowMotion
      if (&background == 'dark')
