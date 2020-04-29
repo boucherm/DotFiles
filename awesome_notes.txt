@@ -1,0 +1,7 @@
+With ubuntu-18 / gnome
+======================
+
+Enable keyring
+--------------
+. edit /etc/xdg/autostart/gnome-keyring*.desktop, comment out the "OnlyShowIn" lines
+. https://scaron.info/blog/awesome-with-gnome-on-ubuntu.html
