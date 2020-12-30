@@ -38,6 +38,7 @@ unsetopt LIST_AMBIGUOUS
 unsetopt BASH_AUTO_LIST
 unsetopt MENU_COMPLETE
 
+zstyle ':completion:*' completer _expand_alias _complete _ignored
 zstyle ':completion:*'                                          menu select=1
 zstyle ':completion:*:descriptions'                             format '%U%B%d%b%u'
 zstyle ':completion:*:warnings'                                 format '%BNo match for: %d%b'
@@ -49,6 +50,11 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh list-colors ${(s
 setopt EXTENDED_GLOB
 setopt NOMATCH
 
+# To not introduce backslashes before spaces in parameter expansion
+#setopt shwordsplit
+# Another safer option is to expand with $=test instead of just $test
+#export test1=(a b)
+#export test2="a b"
 
 #---------------------------------------------------------------------------------------------------
 #--- Commands
@@ -80,8 +86,8 @@ alias rm='mvtrash'
 alias ln='ln --verbose'
 alias mupdatedb='sudo updatedb -U /media/Data --output=$HOME/mlocate.db'
 alias mlocate='locate -i -d $HOME/mlocate.db'
-alias make='make -j $(( 3*$(nproc)/4 ))'
-alias ninja='ninja -j 12'
+alias make='make -j $(( 2*$(nproc)/4 ))'
+alias ninja='ninja -j $(( 2*$(nproc)/4 ))'
 alias remake='make clean; make'
 #alias python='ipython'
 alias r='source ranger_cd'
@@ -112,9 +118,10 @@ alias youtube-dl='python ~/Softs/youtube-dl/bin/youtube-dl'
 alias python='python3'
 alias py='python'
 alias ipy='ipython3'
+alias gc='git checkout'
 alias gs='git status'
 alias gd='git difftool'
-alias gl='git log --pretty=format:"%h - %cn, %cr : %s" --graph'
+alias gl='git log --pretty=format:"%h - %an, %ar : %s" --graph'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gdn='git diff --name-only'
@@ -157,25 +164,40 @@ ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg_no_bold[green]%}|"
 git_super_status()
 {
   precmd_update_git_vars
-  if [ -n "$__CURRENT_GIT_STATUS" ]; then
+
+  if [ "$DARK" -ne "0" ];
+  then
+    ZSH_THEME_GIT_PROMPT_CHANGED=$ZSH_THEME_GIT_PROMPT_CHANGED_DARK
+  else
+    ZSH_THEME_GIT_PROMPT_CHANGED=$ZSH_THEME_GIT_PROMPT_CHANGED_LIGHT
+  fi
+
+  if [ -n "$__CURRENT_GIT_STATUS" ];
+  then
     STATUS=" $ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH"
-    if [ "$GIT_BEHIND" -ne "0" ]; then
+    if [ "$GIT_BEHIND" -ne "0" ];
+    then
       STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_BEHIND$GIT_BEHIND"
     fi
-    if [ "$GIT_AHEAD" -ne "0" ]; then
+    if [ "$GIT_AHEAD" -ne "0" ];
+    then
       STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_AHEAD$GIT_AHEAD"
     fi
     STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_SEPARATOR"
-    if [ "$GIT_STAGED" -ne "0" ]; then
+    if [ "$GIT_STAGED" -ne "0" ];
+    then
       STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_STAGED$GIT_STAGED"
     fi
-    if [ "$GIT_CONFLICTS" -ne "0" ]; then
+    if [ "$GIT_CONFLICTS" -ne "0" ];
+    then
       STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CONFLICTS$GIT_CONFLICTS"
     fi
-    if [ "$GIT_CHANGED" -ne "0" ]; then
+    if [ "$GIT_CHANGED" -ne "0" ];
+    then
       STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CHANGED$GIT_CHANGED"
     fi
-    if [ "$GIT_UNTRACKED" -ne "0" ]; then
+    if [ "$GIT_UNTRACKED" -ne "0" ];
+    then
       STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED"
     fi
     if [ "$GIT_CHANGED" -eq "0" ] && [ "$GIT_CONFLICTS" -eq "0" ] && [ "$GIT_STAGED" -eq "0" ] && [ "$GIT_UNTRACKED" -eq "0" ]; then
@@ -189,14 +211,18 @@ git_super_status()
 # prompt
 update_prompt()
 {
-  # Dark ~ Light
-  #export  PS1="%{$bg[grey]%}%{$fg[yellow]%}⚡%{$fg_bold[grey]%}%n@%m %{$fg_no_bold[blue]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
-  #export RPS1="%{$bg[black]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
+  if [ "$DARK" -ne "0" ];
+  then
 
-  # Light
-  #export  PS1="%{$bg[blue]%}%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
-  #export RPS1="%{$bg[blue]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
-  export  PS1="%{$bg[blue]%}%{$fg_no_bold[yellow]%}%T%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
+    export  PS1="%{$bg[grey]%}%{$fg[yellow]%}⚡%{$fg_bold[grey]%}%n@%m %{$fg_no_bold[blue]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
+    export RPS1="%{$bg[black]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
+
+  else
+
+    #export  PS1="%{$bg[blue]%}%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
+    #export RPS1="%{$bg[blue]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
+    export  PS1="%{$bg[blue]%}%{$fg_no_bold[yellow]%}%T%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
+  fi
 }
 # Dynamically set urxvt title as current directory
 # and update git status in prompt
@@ -231,6 +257,14 @@ man() {
         LESS_TERMCAP_us=$fg[green]            \
             man "$@"
 }
+# Or, in a bashrc way:
+#export LESS_TERMCAP_mb=$'\e[1;35m'
+#export LESS_TERMCAP_md=$'\e[1;34m'
+#export LESS_TERMCAP_me=$'\e[0m'
+#export LESS_TERMCAP_se=$'\e[0m'
+#export LESS_TERMCAP_so=$'\e[1;33m'
+#export LESS_TERMCAP_ue=$'\e[0m'
+#export LESS_TERMCAP_us=$'\e[0;32m'
 
 
 #---------------------------------------------------------------------------------------------------

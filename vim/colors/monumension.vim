@@ -44,7 +44,6 @@ let g:colors_name = "monumension"
 set background=dark
 set t_Co=256
 
-"hi Normal ctermbg=235 ctermfg=242
 hi Normal           cterm=NONE        ctermbg=234  ctermfg=242
 hi Comment          cterm=italic      ctermbg=NONE ctermfg=22
 hi Statement        cterm=NONE        ctermbg=NONE ctermfg=60
@@ -56,7 +55,7 @@ hi Special          cterm=NONE        ctermbg=NONE ctermfg=5
 
 hi LineNr           cterm=NONE        ctermbg=233  ctermfg=23
 hi SignColumn       cterm=NONE        ctermbg=232  ctermfg=NONE
-hi ColorColumn      cterm=NONE        ctermbg=NONE ctermfg=NONE
+hi ColorColumn      cterm=NONE        ctermbg=234  ctermfg=NONE
 
 hi Search           cterm=NONE        ctermbg=16   ctermfg=236
 hi Visual           cterm=NONE        ctermbg=16   ctermfg=NONE
@@ -66,7 +65,7 @@ hi PmenuSel         cterm=NONE        ctermbg=233  ctermfg=2
 hi PmenuSbar        cterm=NONE        ctermbg=232  ctermfg=NONE
 hi PmenuThumb       cterm=NONE        ctermbg=233  ctermfg=NONE
 
-" Too bad, the folded highlights also affect the linenumber column
+" ↓ Too bad, the folded highlights also affect the linenumber column
 hi Folded           cterm=NONE        ctermbg=NONE ctermfg=237
 hi PreProc          cterm=NONE        ctermbg=NONE ctermfg=23
 hi Todo             cterm=bold,italic ctermbg=16   ctermfg=88
@@ -78,6 +77,7 @@ hi Wildmenu         cterm=NONE        ctermbg=60   ctermfg=232
 hi ErrorMsg         cterm=NONE        ctermbg=90   ctermfg=235
 hi Error            cterm=NONE        ctermbg=232  ctermfg=1
 hi SpecialKey       cterm=bold        ctermbg=NONE ctermfg=13
+hi Conceal          cterm=NONE        ctermbg=234  ctermfg=4
 
 " Cursor
 hi Cursor           cterm=bold        ctermbg=NONE ctermfg=NONE
@@ -93,34 +93,29 @@ hi TabLineFill      cterm=NONE        ctermbg=232  ctermfg=16
 
 " Splits
 hi VertSplit        cterm=NONE        ctermbg=16   ctermfg=232
-hi statusline       cterm=bold        ctermbg=232  ctermfg=94
+hi statusline       cterm=bold        ctermbg=232  ctermfg=28
 hi statuslinenc     cterm=NONE        ctermbg=232  ctermfg=236
 
-" vimdiff
+" Diff
 hi DiffAdd          cterm=NONE        ctermbg=234  ctermfg=10
 hi DiffChange       cterm=NONE        ctermbg=234  ctermfg=4
 hi DiffDelete       cterm=NONE        ctermbg=234  ctermfg=52
 hi DiffText         cterm=NONE        ctermbg=232  ctermfg=12
 
-" various
-hi Conceal          cterm=NONE        ctermbg=234  ctermfg=4
-hi ColorColumn      cterm=NONE        ctermbg=234  ctermfg=NONE
-
-
-" Colorations C
+" C
 hi cString          cterm=NONE        ctermbg=NONE ctermfg=60
 hi cInclude         cterm=NONE        ctermbg=NONE ctermfg=6
 hi cBlock           cterm=NONE        ctermbg=NONE ctermfg=4
 hi cInclude         cterm=NONE        ctermbg=NONE ctermfg=23
 hi cFormat          cterm=NONE        ctermbg=NONE ctermfg=5
 
-" Colorations matlab
+" Matlab
 hi Function         cterm=NONE        ctermbg=NONE ctermfg=30
 hi Identifier       cterm=NONE        ctermbg=NONE ctermfg=23
 hi matlabOperator   cterm=NONE        ctermbg=NONE ctermfg=58
 hi matlabString     cterm=NONE        ctermbg=NONE ctermfg=60
 
-" Colorations latex
+" LaTeX
 hi texSectionName   cterm=NONE        ctermbg=NONE ctermfg=6
 hi Delimiter        cterm=NONE        ctermbg=NONE ctermfg=237
 hi texInputFile     cterm=NONE        ctermbg=NONE ctermfg=63
@@ -131,12 +126,16 @@ hi texMathMatcher   cterm=NONE        ctermbg=NONE ctermfg=29
 hi texRefZone       cterm=NONE        ctermbg=NONE ctermfg=23
 hi texItalStyle     cterm=NONE        ctermbg=NONE ctermfg=NONE
 
-" Colorations vimscript
+" Vimscript
 hi Constant         cterm=NONE        ctermbg=NONE ctermfg=60
 hi vimNotation      cterm=NONE        ctermbg=NONE ctermfg=60
 
 " Markdown
 hi markdownLinkText cterm=NONE        ctermbg=NONE ctermfg=5
+
+" YouCompleteMe
+hi YcmErrorSection   cterm=NONE        ctermbg=52   ctermfg=NONE
+hi YcmWarningSection cterm=NONE        ctermbg=53   ctermfg=NONE
 
 " My own groups
 hi MySpecialChar    cterm=bold        ctermbg=NONE ctermfg=60

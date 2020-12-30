@@ -17,7 +17,7 @@ hi PmenuThumb cterm=NONE         ctermbg=4     ctermfg=NONE
 hi Folded     cterm=NONE         ctermbg=254   ctermfg=12
 hi PreProc    cterm=NONE         ctermbg=NONE  ctermfg=23
 hi Type       cterm=NONE         ctermbg=NONE  ctermfg=58
-hi Search     cterm=NONE         ctermbg=249   ctermfg=238
+hi Search     cterm=NONE         ctermbg=109   ctermfg=238
 hi Visual     cterm=NONE         ctermbg=252
 hi Todo       cterm=bold,italic  ctermbg=NONE  ctermfg=52
 hi Directory  cterm=NONE         ctermfg=4
@@ -34,12 +34,12 @@ hi CursorIM     cterm=underline  ctermfg=34   ctermbg=43
 hi CursorColumn cterm=NONE       ctermbg=253  ctermfg=NONE
 
 " Tabs
-hi TabLineSel  cterm=underline,bold  ctermbg=251 ctermfg=16
-hi TabLine     cterm=underline,bold  ctermbg=251 ctermfg=242
-hi TabLineFill cterm=underline       ctermbg=251 ctermfg=237
+hi TabLineSel  cterm=underline,bold  ctermbg=108 ctermfg=16
+hi TabLine     cterm=underline,bold  ctermbg=108 ctermfg=240
+hi TabLineFill cterm=underline       ctermbg=108 ctermfg=237
 
 " Splits
-hi VertSplit    cterm=none            ctermbg=245  ctermfg=24
+hi VertSplit    cterm=none            ctermbg=108  ctermfg=108
 hi statusline   cterm=underline,bold  ctermbg=251  ctermfg=59
 hi statuslinenc cterm=underline,bold  ctermbg=251  ctermfg=102
 
@@ -51,10 +51,14 @@ hi Special ctermfg=69
 hi ColorColumn      cterm=NONE        ctermbg=245   ctermfg=NONE
 
 "" vimdiff
-hi DiffAdd    cterm=NONE ctermbg=246 ctermfg=22
-hi DiffChange cterm=NONE ctermbg=32
-hi DiffDelete cterm=NONE ctermbg=52
-hi DiffText   cterm=NONE ctermbg=32
+"hi DiffAdd    cterm=NONE ctermbg=114
+"hi DiffChange cterm=NONE ctermbg=117
+"hi DiffDelete cterm=NONE ctermbg=131
+"hi DiffText   cterm=NONE ctermbg=11
+hi DiffAdd    cterm=NONE ctermbg=151
+hi DiffChange cterm=NONE ctermbg=153
+hi DiffDelete cterm=NONE ctermbg=131
+hi DiffText   cterm=NONE ctermbg=187
 
 " Colorations C
 hi cString ctermfg=60
@@ -97,10 +101,11 @@ hi MySpecialChar    cterm=bold        ctermbg=NONE ctermfg=235
 hi MyBadSemiColon   cterm=NONE        ctermbg=NONE ctermfg=1
 hi MyAccess         cterm=bold        ctermbg=NONE ctermfg=236
 hi MyBrac           cterm=NONE        ctermbg=NONE ctermfg=23
-hi MyOps            cterm=NONE        ctermbg=NONE ctermfg=54
+hi MyOps            cterm=bold        ctermbg=NONE ctermfg=130
 hi MyAffect         cterm=bold        ctermbg=NONE ctermfg=29
 hi MyNoSemiColon    cterm=NONE        ctermbg=9    ctermfg=NONE
-hi Collection       cterm=NONE        ctermbg=NONE ctermfg=60
+"hi Collection       cterm=NONE        ctermbg=NONE ctermfg=60
+hi STDs             cterm=NONE        ctermbg=NONE ctermfg=27
 hi Debug            cterm=NONE        ctermbg=NONE ctermfg=237
 
 " C#

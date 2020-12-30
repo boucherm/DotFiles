@@ -43,11 +43,10 @@ filetype plugin on
    nnoremap ,r :reg<Enter>
 
    " Commands history
-   nnoremap <up>   :<up>
-   nnoremap <down> :<up><Enter>
-   vnoremap <up>   :<up>
-   vnoremap <down> :<up><Enter>
-   "nnoremap <left> :tabfirst<Enter> :make<Enter> <Enter> :tabn<Enter>
+   nnoremap <up>    :<up>
+   vnoremap <up>    :<up>
+   nnoremap <down>  :<up><Enter>
+   vnoremap <down>  :<up><Enter>
    " Completion shortcuts
    inoremap <C-j> <C-n>
    inoremap <C-k> <C-p>
@@ -147,7 +146,7 @@ filetype plugin on
    set updatetime=500
 
    "lines
-   set wrap
+   set nowrap
    set linebreak
    "set textwidth=100
    "set colorcolumn=+1
@@ -242,8 +241,8 @@ filetype plugin on
 "--------------------------------- UI ----------------------------------------
    "Various settings
    set t_Co=256
-   set background=dark
-   "set background=light
+   "set background=dark
+   set background=light
    if (&background == 'dark')
      colorscheme monumension
     else
@@ -273,7 +272,7 @@ filetype plugin on
    set foldcolumn=0
 
    "Tabs
-   set tabpagemax=50
+   set tabpagemax=200
    nnoremap <C-h> gT
    nnoremap <C-l> gt
    "nmap <C-H> :tabmove -1<Enter> "doesnt distinguish from the previous
@@ -321,7 +320,7 @@ filetype plugin on
 
    "Listchars
    set list
-   set listchars=tab:\|\  
+   set listchars=tab:\|\
    hi SpecialKey ctermfg=237
 
 "--------------------------------- Quick dirty stuff -------------------------
@@ -350,17 +349,22 @@ filetype plugin on
 
    "Assumes first tab is opened in the Makefile dir
    "Goes to first tab, calls make, comes back to tab
-   function! Comp()
-     let s:n = tabpagenr()
-     tabfirst
-     make
-     while s:n > 1
-       let s:n -= 1
-       tabn
-     endwhile
-   endfunction
-   command! Compile :call Comp()
-   nnoremap <right> :Compile<CR>
+   "function! Comp()
+     "let s:n = tabpagenr()
+     "tabfirst
+     "make
+     "while s:n > 1
+       "let s:n -= 1
+       "tabn
+     "endwhile
+   "endfunction
+   "command! Compile :call Comp()
+   "nnoremap <right> :Compile<CR>
+
+   nnoremap <left>  :r! xclip -o<Enter>
+   vnoremap <left>  :r! xclip -o<Enter>
+   nnoremap <right> :.w !xclip -i<Enter><Enter>
+   vnoremap <right> :w !xclip -i<Enter><Enter>
 
    map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -474,7 +478,7 @@ filetype plugin on
    augroup matlab
      au!
      source $VIMRUNTIME/macros/matchit.vim
-     au BufEnter *.m compiler mlint
+     "au BufEnter *.m compiler mlint
    augroup end
 
    augroup bakfiles
@@ -538,23 +542,30 @@ filetype plugin on
      au BufRead,BufNewFile * RainbowParenthesesActivate
      au BufRead,BufNewFile * RainbowParenthesesLoadRound
      "modified colors for term ui
+     "let g:rbpt_colorpairs = [
+       "\ ['brown',       'RoyalBlue3'],
+       "\ ['Darkblue',    'SeaGreen3'],
+       "\ ['darkgray',    'DarkOrchid3'],
+       "\ ['darkgreen',   'firebrick3'],
+       "\ ['darkcyan',    'RoyalBlue3'],
+       "\ ['darkred',     'SeaGreen3'],
+       "\ ['darkmagenta', 'DarkOrchid3'],
+       "\ ['brown',       'firebrick3'],
+       "\ ['gray',        'RoyalBlue3'],
+       "\ ['black',       'SeaGreen3'],
+       "\ ['darkmagenta', 'DarkOrchid3'],
+       "\ ['166',        'firebrick3'],
+       "\ ['22',       'RoyalBlue3'],
+       "\ ['126',        'SeaGreen3'],
+       "\ ['4',        'DarkOrchid3'],
+       "\ ['23',       'firebrick3'],
+       "\ ]
+     let g:rbpt_max=4
      let g:rbpt_colorpairs = [
-       \ ['brown',       'RoyalBlue3'],
-       \ ['Darkblue',    'SeaGreen3'],
-       \ ['darkgray',    'DarkOrchid3'],
-       \ ['darkgreen',   'firebrick3'],
-       \ ['darkcyan',    'RoyalBlue3'],
-       \ ['darkred',     'SeaGreen3'],
-       \ ['darkmagenta', 'DarkOrchid3'],
-       \ ['brown',       'firebrick3'],
-       \ ['gray',        'RoyalBlue3'],
-       \ ['black',       'SeaGreen3'],
-       \ ['darkmagenta', 'DarkOrchid3'],
-       \ ['166',	      'firebrick3'],
-       \ ['22',	      'RoyalBlue3'],
-       \ ['126',	      'SeaGreen3'],
-       \ ['4',	      'DarkOrchid3'],
-       \ ['23',	      'firebrick3'],
+       \ ['214' , 'RoyalBlue3' ] ,
+       \ ['132' , 'SeaGreen3'  ] ,
+       \ ['62'  , 'RoyalBlue3' ] ,
+       \ ['28'  , 'Seagreen3'  ] ,
        \ ]
 
 
@@ -668,7 +679,18 @@ filetype plugin on
    let g:ale_echo_cursor=0 "vim's version from ubuntu 18.04 repos is buggy
 
    " MultipleSearch"
-   let g:MultipleSearchMaxColors=17
-   "let g:MultipleSearchColorSequence="yellow,blue,green,magenta,cyan,gray,brown"
-   let g:MultipleSearchColorSequence="3,4,2,13,94,12,10"
-   let g:MultipleSearchTextColorSequence="237,237,237,245,245,237,245"
+   let g:MultipleSearchMaxColors=8
+   if (&background == 'dark') "Dark will need to be revisited
+     let g:MultipleSearchColorSequence     = "178 , 110 , 106 , 216 , 14  , 184 ,  45 , 70 "
+     let g:MultipleSearchTextColorSequence = "237 , 237 , 237 , 237 , 237 , 237 , 237 , 237"
+   else " Light is good
+     let g:MultipleSearchColorSequence     = "110 , 106 , 216 , 178 , 14  , 184 ,  75 , 70 "
+     let g:MultipleSearchTextColorSequence = "237 , 237 , 237 , 237 , 237 , 237 , 237 , 237"
+   endif
+
+   function! SearchUnderCursor()
+     let l:word = '\<' . expand("<cword>") . '\>'
+     echo l:word
+     :execute 'Search ' l:word
+   endfunction
+   nnoremap ? :call SearchUnderCursor()<Enter>

@@ -103,11 +103,11 @@ keystate_capslock = enable
 "xdotool click 3"
   control + XF86Eject
 
-#"urxvt -cd $HOME"
 "$HOME/Code/Scripts/bin/dropdown"
  Mod4 + Return
 
-"urxvt -e $HOME/Code/Scripts/bin/ranger_shell"
+#"urxvt -e $HOME/Code/Scripts/bin/ranger_shell"
+"xrdb $HOME/.Xresources; urxvt -cd $HOME"
  Mod4 + control + Return
 
 #"urxvt -e ncmpcpp"
@@ -143,10 +143,9 @@ keystate_capslock = enable
 "$($HOME/.cabal/bin/yeganesh -x -- -i -p . -fn 'Ubuntu Mono:*:pixelsize=25' -nb '#000000' -nf '#466f81' -sb '#000000' -sf '#1c7b6d')"
   control + space
 
-"i3lock -c 26384f -f"
+"[ -f $HOME/DotFiles/aaih_blur_blue.png ] && i3lock -i $HOME/DotFiles/aaih_blur_blue.png -f || i3lock -c 26384f -f"
   control + alt + l
 
-#Back to awesome rc.lua
 "xcalib -invert -alter"
   Mod4 + y
 

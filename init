@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 #--- Note
-#--- the xinitrc file is located at /etc/X11/xinit/xinitrc
+#- the xinitrc file is located at /etc/X11/xinit/xinitrc
 
 
 #xsetroot -solid darkslategray &
@@ -13,13 +13,16 @@
 xbindkeys &
 xrdb ~/.Xresources &
 pidof nm-applet || nm-applet &
+pidof blueman-applet   || blueman-applet &
 #killall conky; ~/.config/conky/conkylaunch &
 #ps -A | grep --quiet xfce4-power-man || xfce4-power-manager &
 #killall unclutter; unclutter -noevents &
 #twmnd &
+#pidof update-notifier    || update-notifier &
+#
+# From past ubuntu versions
 #pidof bluetooth-applet   || bluetooth-applet &
 #pidof gnome-sound-applet || gnome-sound-applet &
-#pidof update-notifier    || update-notifier &
 
 
 #------- Awesome-wm specifics
@@ -65,9 +68,11 @@ done
 
 # xset is another option
 
+
 #--- Lights
 #sudo $HOME/Code/Scripts/bin/keyboard_backlight.sh -255
 #sudo $HOME/Code/Scripts/bin/screenlight.sh 5
+
 
 #------- Keyboard settings
 #
@@ -82,9 +87,12 @@ setxkbmap -layout us
 #setxkbmap -layout us -variant intl
 #
 #---- Num Lock
-#numlockx on &
-#--- Activate numlock
-xdotool key 77
+numlockx on &
+#xdotool key 77
+#
+#--- Compose key
+#
+setxkbmap -option compose:ralt
 #
 #---- Caps Lock
 #
@@ -102,10 +110,6 @@ setxkbmap -option caps:ctrl_modifier
 # . second, map the  caps_lock keycode to F12
 xmodmap -e 'keycode 66 = F12'
 #
-#--- Compose key
-#
-setxkbmap -option compose:ralt
-#
 #--- Bracket/Brace and parentheses keys
 #
 #- Switch [ with { and ] with }
@@ -122,11 +126,25 @@ xmodmap -e 'keysym bracketleft  = braceleft bracketleft'
 #---- Insert ( disable )
 # 118 is the 'insert' keycode
 xmodmap -e "keycode 118 ="
-#
+
+
 #--- Unity/gnome disable desktop icons
 #gsettings set org.gnome.desktop.background show-desktop-icons false
-#
+
+
 #--- Load nvidia-settings
 #nvidia-settings --config=~/.config/nvidia-settings-rc --load-config-only &
 #--- Set monitor's refresh rate
-xrandr --output DVI-D-0 --mode 1920x1080 -r 144 &
+xrandr --output DVI-D-0 --mode 2560x1440 -r 144 &
+
+
+# An alternative to the capslock tweak to investigate
+#
+# To use capslock as mod4, in a file put:
+#
+# clear Lock
+# keycode 66 = Hyper_L
+# add mod4 = Hyper_L
+# keycode 108 = Multi_key # probably unrelated
+#
+# then call "xmodmap that_file"

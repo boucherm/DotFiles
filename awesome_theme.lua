@@ -25,19 +25,19 @@ theme.font          = "sans bold 8"
 
 -- Dark, medium contrast
 
-theme.fg_focus      = "#3d8079"
-theme.bg_focus      = "#000000"
+--theme.fg_focus      = "#3d8079"
+--theme.bg_focus      = "#000000"
 
-theme.fg_normal     = "#4a7337"
-theme.bg_normal     = "#1f1f1f"
+--theme.fg_normal     = "#4a7337"
+--theme.bg_normal     = "#1f1f1f"
 
-theme.fg_minimize   = "#505050"
-theme.bg_minimize   = "#191919"
+--theme.fg_minimize   = "#505050"
+--theme.bg_minimize   = "#191919"
 
-theme.bg_systray    = theme.bg_normal
+--theme.bg_systray    = theme.bg_normal
 
-theme.bg_urgent     = "#ff0000"
-theme.fg_urgent     = "#ffffff"
+--theme.bg_urgent     = "#ff0000"
+--theme.fg_urgent     = "#ffffff"
 
 
 -- Light, low contrast
@@ -57,34 +57,21 @@ theme.fg_urgent     = "#ffffff"
 --theme.fg_urgent     = "#8b8b8b"
 
 
----- Light
---
-----theme.fg_focus      = "#4c993d"
-----theme.bg_focus      = "#dddddd"
-----
-----theme.fg_focus     = "#055e80"
-----theme.bg_focus     = "#c2cacc"
-----
---theme.fg_focus     = "#055e80"
---theme.bg_focus     = "#ced7d9"
---
-----theme.fg_normal     = "#06729a"
-----theme.bg_normal     = "#bbbbbb"
-----
-----theme.fg_normal     = "#10660c"
-----theme.bg_normal     = "#c2ccc3"
-----
---theme.fg_normal     = "#10660c"
---theme.bg_normal     = "#b8ccba"
---
---theme.fg_minimize   = "#191919"
-----theme.bg_minimize   = "#bbbbbb"
---theme.bg_minimize   = "#aab3aa"
---
---theme.bg_systray    = theme.bg_normal
---
---theme.bg_urgent     = "#813198"
---theme.fg_urgent     = "#8b8b8b"
+-- Light
+
+theme.fg_focus     = "#055e80"
+theme.bg_focus     = "#ced7d9"
+
+theme.fg_normal     = "#10660c"
+theme.bg_normal     = "#b8ccba"
+
+theme.fg_minimize   = "#191919"
+theme.bg_minimize   = "#aab3aa"
+
+theme.bg_systray    = theme.bg_normal
+
+theme.bg_urgent     = "#813198"
+theme.fg_urgent     = "#8b8b8b"
 
 
 -- Common
