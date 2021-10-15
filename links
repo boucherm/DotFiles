@@ -9,6 +9,7 @@ ln -s $(pwd)'/tmux.conf'                   ~/.tmux.conf
 ln -s $(pwd)'/ranger.conf'                 ~/.config/ranger/rc.conf
 ln -s $(pwd)'/awesomewm/awesome_rc.lua'    ~/.config/awesome/rc.lua
 ln -s $(pwd)'/awesomewm/awesome_theme.lua' ~/.config/awesome/theme.lua
+ln -s $(pwd)'/awesomewm/lain'              ~/.config/awesome/lain
 ln -s $(pwd)'/gdbinit'                     ~/.gdbinit
 ln -s $(pwd)'/grc'                         ~/.grc
 ln -s $(pwd)'/tmux'                        ~/.tmux

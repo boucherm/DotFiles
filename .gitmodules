@@ -1,0 +1,3 @@
+[submodule "awesomewm/lain"]
+	path = awesomewm/lain
+	url = https://github.com/boucherm/awesomewm_lain_copy
