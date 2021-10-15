@@ -40,8 +40,8 @@ hi TabLineFill cterm=underline       ctermbg=108 ctermfg=237
 
 " Splits
 hi VertSplit    cterm=none            ctermbg=108  ctermfg=108
-hi statusline   cterm=underline,bold  ctermbg=251  ctermfg=59
-hi statuslinenc cterm=underline,bold  ctermbg=251  ctermfg=102
+hi statusline   cterm=underline,bold  ctermbg=109  ctermfg=16
+hi statuslinenc cterm=underline,bold  ctermbg=108  ctermfg=236
 
 hi Number           cterm=NONE        ctermbg=NONE ctermfg=30
 hi Float            cterm=NONE        ctermbg=NONE ctermfg=30

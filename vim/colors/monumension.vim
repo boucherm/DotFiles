@@ -87,20 +87,24 @@ hi CursorColumn     cterm=NONE        ctermbg=233  ctermfg=NONE
 hi CursorIM         cterm=underline   ctermbg=43   ctermfg=34
 
 " Tabs
-hi TabLineSel       cterm=bold        ctermbg=16   ctermfg=24
-hi TabLine          cterm=bold        ctermbg=232  ctermfg=23
+hi TabLineSel       cterm=bold        ctermbg=16   ctermfg=25
+hi TabLine          cterm=bold,italic ctermbg=232  ctermfg=23
 hi TabLineFill      cterm=NONE        ctermbg=232  ctermfg=16
 
 " Splits
 hi VertSplit        cterm=NONE        ctermbg=16   ctermfg=232
 hi statusline       cterm=bold        ctermbg=232  ctermfg=28
-hi statuslinenc     cterm=NONE        ctermbg=232  ctermfg=236
+hi statuslinenc     cterm=NONE        ctermbg=232  ctermfg=56
 
 " Diff
-hi DiffAdd          cterm=NONE        ctermbg=234  ctermfg=10
-hi DiffChange       cterm=NONE        ctermbg=234  ctermfg=4
-hi DiffDelete       cterm=NONE        ctermbg=234  ctermfg=52
-hi DiffText         cterm=NONE        ctermbg=232  ctermfg=12
+"hi DiffAdd          cterm=NONE        ctermbg=234  ctermfg=10
+"hi DiffChange       cterm=NONE        ctermbg=234  ctermfg=4
+"hi DiffDelete       cterm=NONE        ctermbg=234  ctermfg=52
+"hi DiffText         cterm=NONE        ctermbg=232  ctermfg=12
+hi DiffAdd          cterm=bold        ctermbg=235 ctermfg=28
+hi DiffChange       cterm=NONE        ctermbg=233
+hi DiffDelete       cterm=NONE        ctermbg=52
+hi DiffText         cterm=NONE        ctermbg=18
 
 " C
 hi cString          cterm=NONE        ctermbg=NONE ctermfg=60
