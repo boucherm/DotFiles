@@ -134,9 +134,19 @@ xmodmap -e "keycode 118 ="
 
 #--- Load nvidia-settings
 #nvidia-settings --config=~/.config/nvidia-settings-rc --load-config-only &
+#
 #--- Set monitor's refresh rate
-xrandr --output DVI-D-0 --mode 2560x1440 -r 144 &
+# To get a list of outputs, just use call `xrandr`
+#
+#xrandr --output DVI-D-0 --mode 1920x1080 -r 144 &
+xrandr --output HDMI-0 --mode 2560x1440 -r 60 &
+#xrandr --output DVI-D-0 --mode 3840x2160 -r 60 &
 
+
+#--- Attempting to prevent the machine from failing to display stuff after suspension
+xset -dpms
+xset s noblank
+xset s off
 
 # An alternative to the capslock tweak to investigate
 #
