@@ -18,14 +18,34 @@ xcalendar*markHoliday:     false
 !===============================================================================
 !=== URxvt
 !
+!= Fonts
+!
 ! Use the `fc-list` command to list available fonts
 ! Some are located in /usr/share/fonts/truetype
 ! Here an un-exhaustive list of fonts:
-! ubuntumono firamono clearsans DejaVuSansMono cousine liberationmono notosansmono inconsolata monospace
+! liberationmono notomono ubuntumono firamono clearsans DejaVuSansMono cousine notosansmono inconsolata monospace
+!
+! Fonts files can be installed/dropped in .local/share/font
+!
+! Update the fonts list with `fc-cache`
+!
+! Extensive doc at https://wiki.archlinux.org/title/Font_configuration
+!
+!
+!= Colors
+! On the fly UI change can be done as indicated here ↓
+! https://unix.stackexchange.com/questions/232881/urxvt-change-background-color-on-the-fly
+!
 !
 !URxvt*meta8:      true
-URxvt*font:       xft:monospace:pixelsize=11:antialias=true:hinting=true
-URxvt*boldFont:   xft:monospace:bold:pixelsize=11:antialias=true:hinting=true
+! 32" 1440p
+URxvt*font:       xft:liberationmono:pixelsize=11:antialias=true:hinting=true
+URxvt*boldFont:   xft:liberationmono:bold:pixelsize=11:antialias=true:hinting=true
+!URxvt*font:       xft:dejavusansmono:pixelsize=11:antialias=true:hinting=true
+!URxvt*boldFont:   xft:dejavusansmono:bold:pixelsize=11:antialias=true:hinting=true
+! 28" 2160p
+!URxvt*font:       xft:liberationmono:pixelsize=17:antialias=true:hinting=true
+!URxvt*boldFont:   xft:liberationmono:bold:pixelsize=17:antialias=true:hinting=true
 
 !
 URxvt*scrollBar:   false
