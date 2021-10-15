@@ -1,3 +1,9 @@
+-- Cheat sheet
+--
+-- Restart from the command line:
+-- echo 'awesome.restart()' | awesome-client
+--
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -9,7 +15,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
+--local menubar = require("menubar")
 
 local lain = require("lain")
 -- Load Debian menu entries
@@ -89,20 +95,11 @@ modkey = "Mod4"
       awful.layout.suit.max.fullscreen,
       awful.layout.suit.magnifier,
       awful.layout.suit.floating
-      --, lain.layout.cascade
-      --, lain.layout.cascadetile
-      , lain.layout.centerfair
-      , lain.layout.centerhwork
-      --, lain.layout.centerwork
-      --, lain.layout.termfair
-      , lain.layout.uselessfair
-      --, lain.layout.uselesspiral
-      --, lain.layout.uselesstile
   }
 
   tags =
   {
-    names = { "✍","²","⌨","♨","☸","＠","⁷","⁸","♫"},
+    names = { "✍", "𝟚", "⌨", "♨", "☸", "＠", "𝟟", "𝟠", "♫"},
     layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[2]}
   }
 
@@ -133,8 +130,8 @@ modkey = "Mod4"
   mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                       { "Debian", debian.menu.Debian_menu.Debian },
                                       { "open terminal", terminal },
-                                      --{ "suspend", "/usr/bin/zsh $HOME'/Code/Scripts/bin/lock_and_suspend.zsh'" } -- TODO replace $HOME by its value
-                                      { "suspend", "/usr/bin/zsh /home/mboucher/Code/Scripts/bin/lock_and_suspend.zsh" }
+                                      --{ "suspend", "/usr/bin/zsh $HOME'/Code/Scripts/bin/lock_and_suspend'" } -- TODO replace $HOME by its value
+                                      { "suspend", "/usr/bin/zsh /home/mboucher/Code/Scripts/bin/lock_and_suspend" }
                                     }
                           })
 
@@ -149,8 +146,42 @@ modkey = "Mod4"
 --------------------------------------------------------------------------------
 ------- Wibox
 --------------------------------------------------------------------------------
-  -- Create a textclock widget
-  mytextclock = awful.widget.textclock()
+  label_color     = '"#4d6199"'
+  value_color_ok  = '"#3b734c"'
+  value_color_bad = '"#994d73"'
+
+  -- Clock widget
+  --mytextclock = awful.widget.textclock()
+  clock_format = '<span color=' .. label_color .. '> %Y.%m.%d - %H:%M </span>'
+  mytextclock  =  awful.widget.textclock(clock_format)
+
+  -- mem
+  local mymem = lain.widget.mem {
+      settings = function()
+          label = '<span color=' .. label_color .. '> Mem: </span>'
+          value = '<span color=' .. value_color_ok .. '>' .. mem_now.perc ..'% </span>'
+          if (mem_now.perc > 90)
+          then
+            value = '<span color=' .. value_color_bad .. '>' .. mem_now.perc ..'% </span>'
+          end
+          content = label .. value
+          widget:set_markup(content)
+      end
+  }.widget
+
+  -- cpu
+  local mycpu = lain.widget.cpu {
+      settings = function()
+          label = '<span color=' .. label_color .. '> Cpu: </span>'
+          value = '<span color=' .. value_color_ok .. '>' .. cpu_now.usage ..'% </span>'
+          if (cpu_now.usage > 90)
+          then
+            value = '<span color=' .. value_color_bad .. '>' .. cpu_now.usage ..'% </span>'
+          end
+          content = label .. value
+          widget:set_markup(content)
+      end
+  }.widget
 
   -- Create a wibox for each screen and add it
   mywibox     = {}
@@ -231,6 +262,8 @@ modkey = "Mod4"
       -- Widgets that are aligned to the right
       local right_layout = wibox.layout.fixed.horizontal()
       if s == 1 then right_layout:add(wibox.widget.systray()) end
+      right_layout:add(mycpu)
+      right_layout:add(mymem)
       right_layout:add(mytextclock)
       right_layout:add(mylayoutbox[s])
 
