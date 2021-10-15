@@ -71,7 +71,7 @@ alias sl='sl -e'
 alias LS='sl -e'
 alias ls='\ls --color -CF'
 alias l=' \ls --color -CFX --group-directories-first'
-alias ll='l -alFh'
+alias ll='l -Alh'
 alias l1='ls --color -CX1'
 alias la='l -A'
 alias grep='grep -E --color=auto'
@@ -81,7 +81,7 @@ alias gri='ag -ri'
 alias gril='ag -ril'
 alias grl='ag -rl'
 alias cp='cp --verbose --interactive'
-alias mv='mv -i -n --verbose'
+alias mv='mv -i --verbose'
 alias rm='mvtrash'
 alias ln='ln --verbose'
 alias mupdatedb='sudo updatedb -U /media/Data --output=$HOME/mlocate.db'
@@ -115,8 +115,7 @@ alias slam='source slam'
 alias nautilus='nautilus --no-desktop'
 alias clang11='clang++ -std=c++11'
 alias youtube-dl='python ~/Softs/youtube-dl/bin/youtube-dl'
-alias python='python3'
-alias py='python'
+alias py='python3'
 alias ipy='ipython3'
 alias gc='git checkout'
 alias gs='git status'
@@ -131,6 +130,11 @@ alias xi='xclip -i'
 alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
 alias tk='tmux kill-session -t'
+alias gitstatus='watch --color -n1 "git -c color.status=always status"'
+alias gitlog='watch --color -n1 "git log --pretty=format:'\''%h - %an, %ar : %s'\'' --graph -10"'
+alias gitbranch='watch --color -n1 "git -c color.branch=always branch"'
+alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+
 
 #Suffix aliases
 alias -s c=vim
@@ -209,6 +213,7 @@ git_super_status()
 }
 
 # prompt
+export DARK=0
 update_prompt()
 {
   if [ "$DARK" -ne "0" ];
@@ -221,6 +226,7 @@ update_prompt()
 
     #export  PS1="%{$bg[blue]%}%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
     #export RPS1="%{$bg[blue]%}%{$fg_bold[grey]%}%T%{${reset_color}%}%{$fg_bold[green]%}%"
+
     export  PS1="%{$bg[blue]%}%{$fg_no_bold[yellow]%}%T%{$fg_bold[yellow]%}⚡%{$fg_bold[black]%}%n@%m %{$fg_no_bold[yellow]%}%~$(git_super_status)%(?.. %{$fg_bold[grey]%}% ❨%{$fg_no_bold[yellow]%}% %?)%{$fg_bold[grey]%}❩%{${reset_color}%} %"
   fi
 }
@@ -231,7 +237,84 @@ precmd () { update_prompt; echo -ne "\033]0;${PWD##*/}\007" 2> /dev/null }
 preexec() { tput sgr0 } #clean colors
 
 
-# ls colors,  man dir_colors
+# ls colors
+# for crytic incomplete information use dircolors --print-database
+# For more see http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
+# ↑ Duplication:
+#
+# Key         │ /etc/DIR_COLORS name  │ Notes
+# no          │ NORMAL, NORM          │ Global default, although everything should be something
+# fi          │ FILE                  │ Normal file
+# di          │ DIR                   │ Directory
+# ln          │ SYMLINK, LINK, LNK    │ Symbolic link. If you set this to 'target' instead of a numerical value, the colour is as for the file pointed to.
+# pi          │ FIFO, PIPE            │ Named pipe
+# do          │ DOOR                  │ Door
+# bd          │ BLOCK, BLK            │ Block device
+# cd          │ CHAR, CHR             │ Character device
+# or          │ ORPHAN                │ Symbolic link pointing to a non-existent file
+# so          │ SOCK                  │ Socket
+# su          │ SETUID                │ File that is setuid (u+s)
+# sg          │ SETGID                │ File that is setgid (g+s)
+# tw          │ STICKY_OTHER_WRITABLE │ Directory that is sticky and other-writable (+t,o+w)
+# ow          │ OTHER_WRITABLE        │ Directory that is other-writable (o+w) and not sticky
+# st          │ STICKY                │ Directory with the sticky bit set (+t) and not other-writable
+# ex          │ EXEC                  │ Executable file (i.e. has 'x' set in permissions)
+# mi          │ MISSING               │ Non-existent file pointed to by a symbolic link (visible when you type ls -l)
+# lc          │ LEFTCODE, LEFT        │ Opening terminal code
+# rc          │ RIGHTCODE, RIGHT      │ Closing terminal code
+# ec          │ ENDCODE, END          │ Non-filename text
+# *.extension │                       │ Every file using this extension e.g. *.jpg
+#
+# Effects
+# Code │ Property
+# 00   │ Default colour
+# 01   │ Bold
+# 04   │ Underlined
+# 05   │ Flashing text
+# 07   │ Reversed
+# 08   │ Concealed
+#
+# Colours
+# Code │ Property
+# 30   │ Black
+# 31   │ Red
+# 32   │ Green
+# 33   │ Orange
+# 34   │ Blue
+# 35   │ Purple
+# 36   │ Cyan
+# 37   │ Grey
+#
+# Backgrounds
+# Code │ Property
+# 40   │ Black background
+# 41   │ Red background
+# 42   │ Green background
+# 43   │ Orange background
+# 44   │ Blue background
+# 45   │ Purple background
+# 46   │ Cyan background
+# 47   │ Grey background
+#
+# Extra colours
+# Code │ Property
+# 90   │ Dark grey
+# 91   │ Light red
+# 92   │ Light green
+# 93   │ Yellow
+# 94   │ Light blue
+# 95   │ Light purple
+# 96   │ Turquoise
+# 97   │ White
+# 100  │ Dark grey background
+# 101  │ Light red background
+# 102  │ Light green background
+# 103  │ Yellow background
+# 104  │ Light blue background
+# 105  │ Light purple background
+# 106  │ Turquoise background
+# 107  │ White background
+#
 video='*.avi=33:*.mkv=33:*.mp4=33:*.flv=33:*.srt=4:*.mov=4:*.MOV=4'
 docs='*.pdf=34:*.ps=34:*.eps=34:*.txt=3'
 intermediary_files='*.aux=1;30:*.bbl=1;30:*.log=1;30:*.blg=1;30:*.out=1;30:*.toc=1;30'
@@ -241,7 +324,7 @@ compressed='*.zip=95:*.tar=95:*.tgz=95:*.tar.gz=95:*.rar=95:*.bz2=95:*.7z=95:*.i
 images='*.png=00;35:*.jpg=00;35:*.jpeg=00;35:*.JPG=00;35:*.ppm=00;35:*.pgm=00;35:*.bmp=00;35'
 code='*.h=4:*.hpp=4:*.o=1;30:*Session.vim=1;30:*.a=32'
 cpt_files='*.cpt=01;04;35;42'
-LS_COLORS=':di=1;94:fi=0:ln=31:pi=4:so=4:bd=4:cd=4:or=31:mi=0:ex=32':$images:$video:$docs:$compressed:$code:$intermediary_files:$bak_files:$build_files:$cpt_files:':ow=34;1;40'
+LS_COLORS=':di=1;94:fi=0:ln=35:pi=4:so=4:bd=4:cd=4:or=01;31:mi=01;05;31:ex=32':$images:$video:$docs:$compressed:$code:$intermediary_files:$bak_files:$build_files:$cpt_files:':ow=34;1;40'
 export LS_COLORS
 
 
@@ -394,6 +477,6 @@ bindkey . rationalise-dot
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ROS
-#source /opt/ros/melodic/setup.zsh
+[ -e /opt/ros/melodic/setup.zsh ] && source /opt/ros/melodic/setup.zsh
 
 export ZSHRC_LOADED="1"
