@@ -140,6 +140,7 @@ keystate_capslock = enable
   control + shift + s
 
 #"dmenu_run -i -p . -fn '-*-*-*-*-*-*-18-*-*-*-*-*-*-*' -nb '#000000' -nf '#466f81' -sb '#000000' -sf '#1c7b6d'"
+#"$($HOME/.cabal/bin/yeganesh -x -- -i -p . -fn 'Ubuntu Mono:*:pixelsize=32' -nb '#000000' -nf '#466f81' -sb '#000000' -sf '#1c7b6d')"
 "$($HOME/.cabal/bin/yeganesh -x -- -i -p . -fn 'Ubuntu Mono:*:pixelsize=25' -nb '#000000' -nf '#466f81' -sb '#000000' -sf '#1c7b6d')"
   control + space
 
