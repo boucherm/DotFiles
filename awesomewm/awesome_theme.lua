@@ -5,7 +5,6 @@
 theme = {}
 
 theme.font          = "sans bold 8"
---theme.font          = "sans bold 13"
 
 -- Very dark, low contrast
 
