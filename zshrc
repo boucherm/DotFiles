@@ -91,8 +91,9 @@ alias ninja='ninja -j $(( 2*$(nproc)/4 ))'
 alias remake='make clean; make'
 #alias python='ipython'
 alias r='source ranger_cd'
-alias pwdxi='pwd | xi'
-alias cdxo='cd $( xo )'
+alias pwdxi='\pwd | xi'
+alias cdxo='\cd $( xo )'
+alias lsxi='\ls | xi'
 alias m='mocp -T erebus_theme'
 alias n='ncmpcpp'
 alias matlab="matlab_reparenting"
@@ -131,7 +132,7 @@ alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
 alias tk='tmux kill-session -t'
 alias gitstatus='watch --color -n1 "git -c color.status=always status"'
-alias gitlog='watch --color -n1 "git log --pretty=format:'\''%h - %an, %ar : %s'\'' --graph -10"'
+alias gitlog='watch --color -n1 "git log --pretty=format:'\''%h - %an, %ar : %s'\'' --graph -30"'
 alias gitbranch='watch --color -n1 "git -c color.branch=always branch"'
 alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 
@@ -326,7 +327,6 @@ code='*.h=4:*.hpp=4:*.o=1;30:*Session.vim=1;30:*.a=32'
 cpt_files='*.cpt=01;04;35;42'
 LS_COLORS=':di=1;94:fi=0:ln=35:pi=4:so=4:bd=4:cd=4:or=01;31:mi=01;05;31:ex=32':$images:$video:$docs:$compressed:$code:$intermediary_files:$bak_files:$build_files:$cpt_files:':ow=34;1;40'
 export LS_COLORS
-
 
 # Colored man pages for color codes, see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
 man() {

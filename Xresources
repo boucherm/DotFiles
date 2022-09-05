@@ -39,13 +39,11 @@ xcalendar*markHoliday:     false
 !
 !URxvt*meta8:      true
 ! 32" 1440p
-URxvt*font:       xft:liberationmono:pixelsize=11:antialias=true:hinting=true
-URxvt*boldFont:   xft:liberationmono:bold:pixelsize=11:antialias=true:hinting=true
-!URxvt*font:       xft:dejavusansmono:pixelsize=11:antialias=true:hinting=true
-!URxvt*boldFont:   xft:dejavusansmono:bold:pixelsize=11:antialias=true:hinting=true
+!URxvt*font:       xft:liberationmono:pixelsize=11:antialias=true:hinting=true
+!URxvt*boldFont:   xft:liberationmono:bold:pixelsize=11:antialias=true:hinting=true
 ! 28" 2160p
-!URxvt*font:       xft:liberationmono:pixelsize=17:antialias=true:hinting=true
-!URxvt*boldFont:   xft:liberationmono:bold:pixelsize=17:antialias=true:hinting=true
+URxvt*font:       xft:liberationmono:pixelsize=15:antialias=true:hinting=true
+URxvt*boldFont:   xft:liberationmono:bold:pixelsize=15:antialias=true:hinting=true
 
 !
 URxvt*scrollBar:   false

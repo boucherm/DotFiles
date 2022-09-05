@@ -33,10 +33,11 @@ filetype plugin on
       set breakindentopt=shift:2
    endif
 
-   "Various shortcuts
-   nnoremap ,w      :update<Enter>
-   nnoremap ,q      :qa<Enter>
-   nnoremap ,Q      :q<Enter>
+   " Various shortcuts
+   nnoremap ,w :update<Enter>
+   nnoremap ,q :qa<Enter>
+   nnoremap ,Q :q<Enter>
+   nnoremap ,T :tabnew<Enter>
    nnoremap <Enter> o<esc>
 
    " show registers
@@ -66,9 +67,12 @@ filetype plugin on
    set ignorecase
    set smartcase
    set gdefault "substitute all results in line
+   " don't wrap search around the end of the file
+   set nowrapscan
    " Turn off search results highlights, and clear the command line
    nnoremap <silent><BS> :nohlsearch<Bar>:echo<CR>
    "nnoremap <silent> <esc> :set hlsearch! hlsearch?<CR>
+
    " Make n and N behave the same wether we press * or #
    nnoremap <expr> n 'Nn'[v:searchforward] . 'zz'
    nnoremap <expr> N 'nN'[v:searchforward] . 'zz'
@@ -78,12 +82,14 @@ filetype plugin on
    " Elessardan> :nnoremap <expr> n (v:searchforward? 'n' : 'N')
    " Elessardan> And for N the same but `N 'nN'`
    " Elessardan> You can index a string like a list, so 'Nn'[1] == 'n'
-   "
-   "Make * and # first highlight, then move cursor:
-    "nnoremap <expr> * @/=='\<'.expand('<cword>').'\>' ? '*' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>"
-    "nnoremap <expr> # @/=='\<'.expand('<cword>').'\>' ? '#' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>"
-    nnoremap <expr> * @/=='\<'.expand('<cword>').'\>' ? '*' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
-    nnoremap <expr> # @/=='\<'.expand('<cword>').'\>' ? '#' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
+
+   "Make * first highlight, then move cursor:
+   "nnoremap <expr> * @/=='\<'.expand('<cword>').'\>' ? '*' : ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
+   "Make * only highlight word under cursor:
+   nnoremap <expr> * ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
+
+   " Use ? to search lines not containing word undercursor
+   nnoremap <silent> <expr> ?  ":let @/ = '^\\(\\(.*' . expand('<cword>') . '.*\\)\\@!.\\)*$'<CR>:set hlsearch<CR>"
 
    "Folding
    set foldmethod=indent
@@ -288,7 +294,7 @@ filetype plugin on
      hi clear CursorLine
 
      if &diff
-       let l:cmd="hi CursorLine cterm=underline"
+       let l:cmd="hi CursorLine cterm=underline ctermbg=none"
      else
        let l:cmd="hi CursorLine cterm=" . s:cl_hi_cterm . " ctermbg=" .  s:cl_hi_ctermbg . " ctermfg=" . s:cl_hi_ctermfg
      endif
@@ -585,8 +591,6 @@ filetype plugin on
    augroup end
 
 
-
-
 "--------------------------------- Plugins -----------------------------------
    " Pathogen
    call pathogen#infect()
@@ -765,10 +769,29 @@ filetype plugin on
      let g:MultipleSearchColorSequence     = "110 , 106 , 216 , 178 , 14  , 184 ,  75 , 70 "
      let g:MultipleSearchTextColorSequence = "237 , 237 , 237 , 237 , 237 , 237 , 237 , 237"
    endif
+   nnoremap <expr> # ":SearchBuffers " . expand('<cword>')
 
-   function! SearchUnderCursor()
-     let l:word = '\<' . expand("<cword>") . '\>'
-     echo l:word
-     :execute 'Search ' l:word
-   endfunction
-   nnoremap ? :call SearchUnderCursor()<Enter>
+   " fzf
+   set rtp+=~/.fzf
+   nnoremap ,E :FZF<Enter>
+
+
+"--------------------------------- Some home made functions ------------------
+" Cpp
+function AlignArguments() range
+  ":'<,'>Tabularize/\S\+\(,\|);\{,1}\)$
+
+  let cmd = a:firstline . "," . a:lastline . "Tabularize/" .  "\\S\\+\\(,\\|);\\{,1}\\)$"
+  echo cmd
+  execute cmd
+
+endfunction
+
+function AlignAffectations() range
+  ":'<,'>Tabularize/\S\+\ze\s*=
+
+  let cmd = a:firstline . "," . a:lastline . "Tabularize/" .  "\\S\\+\\ze\\s*="
+  echo cmd
+  execute cmd
+
+endfunction
