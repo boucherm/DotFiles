@@ -127,17 +127,16 @@ modkey = "Mod4"
      { "quit"       , awesome.quit }
   }
 
+  home = os.getenv("HOME")
   mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                       { "Debian", debian.menu.Debian_menu.Debian },
                                       { "open terminal", terminal },
-                                      --{ "suspend", "/usr/bin/zsh $HOME'/Code/Scripts/bin/lock_and_suspend'" } -- TODO replace $HOME by its value
-                                      { "suspend", "/usr/bin/zsh /home/mboucher/Code/Scripts/bin/lock_and_suspend" }
+                                      { "suspend", "/usr/bin/zsh " .. home .. "/Code/Scripts/bin/lock_and_suspend" }
                                     }
                           })
 
   mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                        menu = mymainmenu })
-
 
   -- Menubar configuration
   --menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -156,32 +155,32 @@ modkey = "Mod4"
   mytextclock  =  awful.widget.textclock(clock_format)
 
   -- mem
-  local mymem = lain.widget.mem {
-      settings = function()
-          label = '<span color=' .. label_color .. '> Mem: </span>'
-          value = '<span color=' .. value_color_ok .. '>' .. mem_now.perc ..'% </span>'
-          if (mem_now.perc > 90)
-          then
-            value = '<span color=' .. value_color_bad .. '>' .. mem_now.perc ..'% </span>'
-          end
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
+  --local mymem = lain.widget.mem {
+      --settings = function()
+          --label = '<span color=' .. label_color .. '> Mem: </span>'
+          --value = '<span color=' .. value_color_ok .. '>' .. mem_now.perc ..'% </span>'
+          --if (mem_now.perc > 90)
+          --then
+            --value = '<span color=' .. value_color_bad .. '>' .. mem_now.perc ..'% </span>'
+          --end
+          --content = label .. value
+          --widget:set_markup(content)
+      --end
+  --}.widget
 
   -- cpu
-  local mycpu = lain.widget.cpu {
-      settings = function()
-          label = '<span color=' .. label_color .. '> Cpu: </span>'
-          value = '<span color=' .. value_color_ok .. '>' .. cpu_now.usage ..'% </span>'
-          if (cpu_now.usage > 90)
-          then
-            value = '<span color=' .. value_color_bad .. '>' .. cpu_now.usage ..'% </span>'
-          end
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
+  --local mycpu = lain.widget.cpu {
+      --settings = function()
+          --label = '<span color=' .. label_color .. '> Cpu: </span>'
+          --value = '<span color=' .. value_color_ok .. '>' .. cpu_now.usage ..'% </span>'
+          --if (cpu_now.usage > 90)
+          --then
+            --value = '<span color=' .. value_color_bad .. '>' .. cpu_now.usage ..'% </span>'
+          --end
+          --content = label .. value
+          --widget:set_markup(content)
+      --end
+  --}.widget
 
   -- Create a wibox for each screen and add it
   mywibox     = {}
@@ -262,8 +261,8 @@ modkey = "Mod4"
       -- Widgets that are aligned to the right
       local right_layout = wibox.layout.fixed.horizontal()
       if s == 1 then right_layout:add(wibox.widget.systray()) end
-      right_layout:add(mycpu)
-      right_layout:add(mymem)
+      --right_layout:add(mycpu)
+      --right_layout:add(mymem)
       right_layout:add(mytextclock)
       right_layout:add(mylayoutbox[s])
 
@@ -604,5 +603,5 @@ modkey = "Mod4"
 --------------------------------------------------------------------------------
 ------- Init script
 --------------------------------------------------------------------------------
---os.execute("zsh $HOME/DotFiles/init") -- TODO replace $HOME by its value
-os.execute("zsh /home/mboucher/DotFiles/init")
+init_cmd="/usr/bin/zsh " .. home .. "/DotFiles/init"
+os.execute(init_cmd)
