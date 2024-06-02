@@ -39,12 +39,12 @@ unsetopt BASH_AUTO_LIST
 unsetopt MENU_COMPLETE
 
 zstyle ':completion:*' completer _expand_alias _complete _ignored
-zstyle ':completion:*'                                          menu select=1
-zstyle ':completion:*:descriptions'                             format '%U%B%d%b%u'
-zstyle ':completion:*:warnings'                                 format '%BNo match for: %d%b'
-zstyle ':completion:*'                                          select-prompt
-zstyle ':completion:*'                                          list-colors ${(s.:.)LS_COLORS}       # colorz !
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*'                                                  menu select=1
+zstyle ':completion:*:descriptions'                                     format '%U%B%d%b%u'
+zstyle ':completion:*:warnings'                                         format '%BNo match for: %d%b'
+zstyle ':completion:*'                                                  select-prompt
+zstyle ':completion:*'                                                  list-colors ${(s.:.)LS_COLORS}       # colorz !
+zstyle ':completion:*:*:git:*' script ~/DotFiles/zsh/git-completion.zsh list-colors ${(s.:.)LS_COLORS}
 
 # Expression and Globbing
 setopt EXTENDED_GLOB
@@ -168,7 +168,7 @@ alias -s mp4=vlc
 autoload -U colors && colors
 
 # Git prompt
-source ~/.zsh/zsh-git-prompt/zshrc.sh
+source ~/DotFiles/zsh/zsh-git-prompt-custom/zshrc.sh
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_no_bold[green]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_no_bold[green]%}]"
 ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg_no_bold[green]%}|"

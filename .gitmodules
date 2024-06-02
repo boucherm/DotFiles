@@ -7,3 +7,6 @@
 [submodule "urxvt/extensions/dynamic-colors"]
 	path = urxvt/extensions/dynamic-colors
 	url = https://github.com/sos4nt/dynamic-colors
+[submodule "zsh/zsh-git-prompt-custom"]
+	path = zsh/zsh-git-prompt-custom
+	url = git@github.com:boucherm/zsh-git-prompt-custom.git
