@@ -1,0 +1,5 @@
+pip3 install -U selenium --upgrade cryptography
+pip3 install -U colored-traceback
+pip3 install -U poetry
+pip3 install -U pytest
+pip3 install -U mypy

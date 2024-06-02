@@ -88,6 +88,9 @@ filetype plugin on
    "Make * only highlight word under cursor:
    nnoremap <expr> * ":let @/='\\<'.expand('<cword>').'\\>'<CR>:set hlsearch<CR>"
 
+   " https://vim.fandom.com/wiki/Search_for_visually_selected_text
+   vnoremap <silent> // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
    " Use ? to search lines not containing word undercursor
    nnoremap <silent> <expr> ?  ":let @/ = '^\\(\\(.*' . expand('<cword>') . '.*\\)\\@!.\\)*$'<CR>:set hlsearch<CR>"
 
@@ -122,8 +125,8 @@ filetype plugin on
    au BufRead *.orig set readonly
    au BufRead *.save set readonly
    if !&diff
-      au BufWinEnter ?* silent loadview
-      au BufWinLeave ?* silent mkview!
+      au BufWinEnter ?* silent! loadview
+      au BufWinLeave ?* silent  mkview!
    endif
    au BufWinLeave set invcursorline
    "augroup end
@@ -390,18 +393,47 @@ filetype plugin on
    "nnoremap <s-c-left> <C-w>H
    "nnoremap <s-c-right> <C-w>L
 
-   "Cursor color
-   " enter insert mode
-   let &t_SI = "\<Esc>]12;#000525\x7"
-   " exit insert mode
-   let &t_EI = "\<Esc>]12;#005842\x7"
-   " reset cursor when vim exits, not working
-   "autocmd VimLeave * silent !echo -ne "\033]112\007"
-
    "Listchars
    set list
    set listchars=tab:\|\
    hi SpecialKey ctermfg=237
+
+"-------------------------------- Tmux ---------------------------------------
+  " May need:
+  "  set -g default-terminal xterm-256color
+  " and/or
+  "  set-option -gw xterm-keys on
+  " https://stackoverflow.com/questions/15445481/mapping-arrow-keys-when-running-tmux
+  " https://stackoverflow.com/questions/72483767/vim-key-biding-failing-when-inside-of-tmux
+  "if &term =~ '^screen' && exists('$TMUX')
+  if &term =~ '^tmux-256color'
+      ""set mouse+=a
+      "" tmux knows the extended mouse mode
+      ""set ttymouse=xterm2
+      "" tmux will send xterm-style keys when xterm-keys is on
+      execute "set <xUp>=\e[1;*A"
+      execute "set <xDown>=\e[1;*B"
+      execute "set <xRight>=\e[1;*C"
+      execute "set <xLeft>=\e[1;*D"
+      ""execute "set <xHome>=\e[1;*H"
+      ""execute "set <xEnd>=\e[1;*F"
+      ""execute "set <Insert>=\e[2;*~"
+      ""execute "set <Delete>=\e[3;*~"
+      ""execute "set <PageUp>=\e[5;*~"
+      ""execute "set <PageDown>=\e[6;*~"
+      ""execute "set <xF1>=\e[1;*P"
+      ""execute "set <xF2>=\e[1;*Q"
+      ""execute "set <xF3>=\e[1;*R"
+      ""execute "set <xF4>=\e[1;*S"
+      ""execute "set <F5>=\e[15;*~"
+      ""execute "set <F6>=\e[17;*~"
+      ""execute "set <F7>=\e[18;*~"
+      ""execute "set <F8>=\e[19;*~"
+      ""execute "set <F9>=\e[20;*~"
+      ""execute "set <F10>=\e[21;*~"
+      ""execute "set <F11>=\e[23;*~"
+      ""execute "set <F12>=\e[24;*~"
+  endif
 
 "--------------------------------- Quick dirty stuff -------------------------
    "Toggle the _ character inclusion in the iskeyword set
@@ -449,7 +481,6 @@ filetype plugin on
    map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
 
 "--------------------------------- Filetypes autocommands --------------------
    augroup vimrc
@@ -584,14 +615,30 @@ filetype plugin on
      ""autocmd SwapExists * echohl None
    "augroup END
 
+   "Cursor color
+   " enter insert mode
+   let &t_SI = "\<Esc>]12;#000525\x7"
+   " exit insert mode
+   let &t_EI = "\<Esc>]12;#005842\x7"
+   " reset cursor when vim exits, not working
+   "autocmd VimLeave * silent !echo -ne "\033]112\007"
+
    augroup cursor_style
-     " alias need to be placed in .zshenv to be accessible
+     " cursor_ are aliases defined in zshenv
      autocmd VimEnter * silent !cursor_underline
      autocmd VimLeave * silent !cursor_block
+     " Following lines may not be so nice with big files ?
+     "autocmd InsertEnter * silent! !cursor_block
+     "autocmd InsertLeave * silent! !cursor_underline
+     "autocmd InsertEnter * redraw!
+     "autocmd InsertLeave * redraw!
    augroup end
 
-
 "--------------------------------- Plugins -----------------------------------
+
+" TODO consider switching to
+"https://github.com/junegunn/vim-plug
+
    " Pathogen
    call pathogen#infect()
    call pathogen#helptags()
@@ -693,6 +740,7 @@ filetype plugin on
      let g:miniBufExplorerAutoStart = 0
 
    "VimWiki
+     let g:vimwiki_key_mappings = { 'all_maps': 0, }
      hi VimwikiLink ctermfg=63
      hi VimwikiHeader1 ctermfg=63
 
@@ -775,23 +823,43 @@ filetype plugin on
    set rtp+=~/.fzf
    nnoremap ,E :FZF<Enter>
 
-
 "--------------------------------- Some home made functions ------------------
-" Cpp
-function AlignArguments() range
-  ":'<,'>Tabularize/\S\+\(,\|);\{,1}\)$
+  " Cpp
+  function AlignArguments() range
+    ":'<,'>Tabularize/\S\+\(,\|);\{,1}\)$
 
-  let cmd = a:firstline . "," . a:lastline . "Tabularize/" .  "\\S\\+\\(,\\|);\\{,1}\\)$"
-  echo cmd
-  execute cmd
+    let cmd = a:firstline . "," . a:lastline . "Tabularize/" .  "\\S\\+\\(,\\|);\\{,1}\\)$"
+    echo cmd
+    execute cmd
 
-endfunction
+  endfunction
 
-function AlignAffectations() range
-  ":'<,'>Tabularize/\S\+\ze\s*=
+  function AlignAffectations() range
+    ":'<,'>Tabularize/\S\+\ze\s*=
 
-  let cmd = a:firstline . "," . a:lastline . "Tabularize/" .  "\\S\\+\\ze\\s*="
-  echo cmd
-  execute cmd
+    let cmd = a:firstline . "," . a:lastline . "Tabularize/" .  "\\S\\+\\ze\\s*="
+    echo cmd
+    execute cmd
 
-endfunction
+  endfunction
+
+  " YouCompleteMe
+  let s:commands = ['', 'GetType', 'GetDoc']
+  let s:index = 0
+  function MySwitchYcmHover()
+    "echo 'Ycm hover command: ' . s:commands[s:index] . ' ; index: ' . s:index
+    echo 'Ycm hover command: ' . s:commands[s:index]
+    "autocmd FileType c,cpp let b:ycm_hover = {
+    let b:ycm_hover = { 'command': s:commands[s:index], 'syntax': &filetype }
+    let s:index += 1
+
+    if s:index == len(s:commands)
+      let s:index = 0
+    endif
+  endfunction
+  "call MySwitchYcmHover()
+
+  augroup MyYcmDefault
+   autocmd!
+   autocmd FileType c,cpp let b:ycm_hover = { 'command': s:commands[s:index], 'syntax': &filetype }
+  augroup END

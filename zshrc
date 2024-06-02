@@ -50,6 +50,9 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh list-colors ${(s
 setopt EXTENDED_GLOB
 setopt NOMATCH
 
+# To allow using '' for single quotes within singly quoted strings
+setopt rcquotes
+
 # To not introduce backslashes before spaces in parameter expansion
 #setopt shwordsplit
 # Another safer option is to expand with $=test instead of just $test
@@ -106,6 +109,7 @@ alias vimdiff='$VIMDIR/vimdiff'
 alias v='vim'
 alias dv='dirvim'
 alias vd='vidir'
+alias vdiff='v --cmd "set diff | set scb" -O'
 alias vS='[ -e Session.vim ] && v -S Session.vim || echo "no session"'
 alias dy='dlYtaudio.sh'
 alias u='urxvt -cd $PWD &!'
@@ -125,15 +129,17 @@ alias gl='git log --pretty=format:"%h - %an, %ar : %s" --graph'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gdn='git diff --name-only'
+alias diffall='view -p $(git status -s | awk -F '' '' ''{print $2}'') -c "tabdo Gvdiff"'
 alias dirs='\dirs -v'
 alias xo='xclip -o'
 alias xi='xclip -i'
 alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
 alias tk='tmux kill-session -t'
-alias gitstatus='watch --color -n1 "git -c color.status=always status"'
-alias gitlog='watch --color -n1 "git log --pretty=format:'\''%h - %an, %ar : %s'\'' --graph -30"'
-alias gitbranch='watch --color -n1 "git -c color.branch=always branch"'
+alias toggle_vpn='sudo ~/Code/Scripts/bin/toggle_vpn'
+alias gitstatus='watch --color -n1 -x git -c color.status=always status'
+alias gitlog="   watch --color -n1 -x git log --pretty=format:'%h - %an, %ar : %s' --graph -30"
+alias gitbranch='watch --color -n1 -x git -c color.branch=always branch'
 alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 
 
@@ -356,8 +362,8 @@ man() {
 
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/Code/Scripts/bin
 [ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/.cabal/bin
-[ -z $ZSHRC_LOADED ] && export PATH=$PATH:~/Softs/vcsh/
 [ -z $ZSHRC_LOADED ] && export PATH=/usr/lib/ccache:$PATH
+[ -z $ZSHRC_LOADED ] && export PATH="$HOME/.dynamic-colors/bin:$PATH"
 
 # OpenCV
 #export OpenCV_DIR=~/libs/opencv-3.4.4/build/install
@@ -476,7 +482,7 @@ bindkey . rationalise-dot
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# ROS
-[ -e /opt/ros/melodic/setup.zsh ] && source /opt/ros/melodic/setup.zsh
-
 export ZSHRC_LOADED="1"
+
+# added by pipx (https://github.com/pipxproject/pipx)
+export PATH="${HOME}/.local/bin:$PATH"

@@ -1,15 +1,21 @@
 #!/bin/sh
 
-ln -sf $(pwd)'/vim'                         ~/.vim
-ln -sf $(pwd)'/Xresources'                  ~/.Xresources
-ln -sf $(pwd)'/zshrc'                       ~/.zshrc
-ln -sf $(pwd)'/zshenv'                      ~/.zshenv
-ln -sf $(pwd)'/xbindkeysrc'                 ~/.xbindkeysrc
-ln -sf $(pwd)'/tmux.conf'                   ~/.tmux.conf
-ln -sf $(pwd)'/ranger.conf'                 ~/.config/ranger/rc.conf
-ln -sf $(pwd)'/awesomewm/awesome_rc.lua'    ~/.config/awesome/rc.lua
-ln -sf $(pwd)'/awesomewm/awesome_theme.lua' ~/.config/awesome/theme.lua
-ln -sf $(pwd)'/awesomewm/lain'              ~/.config/awesome/lain
-ln -sf $(pwd)'/gdbinit'                     ~/.gdbinit
-ln -sf $(pwd)'/grc'                         ~/.grc
-ln -sf $(pwd)'/tmux'                        ~/.tmux
+# TODO add a test to check that this script is called from its directory
+
+ln -sf $(pwd)'/vim'                             ~/.vim
+ln -sf $(pwd)'/Xresources'                      ~/.Xresources
+ln -sf $(pwd)'/zshrc'                           ~/.zshrc
+ln -sf $(pwd)'/zshenv'                          ~/.zshenv
+ln -sf $(pwd)'/xbindkeysrc'                     ~/.xbindkeysrc
+ln -sf $(pwd)'/tmux.conf'                       ~/.tmux.conf
+ln -sf $(pwd)'/Ranger/ranger.conf'              ~/.config/ranger/rc.conf
+ln -sf $(pwd)'/Ranger/scope.sh'                 ~/.config/ranger/scope.sh
+ln -sf $(pwd)'/awesomewm/awesome_rc.lua'        ~/.config/awesome/rc.lua
+ln -sf $(pwd)'/awesomewm/awesome_theme.lua'     ~/.config/awesome/theme.lua
+ln -sf $(pwd)'/awesomewm/lain'                  ~/.config/awesome/lain
+ln -sf $(pwd)'/gdbinit'                         ~/.gdbinit
+ln -sf $(pwd)'/grc'                             ~/.grc
+ln -sf $(pwd)'/tmux'                            ~/.tmux
+ln -sf $(pwd)'/urxvt/extensions/dynamic-colors' ~/.dynamic-colors
+ln -sf $(pwd)'/urxvt/extensions/cassette.sh'    $(pwd)'/urxvt/extensions/dynamic-colors/colorschemes/'
+ln -sf $(pwd)'/urxvt/extensions/monumension.sh' $(pwd)'/urxvt/extensions/dynamic-colors/colorschemes/'

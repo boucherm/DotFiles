@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo apt install -y cabal-install
+cabal update
+cabal install yeganesh

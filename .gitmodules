@@ -1,3 +1,9 @@
 [submodule "awesomewm/lain"]
 	path = awesomewm/lain
 	url = https://github.com/boucherm/awesomewm_lain_copy
+[submodule "gdb-colour-filter"]
+	path = gdb-colour-filter
+	url = https://github.com/daskol/gdb-colour-filter
+[submodule "urxvt/extensions/dynamic-colors"]
+	path = urxvt/extensions/dynamic-colors
+	url = https://github.com/sos4nt/dynamic-colors

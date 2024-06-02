@@ -1,9 +1,5 @@
--- Cheat sheet
+-- Awesome 3.5
 --
--- Restart from the command line:
--- echo 'awesome.restart()' | awesome-client
---
-
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -15,13 +11,12 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
---local menubar = require("menubar")
+local menubar = require("menubar")
 
 local lain = require("lain")
 -- Load Debian menu entries
 require("debian.menu")
 
-home = os.getenv("HOME")
 
 --------------------------------------------------------------------------------
 ------- Error handling
@@ -96,12 +91,21 @@ modkey = "Mod4"
       awful.layout.suit.max.fullscreen,
       awful.layout.suit.magnifier,
       awful.layout.suit.floating
+      --, lain.layout.cascade
+      --, lain.layout.cascadetile
+      , lain.layout.centerfair
+      , lain.layout.centerhwork
+      --, lain.layout.centerwork
+      --, lain.layout.termfair
+      , lain.layout.uselessfair
+      --, lain.layout.uselesspiral
+      --, lain.layout.uselesstile
   }
 
   tags =
   {
-    names = { "✍", "𝟚", "⌨", "♨", "☸", "＠", "𝟟", "𝟠", "♫"},
-    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[2]}
+    names = { "✍","²","⌨","♨","☸","＠","⁷","⁸","♫"},
+    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[2], layouts[1], layouts[1], layouts[1], layouts[1]}
   }
 
   for s = 1, screen.count() do
@@ -131,12 +135,14 @@ modkey = "Mod4"
   mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                       { "Debian", debian.menu.Debian_menu.Debian },
                                       { "open terminal", terminal },
-                                      { "suspend", "/usr/bin/zsh " .. home .. "/Code/Scripts/bin/lock_and_suspend" }
+                                      --{ "suspend", "/usr/bin/zsh $HOME'/Code/Scripts/bin/lock_and_suspend'" } -- TODO replace $HOME by its value
+                                      { "suspend", "/usr/bin/zsh /home/hellcook/Code/Scripts/bin/lock_and_suspend" }
                                     }
                           })
 
   mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                        menu = mymainmenu })
+
 
   -- Menubar configuration
   --menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -145,69 +151,14 @@ modkey = "Mod4"
 --------------------------------------------------------------------------------
 ------- Wibox
 --------------------------------------------------------------------------------
-  label_color     = '"#4d6199"'
-  value_color_ok  = '"#3b734c"'
-  value_color_bad = '"#994d73"'
-
-  -- Clock widget
-  --mytextclock = awful.widget.textclock()
-  clock_format = '<span color=' .. label_color .. '> %Y.%m.%d - %H:%M </span>'
-  mytextclock  =  awful.widget.textclock(clock_format)
-
-  -- mem
-  local mymem = lain.widget.mem {
-      settings = function()
-          label = '<span color=' .. label_color .. '> Mem: </span>'
-          value = '<span color=' .. value_color_ok .. '>' .. mem_now.perc ..'% </span>'
-          if (mem_now.perc > 90)
-          then
-            value = '<span color=' .. value_color_bad .. '>' .. mem_now.perc ..'% </span>'
-          end
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
-
-  -- cpu
-  local mycpu = lain.widget.cpu {
-      settings = function()
-          label = '<span color=' .. label_color .. '> Cpu: </span>'
-          value = '<span color=' .. value_color_ok .. '>' .. cpu_now.usage ..'% </span>'
-          if (cpu_now.usage > 90)
-          then
-            value = '<span color=' .. value_color_bad .. '>' .. cpu_now.usage ..'% </span>'
-          end
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
-
-  -- temp
-  local mytemp = lain.widget.temp {
-      settings = function()
-          label   = '<span color=' .. label_color .. '> Temp: </span>'
-          value   = '<span color=' .. value_color_ok .. '>' .. coretemp_now ..'° </span>'
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
-
-  -- volume
-  local myvolume = lain.widget.pulse {
-      settings = function()
-          label   = '<span color=' .. label_color .. '> Vol: </span>'
-          volume  = 0.5*(tonumber(volume_now.left) + tonumber(volume_now.right))
-          value   = '<span color=' .. value_color_ok .. '>' .. volume ..' </span>'
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
+  -- Create a textclock widget
+  mytextclock = awful.widget.textclock()
 
   -- Create a wibox for each screen and add it
-  mywibox     = {}
+  mywibox = {}
   mypromptbox = {}
   mylayoutbox = {}
-  mytaglist   = {}
+  mytaglist = {}
   mytaglist.buttons = awful.util.table.join(
                       awful.button({ }        , 1 , awful.tag.viewonly)                                         ,
                       awful.button({ modkey } , 1 , awful.client.movetotag)                                     ,
@@ -282,10 +233,6 @@ modkey = "Mod4"
       -- Widgets that are aligned to the right
       local right_layout = wibox.layout.fixed.horizontal()
       if s == 1 then right_layout:add(wibox.widget.systray()) end
-      right_layout:add(myvolume)
-      right_layout:add(mycpu)
-      right_layout:add(mymem)
-      right_layout:add(mytemp)
       right_layout:add(mytextclock)
       right_layout:add(mylayoutbox[s])
 
@@ -393,15 +340,7 @@ modkey = "Mod4"
         end),
     awful.key({ modkey, "Shift"   }, "m",
         function (c)
-          --if c.maximized_horizontal or c.maximized_vertical then
-            --c.maximized_horizontal = false
-            --c.maximized_vertical   = false
-          --else
-            --c.maximized_horizontal = true
-            --c.maximized_vertical   = true
-          --end
             c.maximized = not c.maximized
-            c:raise()
         end)
   )
 
@@ -522,22 +461,6 @@ modkey = "Mod4"
         rule       = { class = "Nvidia-settings" },
         properties = { tag   = tags[1][1] }
       },
-      --{
-        --rule       = { name = "SLAMcore GUI Internal" },
-        --properties = { tag  = tags[screen.count()][6] }
-      --},
-      {
-        rule       = { class = "Mail" },
-        properties = { tag  = tags[1][9] }
-      },
-      { -- To start different firefox sessions as different classes, use: firefox --no-remote -P -class name_you_want
-        rule       = { class = "Son" },
-        properties = { tag  = tags[1][9] }
-      },
-      { -- To start different firefox sessions as different classes, use: firefox --no-remote -P -class name_you_want
-        rule       = { class = "Perso" },
-        properties = { tag  = tags[screen.count()][1] }
-      }
       --{
         --rule       = { class     = "Frame" },
         --properties = { floating  = true, maximized = true }

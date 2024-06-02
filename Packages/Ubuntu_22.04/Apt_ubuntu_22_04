@@ -1,0 +1,95 @@
+#/bin/bash
+
+export SUDO_EDITOR="/usr/bin/vi"
+
+sudo apt udpate
+
+
+# Common tools
+  sudo apt install -y aptitude
+  sudo apt install -y zsh zsh-common zsh-doc
+  sudo apt install -y rxvt-unicode
+  sudo apt install -y moreutils
+  sudo apt install -y htop
+  sudo apt install -y ranger
+  sudo apt install -y openssh-server
+  sudo apt install -y sshfs
+  sudo apt install -y xclip
+  sudo apt install -y ccrypt
+  sudo apt install -y xbindkeys
+  sudo apt install -y cryptsetup
+  sudo apt install -y silversearcher-ag
+  sudo apt install -y ack
+  sudo apt install -y vim
+  sudo apt install -y inotify-tools
+  sudo apt install -y gdebi-core
+  sudo apt install -y pm-utils
+  sudo apt install -y p7zip-full
+  sudo apt install -y tree
+  sudo apt install -y ncdu
+  sudo apt install -y compton
+  sudo apt install -y wmctrl
+  sudo apt install -y suckless-tools
+  sudo apt install -y i3lock
+  sudo apt install -y pavucontrol
+  sudo apt install -y zenity
+  sudo apt install -y tmux
+  sudo apt install -y git
+  sudo apt install -y chromium-browser
+  sudo apt install -y gimp
+  sudo apt install -y numlockx
+  sudo apt install -y nvidia-settings
+  sudo apt install -y nvidia-driver-530
+  sudo apt install -y ncal
+
+
+# Monitor/screen control
+  sudo apt install -y ddcutil
+  #sudo apt install -y xbacklight # to be tested on laptop
+
+
+# Awesome-wm ( and missing deps )
+sudo apt install -y awesome awesome-extra awesome-doc
+
+
+# Dev tools
+  sudo apt install -y build-essential
+  sudo apt install -y valgrind
+  sudo apt install -y clang
+  sudo apt install -y cmake
+  sudo apt install -y cmake-gui
+  sudo apt install -y cmake-curses-gui
+  sudo apt install -y ccache
+  sudo apt install -y ninja-build
+  sudo apt install -y exuberant-ctags
+  sudo apt install -y python3
+  sudo apt install -y python3-pip
+  sudo apt install -y ipython3
+
+
+# Docs
+  sudo apt install -y pandoc
+  sudo apt install -y texlive-full
+  sudo apt install -y texlive-latex-base
+  sudo apt install -y texlive-latex-base-doc
+  sudo apt install -y texlive-latex-recommended
+  sudo apt install -y texlive-latex-recommended-doc
+  sudo apt install -y texlive-latex-extra
+  sudo apt install -y texlive-latex-extra-doc
+  sudo apt install -y texlive-fonts-extra
+  sudo apt install -y texlive-fonts-extra-doc
+  sudo apt install -y texlive-fonts-recommended
+  sudo apt install -y texlive-fonts-recommended-doc
+  sudo apt install -y texlive-science
+  sudo apt install -y texlive-lang-french
+  sudo apt install -y libreoffice
+
+
+# bluetooth
+  sudo apt install -y blueman
+  #https://pandasauce.org/post/bluetooth-on-linux/
+
+
+# Misc
+  sudo apt install -y vlc
+  sudo apt install -y gnome-tweaks

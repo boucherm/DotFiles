@@ -1,0 +1,524 @@
+#/bin/zsh
+
+
+export SUDO_EDITOR=vim
+
+#===============================================================================
+#=== Install drivers
+   # ubuntu-drivers -h
+   # ubuntu-drivers list
+   # sudo ubuntu-drivers autoinstall
+
+#------------------------------------------------------------------------------
+#--- CLI
+#------------------------------------------------------------------------------
+#
+#--- Absolutely necessary
+sudo apt install -y zsh zsh-common zsh-doc
+sudo apt install -y rxvt-unicode-256color
+sudo apt install -y moreutils
+sudo apt install -y locate
+sudo apt install -y htop
+sudo apt install -y ranger
+sudo apt install -y openssh-server
+sudo apt install -y sshfs
+sudo apt install -y xclip
+sudo apt install -y ccrypt
+sudo apt install -y xbindkeys
+sudo apt install -y xdotool
+#sudo apt install -y xautomation
+sudo apt install -y cryptsetup
+sudo apt install -y ack-grep
+sudo apt install -y sl
+sudo apt install -y vim
+#sudo apt install -y vim-gnome
+sudo apt install -y inotify-tools
+sudo apt install -y gdebi-core
+sudo apt install -y pm-utils
+sudo apt install -y tmux
+sudo apt install -y wmctrl
+sudo apt install -y suckless-tools
+# ^ dmenu inside
+sudo apt install -y i3lock
+sudo apt install -y ddcutil
+
+#--- yeganesh
+sudo apt install cabal-install
+cabal update
+cabal install yeganesh
+
+#--- Vim deps
+sudo apt install -y libgnome2-dev
+sudo apt install -y libgnomeui-dev
+sudo apt install -y libxpm-dev
+sudo apt install -y libxt-dev
+sudo apt install -y python-dev
+sudo apt install -y python3-dev
+sudo apt install -y ruby-dev
+sudo apt install -y lua5.1
+sudo apt install -y libperl-dev
+sudo apt install -y ncurses-dev ncurses-doc
+
+#--- Useful
+# sudo apt install dtach
+sudo apt install unrar
+sudo apt install p7zip-full
+#sudo apt install lzip
+# sudo apt install extundelete
+sudo apt install -y exfat-fuse exfat-utils
+sudo apt install -y aptitude
+sudo apt install -y tree
+sudo apt install -y ncdu
+sudo apt install -y blueman
+sudo apt install -y numlockx
+#sudo apt install -y feh
+#sudo apt install -y update-notifier
+
+#--- Audio player stuff
+# sudo apt install mpd
+# sudo apt install ncmpcpp
+# sudo apt install moc
+#
+#--- Network
+# sudo apt install traceroute
+# sudo apt install lynx
+# sudo apt install irssi
+# sudo apt install weechat
+# sudo apt install youtube-dl python-setuptools
+# sudo apt install wicd-curses
+#
+#--- Display tools
+# sudo apt install xcalib                       # Brightness, contrast, temperature
+# sudo apt install xbacklight
+#
+#--- Power savings
+# sudo apt install powertop
+# sudo apt install xfce4-power-manager
+#
+#--- TODO: learn to use
+# sudo apt install at
+# sudo apt install dstat
+# sudo apt install atsar
+# sudo apt install ifstat
+# sudo apt install iotop
+# sudo apt install mtr
+# sudo apt install rsyncrypto
+# sudo apt install cloc
+# sudo apt install mutt
+# sudo apt install espeak
+#
+#--- Print & scan
+sudo apt install printer-driver-hpcups
+sudo apt install hplip-gui
+sudo apt install -y simple-scan
+
+
+#------------------------------------------------------------------------------
+#--- GUI
+#------------------------------------------------------------------------------
+#
+# sudo apt install nvidia-settings
+#
+#--- Window Manager
+sudo apt install -y awesome awesome-extra awesome-doc
+#
+#--- awesome 3.5 missing dep
+# sudo apt install libxcb-cursor-dev            \
+#                  libxcb-doc                   \
+#                  libxcb-xtest0-dev            \
+#                  libxcb-xinerama0-dev         \
+#                  libxcb-util0-dev             \
+#                  libxcb-keysyms1-dev          \
+#                  libxcb-icccm4-dev            \
+#                  libstartup-notification0-dev \
+#                  libxdg-basedir-dev           \
+#                  libxdg-basedir-dev           \
+#                  lua-lgi-dev                  \
+#                  xcb
+# sudo apt install lua-ldoc
+# sudo apt install asciidoc
+# sudo apt install xmlto
+#
+#--- Compositing
+# sudo apt install xcompmgr
+sudo apt install compton
+#
+#--- Additional tools
+# sudo apt install dzen2
+# sudo apt install conky-all
+# sudo apt install synergy  # share mouse between computers
+#
+#--- Disk tools
+sudo apt install -y gparted
+# sudo apt install gparted       \
+#                  xfsprogs      \
+#                  reiserfsprogs \
+#                  reiser4progs  \
+#                  jfsutils      \
+#                  kpartx        \
+#                  dmraid        \
+#                  gpart         \
+#                  libparted-dev \
+#                  parted-doc    \
+#                  xfsdump       \
+#                  attr          \
+#                  quota
+# sudo apt install unetbootin
+# sudo apt install brasero
+#
+#--- Config tools
+# sudo apt install gtk-theme-switch
+# sudo apt install qt4-qtconfig
+#
+#--- Audio, Image, Video
+sudo apt install -y pavucontrol
+sudo apt install -y vlc
+sudo apt install -y smplayer
+# sudo apt install gnome-subtitles
+# sudo apt install gtk2-engines-pixbuf           # . (gtk and vlc)
+# sudo apt install vdpau-va-driver               # . (vlc again)
+sudo apt install -y gimp
+# sudo apt install gimp-resynthesizer
+# sudo apt install gimp-help-fr
+# sudo apt install hugin
+# sudo apt install audacity
+# sudo apt install gstreamer-tools
+# sudo apt install gphotofs
+# sudo apt install gstreamer1.0-plugins-ugly
+# sudo apt install gstreamer0.10-plugins-ugly
+# sudo apt install gstreamer1.0-tools
+sudo apt install cheese
+#
+#--- Internet
+# sudo apt install firefox
+sudo apt install -y chromium-browser
+# sudo apt install deluge
+sudo apt install transmission
+##sudo apt install icedtea-plugin
+#
+#--- Eye candy
+sudo apt install -y gnome-tweak-tool
+
+
+#------------------------------------------------------------------------------
+#--- SCRIPTS
+#------------------------------------------------------------------------------
+#
+#--- PostScript & Pdf
+# sudo apt install psutils
+# sudo apt install wkhtmltopdf
+#
+#--- Dialogs
+# sudo apt install zenity
+# sudo apt install dialog
+#
+#--- Audio, Image, Video
+# sudo apt install exiftool           # exif tags
+# sudo apt install id3v2 libid3-tools # mp3 tags
+# sudo apt install lame               # mp3 encoding
+# sudo apt install ffmpeg ffmpeg-doc
+# sudo apt install imagemagick
+# sudo apt install graphicsmagick
+# sudo apt install mkvtoolnix
+# sudo apt install qrencode
+#
+#--- Camera
+# sudo apt install -y dvgrab
+# sudo apt install -y coriander
+
+
+#------------------------------------------------------------------------------
+#--- DEV
+#------------------------------------------------------------------------------
+
+#--- Maths
+sudo apt install octave
+sudo apt install octave-image
+sudo apt install octave-statistics
+##sudo aptitude    install maxima
+
+##--- C++/C
+sudo apt install -y build-essential
+# sudo apt install valgrind
+##sudo apt install linux-tools
+# sudo aptitude -y install clang
+##sudo aptitude -y install libclang-dev
+##sudo aptitude   install libstdc++-6-4.7-doc
+##sudo aptitude -y install libboost-all-dev
+
+##--- OpenGL
+# sudo apt install libgl1-mesa-dev
+# sudo apt install libglu1-mesa-dev
+##sudo aptitude -y install freeglut3-dev
+##sudo aptitude -y install libglew-dev
+##sudo aptitude -y install glew-utils
+##sudo aptitude -y install libgle3
+# sudo apt install libx11-dev
+# sudo apt install libxi-dev
+# sudo apt install libxrandr-dev
+# sudo apt install libxinerama-dev
+# sudo apt install libxcursor-dev
+
+##--- Tools
+# sudo apt install cmake
+# sudo apt install cmake-gui
+# sudo apt install doxygen doxygen-doc doxygen-gui
+## sudo aptitude -y install valgrind
+## sudo aptitude -y install kcachegrind
+## sudo aptitude -y install cmake-curses-gui
+## sudo aptitude -y install cmake-qt-gui
+## sudo aptitude   install cgdb
+## sudo aptitude   install ddd
+# sudo apt install oprofile
+## sudo aptitude   install uncrustify
+## sudo aptitude -y install exuberant-ctags
+## sudo aptitude -y install automake
+sudo apt install -y git
+sudo apt install -y kdiff3
+## sudo aptitude -y install git-svn
+## sudo aptitude -y install mercurial
+## sudo aptitude    install bzr
+## sudo aptitude -y install subversion
+
+##--- OpenCV dependencies ( manual build )
+#sudo apt install liblapack-dev                     \
+                 #libtbb-dev                        \
+                 #libopenblas-dev                   \
+                 #libatlas-base-dev                 \
+                 #libatlas-dev                      \
+                 #libgtk-3-dev                      \
+                 #libgtk2.0-dev                     \
+                 #libgstreamer1.0-dev               \
+                 #libgstreamer0.10-dev              \
+                 #gstreamer0.10-plugins-base        \
+                 #gstreamer0.10-plugins-base-apps   \
+                 #gstreamer0.10-plugins-good        \
+                 #libgstreamer-plugins-bad1.0-dev   \
+                 #libgstreamer-plugins-base0.10-dev \
+                 #libgstreamer-plugins-base1.0-dev  \
+                 #libgstreamer-plugins-good1.0-dev  \
+                 #libpng12-dev                      \
+                 #libavcodec-dev                    \
+                 #libavformat-dev                   \
+                 #libavutil-dev                     \
+                 #libavresample-dev                 \
+                 #libswscale-dev                    \
+                 #libdc1394-22-dev                  \
+                 #libv4l-dev                        \
+                 #libgphoto2-dev                    \
+                 #libeigen3-dev                     \
+                 #libjasper-dev                     \
+                 #libjpeg-dev                       \
+                 #libtiff-dev
+# libtbb2
+# libqt4-dev
+# libgtkglext1-dev
+# libunicap2-dev
+# libusb-dev
+# libusb-1.0-0-dev
+# libann0
+# libann-dev
+# libgsl0-dev
+# glibc-doc
+# nvidia-cuda-toolkit
+# libdevil-dev
+# libbsdl-image1.2
+# libsdl-mixer1.2
+# libsdl-ttf2.0-0
+# libbsdl-image1.2-dev
+# libsdl-mixer1.2-dev
+# libsdl-ttf2.0-dev
+# opencl-dev
+# gstreamer0.10-fluendo-mp3
+
+
+#--- OpenCV ( distro build )
+## libopencv-dev
+## libopencv-video-dev
+
+#--- Python
+sudo apt install -y ipython3
+sudo apt install -y python3-pygame
+sudo apt install -y python-pygame-doc
+sudo apt install -y python-mpmath
+#sudo apt install python-dev         \
+                 #python-sympy       \
+                 #python-numpy       \
+                 #python-scipy       \
+                 #python-matplotlib  \
+sudo apt install python3-dev        \
+                 python3-matplotlib \
+                 #python3-sympy      \
+                 #python3-numpy      \
+                 #python3-scipy      \
+                 #ipython
+#sudo apt install python3-skimage
+#sudo apt install python-scikits-learn
+#sudo apt install mayavi2
+sudo apt install -y python3-opencv
+## python-opencv
+## python-sphinx
+sudo apt install -y python3-pip
+## python-nose
+## python-enchant
+sudo apt install python3-pyqt5  \
+                 pyqt5-dev      \
+                 #pyqt5-doc      \
+                 pyqt5-examples \
+                 python3-pyqt5.qtopengl
+sudo apt install -y pipx # until ubuntu 22.04 (included)
+sudo apt install -y python3.8-venv # ubuntu 20.04
+
+
+#------ Keras ( => TensorFlow => cuda )
+#--- Cuda 9.1 ( tensorflow non compatible )
+#sudo dpkg -i ~/Softs/cuda-repo-ubuntu1604-9-1-local_9.1.85-1_amd64.deb
+#sudo apt-key add /var/cuda-repo-9-1-local/7fa2af80.pub
+#sudo apt update
+#sudo apt install cuda
+# See http://docs.nvidia.com/cuda/cuda-installation-guide-linux for complementary instructions
+# notably add to zshrc: export PATH=$PATH:/usr/local/cuda-9.1/bin
+#--- Cuda 8.0 ( tensorflow compatible )
+#sudo dpkg -i ~/Softs/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+#sudo apt-key add /var/cuda-repo-8-0-local-ga2/7fa2af80.pub
+#sudo apt update
+#sudo apt install cuda
+# See http://docs.nvidia.com/cuda/cuda-installation-guide-linux for complementary instructions
+# notably add to zshrc: export PATH=$PATH:/usr/local/cuda-8.0/bin
+#--- CudNN
+#sudo dpkg -i Softs/libcudnn6_6.0.21-1+cuda8.0_amd64.deb
+#sudo dpkg -i Softs/libcudnn6-dev_6.0.21-1+cuda8.0_amd64.deb
+#sudo dpkg -i Softs/libcudnn6-doc_6.0.21-1+cuda8.0_amd64.deb
+#--- Tensorflow
+# add to zshrc: export CUDA_HOME=/usr/local/cuda-8.0
+#sudo apt install libcupti-dev
+#sudo apt install python3-pip python3-dev python-virtualenv
+#virtualenv --system-site-packages -p python3 ~/Softs/TensorFlow
+# etc... see https://www.tensorflow.org/install/install_linux
+#--- Keras
+#sudo apt install python3-h5py
+# see https://keras.io/#installation
+
+
+##--- Linear algebra (ceres & ssba)
+## sudo aptitude   install libopenblas-dev                  # said to conflict with atlas
+## sudo aptitude -y install libccolamd2.7.1                 # -- ssba
+## sudo aptitude -y install libsuitesparse-dev              # -- ssba & ceres
+## sudo aptitude -y install libeigen3-dev                   # -- ceres solver
+## sudo aptitude -y install libeigen3-doc                   # -- ceres solver
+## sudo aptitude   install libatlas-base-dev                # -- ceres solver
+## sudo aptitude -y install libatlas-dev                    # -- ceres solver
+
+##--- Ceres dep
+## sudo aptitude -y install libgoogle-glog-dev              # -- ceres solver
+## sudo aptitude -y install libgflags-dev                   # -- ceres solver
+## sudo aptitude -y install libprotobuf-dev                 # -- ceres solver
+
+##--- Kinect stuff
+## sudo aptitude -y install openni-utils
+## sudo aptitude -y install openni-doc
+## sudo aptitude -y install libopenni0
+## sudo aptitude -y install libopenni-dev
+## sudo aptitude -y install libopenni-sensor
+## sudo aptitude -y install libopenni-sensor-dev
+## sudo aptitude -y install libopenni-sensor-primesense0
+## sudo aptitude -y install libopenni-sensor-primesense-dev
+## sudo aptitude   install freenect
+## sudo aptitude   install libfreenect-demos
+
+##--- Android studio
+##sudo aptitude install lib32stdc++6
+##sudo aptitude install openjdk-7-jdk
+##sudo aptitude install mesa-utils
+##sudo aptitude install openjdk-8-jdk
+
+#--- Haskell
+# sudo apt install ghc
+## sudo aptitude -y install libghc-opengl-dev
+## sudo aptitude -y install libghc-opengl-doc
+## sudo aptitude -y install haskell-platform
+## sudo aptitude -y install haskell-platform-doc
+
+#--- Realsense
+# echo 'deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo xenial main' | sudo tee /etc/apt/sources.list.d/realsense-public.list
+# sudo apt-key adv --keyserver keys.gnupg.net --recv-key 6F3EFCDE
+# sudo apt install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg intel-realsense-dfu
+#- python wrapper
+# sudo apt install libusb-1.0-0-dev libglfw3-dev
+
+#--- ROS
+#sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+#sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+#sudo apt install ros-melodic-desktop-full
+#sudo rosdep init
+#rosdep update
+#sudo apt install python-rosinstall python-rosinstall-generator python-wstool
+#sudo apt install python-catkin-tools
+
+#--- Golang
+sudo apt install -y golang-go
+
+#------------------------------------------------------------------------------
+#--- Steam
+#------------------------------------------------------------------------------
+# sudo apt install python-apt
+# sudo apt install libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 libc6:i386
+# sudo dpkg -i Softs/steam_latest.deb
+
+
+#------------------------------------------------------------------------------
+#--- Docs, LaTeX
+#------------------------------------------------------------------------------
+#
+#--- Must
+# sudo apt install pandoc
+#
+#--- LibreOffice
+sudo apt install libreoffice
+#
+#--- LaTex
+sudo apt install texlive-latex-base            \
+                 texlive-latex-base-doc        \
+                 texlive-latex-recommended     \
+                 texlive-latex-recommended-doc \
+                 texlive-latex-extra           \
+                 texlive-latex-extra-doc       \
+                 texlive-fonts-extra           \
+                 texlive-fonts-extra-doc       \
+                 texlive-fonts-recommended     \
+                 texlive-fonts-recommended-doc \
+                 texlive-science               \
+                 texlive-lang-french           \
+## sudo aptitude install rubber
+## sudo aptitude -y install vim-latexsuite
+## sudo aptitude install ktikz
+## sudo aptitude install okular
+## sudo aptitude install kate
+## sudo aptitude install kile
+#
+##--- Pdf
+## sudo aptitude install pdfmod
+sudo apt install -y xournal
+sudo apt install -y diffpdf
+sudo apt install pdfshuffler
+#
+##--- Diagrams, Plots, Drawings
+## sudo aptitude install dia
+## sudo aptitude install mayavi2
+## sudo aptitude install inkscape
+
+
+#------------------------------------------------------------------------------
+#--- Misc
+#------------------------------------------------------------------------------
+#
+#--- ckb-next dependencies
+#sudo apt install qt5-default libappindicator-dev libpulse-dev libquazip5-dev qttools5-dev
+
+
+#------------------------------------------------------------------------------
+#--- Remote work
+#------------------------------------------------------------------------------
+# From https://github.com/trailofbits/algo/blob/master/docs/client-linux-wireguard.md
+sudo add-apt-repository ppa:wireguard/wireguard
+sudo apt install wireguard openresolv
