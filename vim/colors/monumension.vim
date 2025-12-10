@@ -44,7 +44,7 @@ let g:colors_name = "monumension"
 set background=dark
 set t_Co=256
 
-hi Normal           cterm=NONE        ctermbg=234  ctermfg=242
+hi Normal           cterm=NONE        ctermbg=234  ctermfg=244
 hi Comment          cterm=italic      ctermbg=NONE ctermfg=22
 hi Statement        cterm=NONE        ctermbg=NONE ctermfg=60
 
@@ -57,7 +57,7 @@ hi LineNr           cterm=NONE        ctermbg=233  ctermfg=23
 hi SignColumn       cterm=NONE        ctermbg=232  ctermfg=NONE
 hi ColorColumn      cterm=NONE        ctermbg=234  ctermfg=NONE
 
-hi Search           cterm=NONE        ctermbg=16   ctermfg=236
+hi Search           cterm=NONE        ctermbg=16   ctermfg=242
 hi Visual           cterm=NONE        ctermbg=16   ctermfg=NONE
 
 hi Pmenu            cterm=NONE        ctermbg=234  ctermfg=241
