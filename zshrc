@@ -68,6 +68,7 @@ export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 export SUDO_EDITOR=/usr/bin/vim
 export VIMDIR=~/Softs/vim/build/bin/
+export NVIMDIR=~/Softs/neovim/install/bin/
 
 # Aliases
 alias sl='sl -e'
@@ -89,8 +90,8 @@ alias rm='mvtrash'
 alias ln='ln --verbose'
 alias mupdatedb='sudo updatedb -U /media/Data --output=$HOME/mlocate.db'
 alias mlocate='locate -i -d $HOME/mlocate.db'
-alias make='make -j $(( 2*$(nproc)/4 ))'
-alias ninja='ninja -j $(( 2*$(nproc)/4 ))'
+alias make='make -j $(( 3*$(nproc)/4 ))'
+alias ninja='ninja -j $(( 3*$(nproc)/4 ))'
 alias remake='make clean; make'
 #alias python='ipython'
 alias r='source ranger_cd'
@@ -111,6 +112,7 @@ alias dv='dirvim'
 alias vd='vidir'
 alias vdiff='v --cmd "set diff | set scb" -O'
 alias vS='[ -e Session.vim ] && v -S Session.vim || echo "no session"'
+alias nv='$NVIMDIR/nvim'
 alias dy='dlYtaudio.sh'
 alias u='urxvt -cd $PWD &!'
 alias c='clear'
@@ -138,7 +140,7 @@ alias ta='tmux attach-session -t'
 alias tk='tmux kill-session -t'
 alias toggle_vpn='sudo ~/Code/Scripts/bin/toggle_vpn'
 alias gitstatus='watch --color -n1 -x git -c color.status=always status'
-alias gitlog="   watch --color -n1 -x git log --pretty=format:'%h - %an, %ar : %s' --graph -30"
+alias gitlog="   watch --color -n1 -x git log --all --decorate --graph -30 --pretty=format:'%Cgreen%h%Creset - %an, %ar : %s'"
 alias gitbranch='watch --color -n1 -x git -c color.branch=always branch'
 alias cmake='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 
