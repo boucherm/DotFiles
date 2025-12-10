@@ -184,7 +184,11 @@ filetype plugin on
 
    "Highlight trailing spaces
    function! MatchWhiteSpace()
-      highlight ExtraWhitespace ctermbg=16
+      if (&background == 'dark')
+        highlight ExtraWhitespace ctermbg=16
+      else
+        highlight ExtraWhitespace ctermbg=254
+      endif
       match ExtraWhitespace /\s\+\%#\@<!$/
       "match ExtraWhitespace /\s\+$/
       "match ExtraWhitespace /^\zs\s\ze\s\s/
@@ -336,8 +340,8 @@ filetype plugin on
      colorscheme below_the_lights
     endif
    set lazyredraw
-   set clipboard=unnamed      " i.e. * register, for mouse middle-click
-   "set clipboard=unnamedplus " i.e. + register, for ctrl-v
+   "set clipboard=unnamed      " i.e. * register, for mouse middle-click
+   set clipboard=unnamedplus " i.e. + register, for ctrl-v
    set mouse=""
    "set title
    set ruler
@@ -580,9 +584,9 @@ filetype plugin on
      au!
      au FileType python set formatoptions=jcroql
      "au FileType python setlocal makeprg=python\ '%'
-     "au FileType python setlocal tabstop=2
-     "au FileType python setlocal softtabstop=2
-     "au FileType python setlocal shiftwidth=2
+     au FileType python setlocal tabstop=2
+     au FileType python setlocal softtabstop=2
+     au FileType python setlocal shiftwidth=2
    augroup end
 
    augroup matlab
