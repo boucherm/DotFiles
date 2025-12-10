@@ -13,7 +13,8 @@
 xbindkeys &
 xrdb ~/.Xresources &
 pidof nm-applet || nm-applet &
-pidof blueman-applet   || blueman-applet &
+pidof blueman-applet || blueman-applet &
+#pidof slack || slack &
 #killall conky; ~/.config/conky/conkylaunch &
 #ps -A | grep --quiet xfce4-power-man || xfce4-power-manager &
 #killall unclutter; unclutter -noevents &
@@ -36,14 +37,14 @@ pidof blueman-applet   || blueman-applet &
 
 #--- Trackpad config
 #synclient VertTwoFingerScroll=1;
-#synclient HorizTwoFingerScroll=1;
+synclient HorizTwoFingerScroll=1;
 #synclient TapButton1=0;
 #synclient TapButton2=0;
-#synclient TapButton3=2;
+synclient TapButton3=2;
 #synclient ClickFinger1=1;
 #synclient ClickFinger2=3;
 #synclient ClickFinger3=2;
-#synclient PalmDetect=1;
+synclient PalmDetect=1;
 #synclient PalmMinWidth=11;
 #synclient AccelFactor=0.03
 #synclient MaxSpeed=3
@@ -80,7 +81,7 @@ done
 # xmodmap -pke
 #
 #- to get the keycode of pressed keys use:
-# xev
+# xev or (sudo) showkey
 #
 #--- Set layout
 setxkbmap -layout us
