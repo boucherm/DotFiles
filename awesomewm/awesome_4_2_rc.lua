@@ -101,7 +101,7 @@ modkey = "Mod4"
   tags =
   {
     names = { "✍", "𝟚", "⌨", "♨", "☸", "＠", "𝟟", "𝟠", "♫"},
-    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[2]}
+    layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]}
   }
 
   for s = 1, screen.count() do
@@ -193,15 +193,15 @@ modkey = "Mod4"
   }.widget
 
   -- volume
-  local myvolume = lain.widget.pulse {
-      settings = function()
-          label   = '<span color=' .. label_color .. '> Vol: </span>'
-          volume  = 0.5*(tonumber(volume_now.left) + tonumber(volume_now.right))
-          value   = '<span color=' .. value_color_ok .. '>' .. volume ..' </span>'
-          content = label .. value
-          widget:set_markup(content)
-      end
-  }.widget
+  --local myvolume = lain.widget.pulse {
+      --settings = function()
+          --label   = '<span color=' .. label_color .. '> Vol: </span>'
+          --volume  = 0.5*(tonumber(volume_now.left) + tonumber(volume_now.right))
+          --value   = '<span color=' .. value_color_ok .. '>' .. volume ..' </span>'
+          --content = label .. value
+          --widget:set_markup(content)
+      --end
+  --}.widget
 
   -- Create a wibox for each screen and add it
   mywibox     = {}
@@ -282,7 +282,7 @@ modkey = "Mod4"
       -- Widgets that are aligned to the right
       local right_layout = wibox.layout.fixed.horizontal()
       if s == 1 then right_layout:add(wibox.widget.systray()) end
-      right_layout:add(myvolume)
+      --right_layout:add(myvolume)
       right_layout:add(mycpu)
       right_layout:add(mymem)
       right_layout:add(mytemp)
